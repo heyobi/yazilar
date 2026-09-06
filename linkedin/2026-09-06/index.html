@@ -26,43 +26,43 @@ details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
 function cp(id,btn){const t=document.getElementById(id).innerText;
  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
  setTimeout(()=>btn.textContent=o,1500)});}
-</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Karttaki unsloth/Qwen3.8-27B-GGUF modeli, 10 milyon indirme barajını tek başına aştı.
+</script><h1>2026-09-06 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">PostgreSQL 14 için resmi desteğin bitmesine karttaki verilere göre 67 gün kaldı.
 
-Tüketici sınıfı tek GPU üzerinde çalışabilen bu ölçek, yerel çıkarımda çoklu kart ve karmaşık küme işletimi zorunluluğunu ortadan kaldırıyor.
+Kasım 2026 sonrasında topluluk yamaları tamamen duruyor. Sürüm yükseltmesini planlamayan üretim kümeleri, çıkacak ilk güvenlik açığında yamasız kalacak. Majör sürüm geçiş provalarını şimdiden başlatmak gerekiyor.
 
-Altyapıda açık model koşturmak artık kurumsal veri merkezi bütçesi gerektirmiyor.
+#postgresql #database #dba</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Grafikteki resmi destek bitiş tarihleri ve yaşam döngüsü verileri: https://endoflife.date/postgresql</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL 14 resmi destek süresi en kısa olan aktif sürüm · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Grafikte eBPF ilgisinin ayda 30 gönderiye ulaşması tesadüf değil; asıl neden çekirdekteki mimari değişim.
 
-#localai #devops #opensource</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Grafik ve veri kaynağı: Hugging Face Hub API (&#x27;Qwen3.8-27B&#x27; araması, son 30 günlük indirmelere göre sıralı).</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Qwen3.8-27B aramalarında en çok indirilen model unsloth varyantı · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Grafikteki aylık 34 CVE seviyesi, orkestrasyon katmanındaki yalıtım açığını açıkça özetliyor.
+Geleneksel izleme araçları, kullanıcı alanı ile çekirdek arasındaki bağlam değişimleri yüzünden veritabanı G/Ç hattında gecikme üretir.
 
-Bu tablonun arkasında yapısal bir mekanizma var. Konteynerler bağımsız birer sanal makine değildir; ana makinenin Linux çekirdeğini cgroups ve ad alanlarıyla paylaşır. Ağın sınırında duran ingress-nginx gibi denetleyiciler ise dış dünyadan gelen istekleri işlerken zorunlu olarak küme genelinde geniş yetkilerle ve Secret nesneleriyle çalışır.
+eBPF bu sorunu kökten çözüyor. Program çalıştırılmadan önce Linux çekirdek doğrulayıcısı kodun güvenliğini sembolik yürütmeyle denetler. Doğrulanan mantık doğrudan çekirdekte koştuğundan, izleme maliyeti çağrı başına yaklaşık 3 mikrosaniyeye iner. Üstelik izlenmeyen işlevlerde ek yük tam olarak 0 seviyesindedir. Sidecar veya yeniden başlatma gerektirmeden ağ trafiğini dinlemek mimariyi sadeleştirir.
 
-Giriş trafiğini ayrıştıran katmanda oluşacak bir girdi denetimi hatası, saldırganın doğrudan denetleyici sürecinde kod çalıştırmasına izin veriyor. 9.8 taban puanıyla kritik seviyede duyurulan CVE-2025-1974 açığı, bu yetki zincirinin nasıl kırıldığını gösteriyor. Denetleyici bağlamına sızan bir saldırgan, bileşenin erişebildiği tüm küme sırlarını zahmetsizce dışarı sızdırabiliyor.
+İzlemeyi kullanıcı alanına taşımadan çekirdeğin içinde bitirmek, gözlemlenebilirliği operasyonel bir darboğaz olmaktan çıkarıyor.
 
-Kabul denetleyicisini devre dışı bırakmak geçici bir hafifletme sağlasa da risk ancak v1.11.5 veya v1.12.1 sürümüne geçilerek kapatılabiliyor.
+#ebpf #observability #postgresql</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Gönderide yer alan kaynaklar:
+- Görsel verisi: Hacker News (Algolia Search API)
+- [S1] Luca Cavallin, &quot;A Tour of eBPF in the Linux Kernel&quot;: https://www.lucavall.in/blog/a-tour-of-ebpf-in-the-linux-kernel-observability-security-and-networking
+- [S2] Anteon Alaz eBPF Agent: https://github.com/ddosify/alaz
+- [S3], [S4], [S5] Rubrik Wachy: https://rubrikinc.github.io/wachy/</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Hacker News üzerinde eBPF konulu gönderiler son iki yılda yüksek ilgiyi koruyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Qwen 3.8 27B için GGUF indirmeleri karttaki gibi 10 milyonu aşarak FP8 sürümünü geride bıraktı.
 
-Host ve çekirdek sınırlarını sıkılaştırmadan yalnızca orkestrasyon soyutlamasına güvenen altyapılar doğrudan ele geçirilme riski taşır.
+Yerel çıkarımda model yerleşimini mimariden çok sistemdeki VRAM ve RAM sınırları belirliyor. Ölçüt net: bellek tüketimi. Karttaki dağılımda görüldüğü gibi, tek iş istasyonunda kısıtlı kaynakla çalışırken kuantize GGUF, GPU kümesinde ise FP8 seçilmeli.
 
-#kubernetes #devsecops #cloudsecurity</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve teknik detaylar:
-- Görsel verisi: NVD (National Vulnerability Database), yayım tarihine göre
-- CVE-2025-1974 ve ingress-nginx güvenlik duyurusu: https://groups.google.com/g/kubernetes-security-announce/c/2qa9DFtN0cQ</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes güvenlik açıkları son iki yılda süreklilik gösteriyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Karttaki verilere göre PostgreSQL 14 için resmi desteğin tükenmesine sadece 67 gün kaldı.
+Dağıtıma geçmeden önce hostunuzdaki boş VRAM miktarına ve bellek bant genişliğine bakın.
 
-Destek bittiğinde topluluk güvenlik yamaları tamamen kesilecek. Yükseltmeyi son haftalara sıkıştırmak ise ciddi bir işletim riski barındırıyor. Büyük veri kümelerinde pg_upgrade süreçleri; bozuk indeksler, replikasyon yuvası uyumsuzlukları veya test edilmemiş eklentiler yüzünden saatlerce süren üretim kesintilerine dönüşebilir.
+#gguf #localai #vram</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve referanslar:
+- Görsel verisi: Hugging Face Hub API, models matching &#x27;Qwen3.8-27B&#x27;, sorted by 30-day downloads
+- [S2] runNburn model placement: https://github.com/coderredlab/runNburn</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Qwen3.8-27B aramalarında kuantize sürümler taban modelden fazla indirildi · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Karttaki verilere göre Python 3.10 için resmi güvenlik desteğinin bitmesine yalnızca 55 gün kaldı.
 
-Şimdiden üretim filonuzdaki sürüm envanterini çıkarın, replikasyon topolojinizi gözden geçirin ve yükseltme provasını yedekleme ortamında başlatın.
+Süre dolduğunda güvenlik yamaları kesilecek. Ardından CI/CD hatlarındaki imaj tarayıcıları, giderilemeyen zafiyetler yüzünden konteyner derlemelerini bloklamaya başlayacak. Birikmiş teknik borç, pipeline kesintisi olarak döner. Registry üzerindeki taban imajları ve Dockerfile tanımlarını şimdiden kontrol etmekte fayda var.
 
-Elbette dış dünyaya tamamen kapalı izole ağlarda çalışan ya da kurumsal uzatılmış destek anlaşması bulunan altyapılar için bu risk geçerli değildir.
+Dış ağa kapalı çalışan ve bağımlılık taraması içermeyen izole sistemlerde bu takvim doğrudan bir kesinti yaratmaz.
 
-#postgresql #devops #database</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Görseldeki verilerin kaynağı: endoflife.date (resmi PostgreSQL destek bitiş tarihleri) — https://endoflife.date/postgresql</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL 14 en az kalan destek gününe sahip sürüm · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Nükleer enerjinin devri kapandı sanılıyordu; oysa grafikteki gibi ABD 2025&#x27;te 784,8 TWh üretim yaptı.
+#python #devops #containers</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynak: endoflife.date (Python resmi destek takvimi: https://endoflife.date/python)</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">python 3.14: 1,516 (Kalan Destek (Gün)) · denetim: OK</p></div></div><div class="card"><img src="05-kart.png" alt=""><div class="pad"><pre id="p4">Güneşin teşviksiz rekabet edemeyeceği tezi çöktü: 2025 talep artışının %83&#x27;ünü tek başına güneş karşıladı.
 
-Yaygın inanış, yenilenebilir kaynakların veri merkezlerini tek başına besleyebileceği yönündeydi. Oysa kesintisiz çalışan veritabanı ve yapay zekâ kümeleri dalgalanma kabul etmez; sürekli baz yük ister.
+Yüksek kurulum maliyeti argümanı eski paneller için doğruydu; ancak düşen fiyatlarla bu sınır aşıldı. Grafikte de görüldüğü üzere, yenilenebilir kaynaklar küresel üretimde %34,3 pay alarak kömürü tarihte ilk kez geride bıraktı.
 
-Bu yüzden Microsoft ve Meta, kapalı reaktörleri canlandırmak için anlaşmalar yaptı. Hatta Last Energy&#x27;nin 80&#x27;den fazla mikroreaktör içeren Avrupa portföyünün yarısı veri merkezlerine ayrıldı.
+Veri merkezlerindeki hesaplama yükünün enerji maliyetini düşürmek, artık şebekeye güvenmekle değil, sahada kurulacak üretim ve depolama mimarisiyle mümkündür.
 
-Kendi altyapınızın kapasite ve kesinti planlarında şebekenin baz yük sınırlarını hesaba katıyor musunuz?
+#yenilenebilirenerji #datainfrastructure #verimerkezi</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Yazıda ve görselde yer alan verilerin kaynakları:
 
-#verimerkezi #nukleerenerji #bazyuk</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Veri ve kaynaklar:
-
-• Nükleer üretim verileri: Our World in Data, &#x27;nuclear-energy-generation&#x27;
-• Westinghouse anlaşması ve reaktör planı: https://www.cnbc.com/2025/11/10/nuclear-power-energy-department-chris-wright-loan-westinghouse-ai-data-center.html
-• Eski reaktörlerin yeniden canlandırılması: https://www.theverge.com/ai-artificial-intelligence/719409/nuclear-energy-uranium-enrichment-ai-data-center-electricity
-• Veri merkezleri ve mikroreaktör anlaşmaları: https://www.fastcompany.com/91287149/nuclear-startup-last-energy-microreactors-texas-data-centers</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">ABD, 2025 yılında 784.8 Terawatt-saat ile Fransa ve İngiltere&#x27;nin önünde yer aldı. · denetim: OK</p></div></div>
+• Görsel: Our World in Data, &#x27;share-electricity-renewables&#x27; (https://ourworldindata.org/grapher/share-electricity-renewables)
+• [S1], [S5]: Ember, Global Electricity Mid-Year Insights 2025 (https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/)</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Seçili ülkelerde elektrik üretiminde yenilenebilir enerjinin payı artış eğiliminde · denetim: OK</p></div></div>
