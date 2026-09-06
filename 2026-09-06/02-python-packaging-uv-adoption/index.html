@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>The Speed Dividend: Python Workflows Standardize on uv</title>
 <style>
 :root { color-scheme: light dark; }
@@ -33,7 +32,7 @@ hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
 <article>
 <h1>The Speed Dividend: Python Workflows Standardize on uv</h1>
 <p class="alt">Native Rust dependency resolution eliminates the installation bottlenecks and lockfile conflicts that slowed Python teams for years.</p>
-<figure><img src="https://heyobi.github.io/yazilar/2026-09-06/02-python-packaging-uv-adoption/kapak.jpg" alt=""><figcaption>Photo: Roy Luck, Wikimedia Commons, CC BY 2.0</figcaption></figure>
+<figure><img src="https://heyobi.github.io/yazilar/2026-09-06/02-python-packaging-uv-adoption/kapak.jpg" alt="The Speed Dividend: Python Workflows Standardize on uv"><figcaption>Photo: Roy Luck, Wikimedia Commons, CC BY 2.0</figcaption></figure>
 <p>Under Poetry, refreshing a project lockfile could take over 10 minutes, and environment installations dragged on for around 5 minutes [S2]. At Rippling, dependency lockfile merge conflicts accumulated faster than individual pull requests could make it through the merge queue [S3]. In a monolith spanning 24 million lines of Python code, this synchronization gridlock stopped deployment flow in its tracks [S1]. The core failure was architectural. Legacy packaging tools written in pure Python struggled to compute satisfiability constraints across deep dependency trees in acceptable runtimes. Teams paid a compounding coordination tax for every package upgrade, as developers waited on serial resolution passes and resolved conflicting lockfile pins by hand.</p>
 <p>To break this bottleneck, Rippling migrated their entire 24-million-line codebase from Poetry to uv in four weeks [S1]. That single infrastructure transition cut lockfile generation and installation steps down to under a minute [S1]. The immediate operational return altered daily development habits. Engineers who once avoided touching project dependencies could synchronize environments almost instantaneously. Most routine Python package and virtual environment commands execute approximately 20 times faster after adopting uv [S7]. This performance dividend removes the constant context switching that defined legacy workflows.</p>
 <h2>The Anatomy of Resolution Latency</h2>

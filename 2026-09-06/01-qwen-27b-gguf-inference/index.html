@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>The 27B Inflection: Quantized Weights Win Local Production</title>
 <style>
 :root { color-scheme: light dark; }
@@ -33,7 +32,7 @@ hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
 <article>
 <h1>The 27B Inflection: Quantized Weights Win Local Production</h1>
 <p class="alt">Community GGUF adoption and specialized runtimes turn medium-sized open models into the primary tier for private inference.</p>
-<figure><img src="https://heyobi.github.io/yazilar/2026-09-06/01-qwen-27b-gguf-inference/kapak.jpg" alt=""><figcaption>Photo: Shixart1985, Wikimedia Commons, CC BY 2.0</figcaption></figure>
+<figure><img src="https://heyobi.github.io/yazilar/2026-09-06/01-qwen-27b-gguf-inference/kapak.jpg" alt="The 27B Inflection: Quantized Weights Win Local Production"><figcaption>Photo: Shixart1985, Wikimedia Commons, CC BY 2.0</figcaption></figure>
 <p>More than 16 million cumulative downloads on Hugging Face this week belong to Qwen 3.8 across its base and quantized releases, signaling a clear shift in how teams deploy language models (Figure 1). At the hardware layer, Cerebras clocked live inference at 1,500 tokens per second for the same model family using selective weight-only quantization during storage [S1]. By keeping activations, attention, and key-value cache states unquantized in full precision, this setup preserves generation quality at high speeds [S2]. The combination of fast token delivery and reduced memory footprints has turned 27-billion parameter models into the primary tier for production deployments [S8]. Engineering teams are no longer treating local weights as experimental side projects. Instead of paying per-token charges to closed cloud providers, infrastructure teams are deploying quantized weights on their own hardware.</p>
 <h2>Architecture of the Medium-Weight Tier</h2>
 <p>The core appeal of this tier rests on density and hybrid design. Qwen 3.6 27B is architected as a dense 27-billion parameter model combining hybrid attention with Mamba and GDN layers [S8]. This design avoids the routing overhead found in mixture-of-experts systems while providing sufficient capacity for reasoning and tool use [S8]. In practice, a developer can run Qwen 3.6 27B quantized to FP8 at a 256K context window on DGX Spark hardware to ship code for open-source projects [S7]. Operating across a 256K context window allows local setups to ingest entire code repositories without memory exhaustion [S7]. Running a 70-billion parameter model locally requires multi-card clustering or heavy tensor parallelism that strains budgets (Figure 1). Smaller models often fail on complex multi-step tool calls, making the 27-billion range a balanced middle ground [S8]. Developers get production accuracy while retaining single-node simplicity.</p>
