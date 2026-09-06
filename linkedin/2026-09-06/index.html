@@ -26,43 +26,4 @@ details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
 function cp(id,btn){const t=document.getElementById(id).innerText;
  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
  setTimeout(()=>btn.textContent=o,1500)});}
-</script><h1>2026-09-06 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">PostgreSQL 14 için resmi desteğin bitmesine karttaki verilere göre 67 gün kaldı.
-
-Kasım 2026 sonrasında topluluk yamaları tamamen duruyor. Sürüm yükseltmesini planlamayan üretim kümeleri, çıkacak ilk güvenlik açığında yamasız kalacak. Majör sürüm geçiş provalarını şimdiden başlatmak gerekiyor.
-
-#postgresql #database #dba</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Grafikteki resmi destek bitiş tarihleri ve yaşam döngüsü verileri: https://endoflife.date/postgresql</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL 14 resmi destek süresi en kısa olan aktif sürüm · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Grafikte eBPF ilgisinin ayda 30 gönderiye ulaşması tesadüf değil; asıl neden çekirdekteki mimari değişim.
-
-Geleneksel izleme araçları, kullanıcı alanı ile çekirdek arasındaki bağlam değişimleri yüzünden veritabanı G/Ç hattında gecikme üretir.
-
-eBPF bu sorunu kökten çözüyor. Program çalıştırılmadan önce Linux çekirdek doğrulayıcısı kodun güvenliğini sembolik yürütmeyle denetler. Doğrulanan mantık doğrudan çekirdekte koştuğundan, izleme maliyeti çağrı başına yaklaşık 3 mikrosaniyeye iner. Üstelik izlenmeyen işlevlerde ek yük tam olarak 0 seviyesindedir. Sidecar veya yeniden başlatma gerektirmeden ağ trafiğini dinlemek mimariyi sadeleştirir.
-
-İzlemeyi kullanıcı alanına taşımadan çekirdeğin içinde bitirmek, gözlemlenebilirliği operasyonel bir darboğaz olmaktan çıkarıyor.
-
-#ebpf #observability #postgresql</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Gönderide yer alan kaynaklar:
-- Görsel verisi: Hacker News (Algolia Search API)
-- [S1] Luca Cavallin, &quot;A Tour of eBPF in the Linux Kernel&quot;: https://www.lucavall.in/blog/a-tour-of-ebpf-in-the-linux-kernel-observability-security-and-networking
-- [S2] Anteon Alaz eBPF Agent: https://github.com/ddosify/alaz
-- [S3], [S4], [S5] Rubrik Wachy: https://rubrikinc.github.io/wachy/</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Hacker News üzerinde eBPF konulu gönderiler son iki yılda yüksek ilgiyi koruyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Qwen 3.8 27B için GGUF indirmeleri karttaki gibi 10 milyonu aşarak FP8 sürümünü geride bıraktı.
-
-Yerel çıkarımda model yerleşimini mimariden çok sistemdeki VRAM ve RAM sınırları belirliyor. Ölçüt net: bellek tüketimi. Karttaki dağılımda görüldüğü gibi, tek iş istasyonunda kısıtlı kaynakla çalışırken kuantize GGUF, GPU kümesinde ise FP8 seçilmeli.
-
-Dağıtıma geçmeden önce hostunuzdaki boş VRAM miktarına ve bellek bant genişliğine bakın.
-
-#gguf #localai #vram</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve referanslar:
-- Görsel verisi: Hugging Face Hub API, models matching &#x27;Qwen3.8-27B&#x27;, sorted by 30-day downloads
-- [S2] runNburn model placement: https://github.com/coderredlab/runNburn</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Qwen3.8-27B aramalarında kuantize sürümler taban modelden fazla indirildi · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Karttaki verilere göre Python 3.10 için resmi güvenlik desteğinin bitmesine yalnızca 55 gün kaldı.
-
-Süre dolduğunda güvenlik yamaları kesilecek. Ardından CI/CD hatlarındaki imaj tarayıcıları, giderilemeyen zafiyetler yüzünden konteyner derlemelerini bloklamaya başlayacak. Birikmiş teknik borç, pipeline kesintisi olarak döner. Registry üzerindeki taban imajları ve Dockerfile tanımlarını şimdiden kontrol etmekte fayda var.
-
-Dış ağa kapalı çalışan ve bağımlılık taraması içermeyen izole sistemlerde bu takvim doğrudan bir kesinti yaratmaz.
-
-#python #devops #containers</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynak: endoflife.date (Python resmi destek takvimi: https://endoflife.date/python)</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">python 3.14: 1,516 (Kalan Destek (Gün)) · denetim: OK</p></div></div><div class="card"><img src="05-kart.png" alt=""><div class="pad"><pre id="p4">Güneşin teşviksiz rekabet edemeyeceği tezi çöktü: 2025 talep artışının %83&#x27;ünü tek başına güneş karşıladı.
-
-Yüksek kurulum maliyeti argümanı eski paneller için doğruydu; ancak düşen fiyatlarla bu sınır aşıldı. Grafikte de görüldüğü üzere, yenilenebilir kaynaklar küresel üretimde %34,3 pay alarak kömürü tarihte ilk kez geride bıraktı.
-
-Veri merkezlerindeki hesaplama yükünün enerji maliyetini düşürmek, artık şebekeye güvenmekle değil, sahada kurulacak üretim ve depolama mimarisiyle mümkündür.
-
-#yenilenebilirenerji #datainfrastructure #verimerkezi</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Yazıda ve görselde yer alan verilerin kaynakları:
-
-• Görsel: Our World in Data, &#x27;share-electricity-renewables&#x27; (https://ourworldindata.org/grapher/share-electricity-renewables)
-• [S1], [S5]: Ember, Global Electricity Mid-Year Insights 2025 (https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/)</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Seçili ülkelerde elektrik üretiminde yenilenebilir enerjinin payı artış eğiliminde · denetim: OK</p></div></div>
+</script><h1>2026-09-06 — 0 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p>
