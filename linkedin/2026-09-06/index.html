@@ -26,70 +26,78 @@ details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
 function cp(id,btn){const t=document.getElementById(id).innerText;
  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
  setTimeout(()=>btn.textContent=o,1500)});}
-</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">A community GGUF release of Qwen 3.8 passed 10 million downloads, beating base weights (see card).
+</script><h1>2026-09-06 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Açık kaynaklı Qwen 3.8 27B, saniyede yaklaşık 1.500 token hıza ulaştı [S1].
 
-Teams are replacing recurring API bills with local inference on internal hardware.
+Cerebras altyapısında kaydedilen bu hız [S1], açık modellerin kapalı bulut servisleriyle doğrudan rekabet edebildiğini gösteriyor.
 
-Qwen Cloud offers managed endpoints for teams avoiding infrastructure maintenance [S3].
+Karttaki indirme listesinde modellerin her birinin 12 milyonu aşması da geliştiricilerin bu yöndeki ilgisini kanıtlıyor.
 
-Hosted Qwen options even provide a default context length of 1M with official tools [S1].
+Apache 2 lisanslı 27 milyar parametreli bu model [S2], 17 GB boyutuna indirilerek yerel iş istasyonlarında da çalıştırılabiliyor [S3].
 
-Yet download counts in the card show local deployment leading real-world adoption.
+Bu durum, şirketlerin kullanıcı verilerini dışarıya göndermeden ve yüksek API maliyetlerine katlanmadan yapay zeka çalıştırmasını sağlıyor.
 
-Are you running open weights on internal hardware, or still paying per token to an external provider?
+Kendi sunucularınızda kapalı API maliyetlerinden kaçınmak için açık modelleri test etmeye başladınız mı?
 
-#localai #quantization #llm</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Sources and references:
+#yapayzeka #qwen #llm</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar ve detaylı dokümantasyon:
 
-• Card source: Hugging Face Hub API, models matching &#x27;Qwen3.8&#x27;, sorted by 30-day downloads
-• [S1] Hosted Qwen3.8-27B features &amp; 1M context: https://huggingface.co/Qwen/Qwen3.8-27B-FP8
-• [S2] Qwen3.8-27B-FP8 fine-grained quantization: https://huggingface.co/Qwen/Qwen3.8-27B-FP8
-• [S3] Qwen Cloud managed inference service: https://huggingface.co/Qwen/Qwen3.8-27B-FP8
-• [S4] Cerebras inference endpoints: https://inference-docs.cerebras.ai/models/overview</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Qwen 3.8 modellerinde GGUF indirmeleri 10 milyonu aşarak orijinal ağırlıkları geride bıraktı · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Inflation across high-income economies has retreated to 2.35% on the attached card, while Turkey hovers near 60%.
+• Görsel kaynağı: Hugging Face Hub API, 30 günlük indirmelere göre sıralı &#x27;Qwen&#x27; modelleri
+• [S1] Cerebras Model Dokümantasyonu: https://inference-docs.cerebras.ai/models/overview
+• [S2] Simon Willison İncelemesi: https://simonwillison.net/2026/Aug/16/qwen-38-27b/
+• [S3] LM Studio Q4_K_M Derlemesi: https://simonwillison.net/2026/Aug/16/qwen-38-27b/
+• [S4] Bağlam Uzunluğu Analizi: https://simonwillison.net/2026/Aug/16/qwen-38-27b/
+• [S5] Hugging Face Model Sayfası: https://huggingface.co/Qwen/Qwen3.8-27B-FP8</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Qwen modelleri açık kaynak yapay zekada indirme listelerinin zirvesinde · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Grafikte FastAPI, haftalık 139,7 milyon indirmeyle Flask ve Django&#x27;yu geride bıraktı.
 
-Many central banks have begun lowering borrowing costs as global inflation gradually eases [S2].
+Karttaki verilere göre Flask haftalık 48,33 milyon, Django ise 12,54 milyon seviyesinde kalırken FastAPI farkı açıyor.
 
-Yet Turkey has decoupled from this easing cycle, keeping domestic price pressures high on the card.
+Yapay zeka servislerinin yaygınlaşması, asenkron mimariyi ve tip güvenliğini geliştiriciler için temel bir gereksinim haline getirdi.
 
-For professionals billing global clients, this split creates a persistent currency squeeze.
+Eski senkron web çatılarına dayalı teknik borçlar, modern API geliştiren ekipleri yavaşlatıyor.
 
-Local living costs keep climbing while foreign-currency compensation stays flat.
+Görseldeki yüksek indirme sayıları CI/CD süreçlerini de içerse bile, yeni projelerde FastAPI tercihinin ağırlığı netleşiyor.
 
-How is your team adjusting cross-border pay to balance soaring local costs against global market rates?
+Yeni bir Python servisi kurarken mevcut mimariniz asenkron ihtiyaçlarınızı karşılıyor mu?
 
-#inflation #macroeconomics #monetarypolicy</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Sources:
-• Data card: Our World in Data (&#x27;inflation-of-consumer-prices&#x27;)
-• Central bank rate cycles and inflation trends [S1-S4]: Financial Times (https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2)</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Gelişmiş ülkelerde enflasyon %2 hedefine yaklaşırken Türkiye %60 bandında yüksek seyrini koruyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Atmospheric CO2 has crossed 426 ppm in the attached card.
+#fastapi #python #backend</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Veri kaynağı: PyPI Stats (pypistats.org) — yansımasız haftalık toplam indirmeler.</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">FastAPI haftalık indirmelerde Flask ve Django paketlerini geride bıraktı · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Türkiye&#x27;de yıllık resmi enflasyon %64,8 seviyesine ulaşarak gelişmiş dünyadan tamamen ayrıştı [S1].
 
-That is far above the estimated 275 ppm preindustrial baseline [S1].
+Grafikte görüldüğü üzere Amerika&#x27;da enflasyon %2,95 seviyesine gerilerken aradaki makas açılıyor.
 
-Concentrations passed 400 ppm in 2013 [S4] and briefly broke 430 ppm in 2025 [S2].
+Merkez Bankası politika faizini %8,5&#x27;ten %45&#x27;e kadar yükseltti [S2].
 
-Despite global energy transition efforts, atmospheric accumulation is not slowing down.
+Buna rağmen yerel para birimindeki birikimlerin erimesi çalışanların alım gücünü zayıflatıyor.
 
-This rising intensity directly impacts corporate risk.
+Küresel merkez bankaları faiz indirimine hazırlanırken bilgi çalışanlarının gelir modellerini küresel ölçekte çeşitlendirmesi gerekiyor.
 
-Stricter sustainability disclosures and border carbon adjustments are quickly becoming unavoidable liabilities.
+Mevcut kariyer ve birikim stratejiniz bu enflasyon ayrışmasına karşı yeterince korunaklı mı?
 
-How prepared is your business for border carbon tariffs and mandatory climate reporting?
+#enflasyon #ekonomi #parapolitikasi</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Grafik ve veri kaynakları:
+- Görsel kaynağı: World Bank WDI, FP.CPI.TOTL.ZG (Inflation, consumer prices (annual %))
+- [S1], [S2]: CNBC, 2024-01-25, https://www.cnbc.com/2024/01/25/turkey-hikes-interest-rate-again-to-45percent-as-inflation-remains-stubbornly-high.html
+- [S3], [S4]: CNBC, 2022-10-03, https://www.cnbc.com/2022/10/03/turkey-inflation-hits-83percent-erdogan-vows-to-keep-cutting-rates-.html</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Turkiye yıllık enflasyonda Almanya ve Amerika&#x27;dan belirgin biçimde ayrışıyor. · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Karttaki verilere göre 2025&#x27;te elektrik üretiminde yenilenebilir payı Almanya&#x27;da %59&#x27;a, Türkiye&#x27;de %43&#x27;e ulaştı.
 
-#climatechange #carbonaccounting #sustainability</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Sources and data references:
+2025&#x27;in ilk yarısında güneş ve rüzgâr üretimi, küresel elektrik talebindeki artışı geride bıraktı [S1].
 
-• Card data: NOAA GML, Mauna Loa monthly mean CO2 (co2_mm_mlo.csv)
-• [S1] &amp; [S2] The Register (2025): https://www.theregister.com/2025/07/22/trump_shoots_climate_messenger/
-• [S3] &amp; [S4] Axios (2024): https://www.axios.com/local/san-diego/2024/02/15/co2-tracker-high-record-all-time-keeling-curve
-• [S5] The Guardian (2023): https://www.theguardian.com/news/2023/nov/24/co2-readings-from-mauna-loa-show-failure-to-combat-climate-change</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Mauna Loa atmosferik CO2 yoğunluğu 426 ppm seviyesini aşarak tarihi zirvesini yeniledi · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Workers in Turkey log roughly 390 more hours each year than workers in Germany, per the card.
+Hatta küresel talep artışının %83&#x27;ünü tek başına güneş enerjisi karşıladı [S2].
 
-Yet spending more time at a desk does not generate greater economic prosperity.
+Elektrik üretimindeki bu yeşil dönüşüm; sanayiden veri merkezlerine kadar enerji maliyetlerini ve kurumsal regülasyonları doğrudan belirliyor.
 
-Germany maintains some of the lowest annual hours across the OECD [S2].
+Kurumunuz, şebekedeki bu dönüşümün getireceği yeni maliyet ve uyum standartlarına hazır mı?
 
-German regulations cap regular workdays at 8 hours [S3].
+#yenilenebilirenerji #enerjidonusumu #surdurulebilirlik</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar:
+- Görsel: Our World in Data, &#x27;share-electricity-renewables&#x27;
+- [S1], [S2] Ember, Global Electricity Mid-Year Insights 2025: https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Almanya ve Türkiye elektrik üretiminde yenilenebilir enerjinin payını artırıyor · denetim: OK</p></div></div><div class="card"><img src="05-kart.png" alt=""><div class="pad"><pre id="p4">Karttaki verilere göre Almanya&#x27;da yıllık çalışma 1.335 saat iken, Türkiye&#x27;de 1.747 saati buluyor.
 
-While debates center on reduced workweeks and hybrid models, sustainable careers depend on hourly productivity, not pure endurance.
+Almanya, OECD genelinde çalışanların en az süre mesai harcadığı ülkeler arasında bulunuyor [S3].
 
-How should companies redesign workflows to reward actual output instead of seat time?
+AB ortalamasında haftalık mesai yaklaşık 34 saat iken, Almanya&#x27;da bu süre 28 saate iniyor [S1].
 
-#productivity #futureofwork #workculture</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Sources and references:
-- Card source: Our World in Data (&#x27;annual-working-hours-per-worker&#x27;)
-- [S1], [S2], [S3]: Visual Capitalist (https://www.visualcapitalist.com/annual-working-hours-in-countries-2023/)
-- [S4], [S5]: OECD (https://data.oecd.org/emp/hours-worked.htm)</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Almanya ile Türkiye arasında çalışan başına yıllık ortalama mesai farkı 390 saati buluyor · denetim: OK</p></div></div>
+Fakat daha uzun mesai süreleri, çalışanlara daha yüksek bir refah veya üretkenlik sağlamıyor.
+
+Rekabet avantajı ofiste geçirilen sürede değil, birim saat başına üretilen katma değerde yatıyor.
+
+Çalışma sürelerini uzatmak yerine, birim saatteki katma değerimizi artırmaya nasıl odaklanabiliriz?
+
+#verimlilik #calismahayati #insankaynaklari</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Yararlanılan kaynaklar:
+
+• Görsel kaynağı: Our World in Data, &#x27;annual-working-hours-per-worker&#x27;
+• [S1], [S2]: POLITICO - https://www.politico.eu/article/deutsche-bank-ceo-christian-sewing-germany-working-hours-economy/
+• [S3], [S4], [S5]: Visual Capitalist - https://www.visualcapitalist.com/annual-working-hours-in-countries-2023/</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Almanya ve Türkiye çalışan başına düşen yıllık çalışma süresinde zıt noktalarda · denetim: OK</p></div></div>
