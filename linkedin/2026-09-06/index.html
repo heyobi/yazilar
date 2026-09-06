@@ -26,78 +26,41 @@ details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
 function cp(id,btn){const t=document.getElementById(id).innerText;
  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
  setTimeout(()=>btn.textContent=o,1500)});}
-</script><h1>2026-09-06 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Açık kaynaklı Qwen 3.8 27B, saniyede yaklaşık 1.500 token hıza ulaştı [S1].
+</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Qwen 3.8 27B GGUF sürümü, karttaki 10 milyon indirmeyle taban modelini neredeyse ikiye katladı.
 
-Cerebras altyapısında kaydedilen bu hız [S1], açık modellerin kapalı bulut servisleriyle doğrudan rekabet edebildiğini gösteriyor.
+Veri merkezi GPU&#x27;su kiralamak tek seçenek değil. Mühendisler 4-bit modelleri 16-19GB VRAM&#x27;li yerel donanımlarda çalıştırıyor.
 
-Karttaki indirme listesinde modellerin her birinin 12 milyonu aşması da geliştiricilerin bu yöndeki ilgisini kanıtlıyor.
+Açık model işletimi artık bulut bütçesine değil, masadaki donanıma bakıyor.
 
-Apache 2 lisanslı 27 milyar parametreli bu model [S2], 17 GB boyutuna indirilerek yerel iş istasyonlarında da çalıştırılabiliyor [S3].
+#localllm #opensource #devops</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar:
+- Görsel verileri: Hugging Face Hub API (&#x27;Qwen3.8-27B&#x27; modelleri, 30 günlük indirmeler)
+- [S3] Donanım gereksinimleri: https://unsloth.ai/docs/models/qwen3.8</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">unsloth/Qwen3.8-27B-GGUF: 10,311,462 (Toplam İndirme Sayısı) · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Grafikte psycopg2-binary, haftalık 63 milyon indirmeyle asyncpg ve psycopg paketlerinin toplamını geride bırakıyor.
 
-Bu durum, şirketlerin kullanıcı verilerini dışarıya göndermeden ve yüksek API maliyetlerine katlanmadan yapay zeka çalıştırmasını sağlıyor.
+Asenkron sürücüler teoride yüksek eşzamanlılık vadetse de modern üretim ortamlarındaki altyapı gerçekleri farklı çalışıyor. Konteyner tabanlı onlarca mikroservis pod&#x27;unun doğrudan PostgreSQL&#x27;e bağlanması bağlantı sınırlarını hızla tüketir. Bu nedenle mimarinin önüne mutlaka PgBouncer konumlandırılır ve çoğunlukla transaction pooling modunda çalıştırılır.
 
-Kendi sunucularınızda kapalı API maliyetlerinden kaçınmak için açık modelleri test etmeye başladınız mı?
+İşte kırılma noktası burada başlıyor. Transaction pooling altında bir bağlantı istemciye yalnızca tek bir SQL işlemi süresince tahsis edilir ve oturum durumu korunmaz. Asenkron sürücülerin varsayılan prepared statement mekanizmaları ve durum bilgisi tutan oturum yapıları bu havuzlama modelinde sıkça çakışır. Senkron sürücü ise bağlantıyı milisaniyeler içinde alıp işi biter bitmez havuza iade eden yalın bir döngü sunar. Python ekosisteminde fiili standart konumunu koruyan Psycopg kütüphanesi, bu sade mimariyle kurumsal altyapılarda vazgeçilmezliğini koruyor.
 
-#yapayzeka #qwen #llm</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar ve detaylı dokümantasyon:
+Mikroservis ölçeğinde veritabanı verimliliğini asenkron soketler değil, havuz yöneticisiyle uyumlu çalışan kısa ömürlü senkron bağlantılar belirler.
 
-• Görsel kaynağı: Hugging Face Hub API, 30 günlük indirmelere göre sıralı &#x27;Qwen&#x27; modelleri
-• [S1] Cerebras Model Dokümantasyonu: https://inference-docs.cerebras.ai/models/overview
-• [S2] Simon Willison İncelemesi: https://simonwillison.net/2026/Aug/16/qwen-38-27b/
-• [S3] LM Studio Q4_K_M Derlemesi: https://simonwillison.net/2026/Aug/16/qwen-38-27b/
-• [S4] Bağlam Uzunluğu Analizi: https://simonwillison.net/2026/Aug/16/qwen-38-27b/
-• [S5] Hugging Face Model Sayfası: https://huggingface.co/Qwen/Qwen3.8-27B-FP8</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta"> · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Grafikte FastAPI, haftalık 139,7 milyon indirmeyle Flask ve Django&#x27;yu geride bıraktı.
+#postgresql #pgbouncer #devops</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Veri kaynakları ve referanslar:
 
-Karttaki verilere göre Flask haftalık 48,33 milyon, Django ise 12,54 milyon seviyesinde kalırken FastAPI farkı açıyor.
+- İndirme verileri: PyPI Stats (pypistats.org), downloads without mirrors, weekly sums
+- [S1] Psycopg 3.2 Sürüm Notları: https://www.psycopg.org/articles/2024/06/30/psycopg-32-released/</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">psycopg haftalık indirme sayısında asyncpg&#x27;yi geride bıraktı. · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Grafikte uv&#x27;nin haftalık indirmesi 49 milyona ulaşırken Poetry 17 milyon bandında seyrediyor.
 
-Yapay zeka servislerinin yaygınlaşması, asenkron mimariyi ve tip güvenliğini geliştiriciler için temel bir gereksinim haline getirdi.
+Aralarındaki temel ayrım, CI boru hatlarındaki kurulum hızında ortaya çıkıyor. Mevcut paketleme ve yayınlama süreçlerinde Poetry yeterli kalabilir. Fakat konteyner hazırlığı ve runner süreleri baskı yaratıyorsa, uv belirgin hız avantajı sağlıyor. uv ile sabitlenmiş bağımlılıklar üzerinden tekrarlanabilir ortamlar kurmak imaj derleme süresini ciddi biçimde düşürüyor. Paket yöneticisi seçimi artık doğrudan altyapı maliyetidir.
 
-Eski senkron web çatılarına dayalı teknik borçlar, modern API geliştiren ekipleri yavaşlatıyor.
+CI hattınızdaki runner harcamalarına ve bağımlılık kurulumunun faturadaki payına bakın.
 
-Görseldeki yüksek indirme sayıları CI/CD süreçlerini de içerse bile, yeni projelerde FastAPI tercihinin ağırlığı netleşiyor.
+#devops #cicd #python</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve referanslar:
+- Grafik verisi: PyPI Stats (pypistats.org)
+- [S1], [S2] Pyrig: https://github.com/Winipedia/pyrig
+- [S3], [S4] Xorq: https://github.com/xorq-labs/xorq</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">uv paketinin haftalık indirme hacmi poetry seviyesine yaklaşıyor · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Veri merkezleri şebekeyi çökertiyor sanılıyor; oysa grafikte Almanya&#x27;da temiz pay %59&#x27;u aştı.
 
-Yeni bir Python servisi kurarken mevcut mimariniz asenkron ihtiyaçlarınızı karşılıyor mu?
+Yapay zekânın şebekeyi kirlettiği inanışı yaygın. Evet, tek bir hesaplama kümesi genişlemesi bile 83 megavat güç çekebiliyor. Fakat bu yargı kritik bir piyasa mekanizmasını ıskalıyor: Büyük operatörlerin uzun vadeli enerji sözleşmeleri (PPA), yeni rüzgâr ve güneş yatırımlarının ana finansörü oldu. Tüketim artışı yeşil dönüşümü engellemiyor; aksine yeni santral inşasını doğrudan fonluyor.
 
-#fastapi #python #backend</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Veri kaynağı: PyPI Stats (pypistats.org) — yansımasız haftalık toplam indirmeler.</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta"> · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Türkiye&#x27;de yıllık resmi enflasyon %64,8 seviyesine ulaşarak gelişmiş dünyadan tamamen ayrıştı [S1].
+Kendi küme ve sunucu altyapınızı seçerken veri merkezinin PPA taahhütlerini teknik metrikler kadar önceliklendiriyor musunuz?
 
-Grafikte görüldüğü üzere Amerika&#x27;da enflasyon %2,95 seviyesine gerilerken aradaki makas açılıyor.
+#verimerkezi #yenilenebilirenerji #bulutaltyapi</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Yazıda ve görselde geçen verilerin kaynakları:
 
-Merkez Bankası politika faizini %8,5&#x27;ten %45&#x27;e kadar yükseltti [S2].
-
-Buna rağmen yerel para birimindeki birikimlerin erimesi çalışanların alım gücünü zayıflatıyor.
-
-Küresel merkez bankaları faiz indirimine hazırlanırken bilgi çalışanlarının gelir modellerini küresel ölçekte çeşitlendirmesi gerekiyor.
-
-Mevcut kariyer ve birikim stratejiniz bu enflasyon ayrışmasına karşı yeterince korunaklı mı?
-
-#enflasyon #ekonomi #parapolitikasi</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Grafik ve veri kaynakları:
-- Görsel kaynağı: World Bank WDI, FP.CPI.TOTL.ZG (Inflation, consumer prices (annual %))
-- [S1], [S2]: CNBC, 2024-01-25, https://www.cnbc.com/2024/01/25/turkey-hikes-interest-rate-again-to-45percent-as-inflation-remains-stubbornly-high.html
-- [S3], [S4]: CNBC, 2022-10-03, https://www.cnbc.com/2022/10/03/turkey-inflation-hits-83percent-erdogan-vows-to-keep-cutting-rates-.html</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta"> · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Karttaki verilere göre 2025&#x27;te elektrik üretiminde yenilenebilir payı Almanya&#x27;da %59&#x27;a, Türkiye&#x27;de %43&#x27;e ulaştı.
-
-2025&#x27;in ilk yarısında güneş ve rüzgâr üretimi, küresel elektrik talebindeki artışı geride bıraktı [S1].
-
-Hatta küresel talep artışının %83&#x27;ünü tek başına güneş enerjisi karşıladı [S2].
-
-Elektrik üretimindeki bu yeşil dönüşüm; sanayiden veri merkezlerine kadar enerji maliyetlerini ve kurumsal regülasyonları doğrudan belirliyor.
-
-Kurumunuz, şebekedeki bu dönüşümün getireceği yeni maliyet ve uyum standartlarına hazır mı?
-
-#yenilenebilirenerji #enerjidonusumu #surdurulebilirlik</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar:
-- Görsel: Our World in Data, &#x27;share-electricity-renewables&#x27;
-- [S1], [S2] Ember, Global Electricity Mid-Year Insights 2025: https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta"> · denetim: OK</p></div></div><div class="card"><img src="05-kart.png" alt=""><div class="pad"><pre id="p4">Karttaki verilere göre Almanya&#x27;da yıllık çalışma 1.335 saat iken, Türkiye&#x27;de 1.747 saati buluyor.
-
-Almanya, OECD genelinde çalışanların en az süre mesai harcadığı ülkeler arasında bulunuyor [S3].
-
-AB ortalamasında haftalık mesai yaklaşık 34 saat iken, Almanya&#x27;da bu süre 28 saate iniyor [S1].
-
-Fakat daha uzun mesai süreleri, çalışanlara daha yüksek bir refah veya üretkenlik sağlamıyor.
-
-Rekabet avantajı ofiste geçirilen sürede değil, birim saat başına üretilen katma değerde yatıyor.
-
-Çalışma sürelerini uzatmak yerine, birim saatteki katma değerimizi artırmaya nasıl odaklanabiliriz?
-
-#verimlilik #calismahayati #insankaynaklari</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Yararlanılan kaynaklar:
-
-• Görsel kaynağı: Our World in Data, &#x27;annual-working-hours-per-worker&#x27;
-• [S1], [S2]: POLITICO - https://www.politico.eu/article/deutsche-bank-ceo-christian-sewing-germany-working-hours-economy/
-• [S3], [S4], [S5]: Visual Capitalist - https://www.visualcapitalist.com/annual-working-hours-in-countries-2023/</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta"> · denetim: OK</p></div></div>
+• Görsel verisi: Our World in Data, &#x27;share-electricity-renewables&#x27;
+• Teksas veri merkezi ve kapasite verileri [S1-S4]: The Texas Tribune (2025) https://www.texastribune.org/2025/10/21/south-texas-data-center-renewable-energy/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Seçili ülkelerde elektriğin yenilenebilir payı son yıllarda sürekli yükseliyor · denetim: OK</p></div></div>
