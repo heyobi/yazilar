@@ -26,4 +26,44 @@ details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
 function cp(id,btn){const t=document.getElementById(id).innerText;
  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
  setTimeout(()=>btn.textContent=o,1500)});}
-</script><h1>2026-09-06 — 0 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p>
+</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Sunucusuz GPU&#x27;da Ollama&#x27;nın soğuk başlama süresi 50 saniyeden 4.4 saniyeye düşürüldü.
+
+Kritik hamle, ağırlıkları yerel NVMe önbelleğinde tutmak.
+
+Böylece açık ağırlıklı modelleri sunucusuz altyapıda çalıştırmak, boşta bekleyen pahalı GPU rezervasyonlarına katlanma zorunluluğunu fiilen ortadan kaldırıyor.
+
+#ollama #serverlessgpu #runpod</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Detaylar ve optimizasyon adımları:
+https://medium.com/@gsuryakumar2to2.5/from-50-seconds-to-4-4-fixing-ollama-cold-starts-on-runpod-serverless-49c7071a2cb5?source=rss------large_language_models-5</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Sunucusuz GPU üzerinde Ollama modelinin saniye cinsinden soğuk başlama süresi · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Dokuz tabloluk bir sorguya beş satırlık tek bir tablo eklemek, süreyi 0.3 ms&#x27;den 467 ms&#x27;ye fırlattı.
+
+Sorunun kaynağı, PostgreSQL&#x27;in 2005 yılından bu yana varsayılan olarak 8 tuttuğu join_collapse_limit parametresi. Tablo sayısı sekizi aşınca birleştirmeler düzleştirilmez. Planlayıcı, arama uzayını sınırlamak ve planlama maliyetini kısmak adına yürütmeyi hafif nested loop yerine maliyetli hash join adımlarına kilitler.
+
+join_collapse_limit değerini 12 seviyesine çekmek, planlayıcıya optimizasyon esnekliği kazandırarak sorguyu yeniden milisaniye altına indirir. Küçük arama tablolarının getirdiği bu ani plan regresyonları veri hacminden değil, doğrudan planlayıcının birleştirme sınırından kaynaklanır.
+
+#postgresql #databaseperformance #queryoptimization</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Analiz ve test detayları:
+ExoBench: https://postgr.es/p/9tP</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL join_collapse_limit optimizasyonu · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Kubernetes v1.37 ile rootless Kubelet modu nihayet betaya geçti.
+
+Düğüm üzerinde root çalışan bileşenler, konteyner kaçış açıklarında tüm ana makineyi savunmasız bırakıyor. Bu ciddi bir risk. Bir saldırgan yalıtımı aştığı anda işletim sisteminde tam yetki kazanıyor. Düğümlerde Kubelet servisinin kullanıcı ad alanı desteğine ve çalıştığı yetki kimliğine bakmak gerekiyor.
+
+Ancak doğrudan donanım erişimi veya özel çekirdek modülü isteyen düğümlerde bu model henüz geçerli değil.
+
+#kubernetes #devops #linux</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar:
+• Görsel kaynağı: Kubernetes
+• [S1] https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/
+• [S2] https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/
+• [S3] https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/
+• [S4] https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/
+• [S5] https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes Rootless Düğüm Mimarisi Takvimi · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Küresel elektrik talebindeki artışın %83&#x27;ünü tek başına güneş karşıladı.
+
+&quot;Yenilenebilir kaynaklar baz yük sağlayamaz ve marjinal kalır&quot; inanışı üretim verisiyle uyuşmuyor. Almanya ve İspanya&#x27;da rüzgar ile güneşin payı toplam elektrik üretiminin yarısını aştı.
+
+İddia üretim hacminde yanılıyor; ancak şebeke ölçeğinde depolama yatırımı yapılmadıkça esnek termik yedek ihtiyacı ortadan kalkmıyor.
+
+Altyapıda sistem kararlılığını belirleyen artık üretim kaynağı değil, tamponlama kapasitesi.
+
+#yenilenebilirenerji #enerjialtyapisi #sebekeyonetimi</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Veri kaynakları ve detaylar:
+
+• Ülke bazlı yenilenebilir elektrik payları: Our World in Data (share-electricity-renewables)
+https://ourworldindata.org/grapher/share-electricity-renewables
+
+• Küresel elektrik talebi ve üretim verileri (Ember, 2025): [S1], [S2]
+https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Seçili ekonomilerde elektriğin yenilenebilir kaynaklardan sağlanan payı · denetim: OK</p></div></div>
