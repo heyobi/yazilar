@@ -26,37 +26,26 @@ details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
 function cp(id,btn){const t=document.getElementById(id).innerText;
  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
  setTimeout(()=>btn.textContent=o,1500)});}
-</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Dokuz tabloluk bir sorguya beş satırlık arama tablosu eklemek, süreyi 0.3ms&#x27;den 467ms&#x27;ye fırlatabiliyor.
+</script><h1>2026-09-06 — 3 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Dokuz tabloluk bir sorguya 5 satırlık referans tablosu eklemek, süreyi 0.3 ms&#x27;den 467 ms&#x27;ye fırlattı.
 
-Nedeni tablonun büyüklüğü değil; PostgreSQL&#x27;in 2005&#x27;ten beri varsayılan join_collapse_limit değerinin 8 olması. Planlayıcı sekiz tabloya kadar tüm birleştirme sıralarını eksiksiz tarayarak en uygun planı bulabiliyor. Arama sınırı aşıldığında ise planlayıcı arama maliyetini kısmak için iç içe döngüleri terk edip karma birleştirmeye geçiyor.
+Sorgu bu tablo olmadan her ölçekte 0.3 ms içinde tamamlanıyordu. Sorun veri hacmi değil. PostgreSQL, 2005 yılından beri join_collapse_limit parametresini varsayılan olarak 8 değerinde tutuyor. Sorgudaki tablo sayısı bu eşiği aştığında, optimizasyon motoru dinamik programlama tabanlı kapsamlı arama algoritmasını devreden çıkarıyor. Kısıtlı sezgisellere sapan planlayıcı, indeksli nested loop planı yerine 467 ms süren hash join rotasını seçiyor.
 
-Böyle bir durumda refleks olarak indeks eklemek sorgu planını düzeltmez. Oturum bazında join_collapse_limit değerini 12 seviyesine çekmek, iç içe döngü planını ve milisaniye altı süreyi doğrudan geri kazandırıyor.
+Oturum düzeyinde join_collapse_limit değerini 12&#x27;ye ayarlamak, nested loop planını geri getirerek süreyi yeniden milisaniye düzeyinin altına indiriyor.
 
-Sorgu süresini verinin hacmi değil, planlayıcının arama uzayı sınırı belirler.
+#postgresql #databaseperformance #queryoptimization</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Analiz ve test detayları:
+Kart ve veri kaynağı: ExoBench
+[S1], [S2], [S3], [S4], [S5]: https://postgr.es/p/9tP</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Planlayıcı birleştirme arama sınırını oturum bazında artırma · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Ajanlar yaygınlaştıkça token harcamaları, personel bütçesinin ardından en büyük ikinci gider kalemi oluyor.
 
-#postgresql #database #queryoptimization</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynak ve teknik inceleme:
-- Görsel ve test verileri: ExoBench (https://postgr.es/p/9tP)
-- Alexander Ioffe, PostgreSQL join_collapse_limit analizi: https://postgr.es/p/9tP</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL sorgu planlayıcı birleştirme sınırı · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Kubernetes 1.37 ile rootless kubelet betaya geçti.
+Seçenekler arasındaki belirleyici ölçü, görev başına net verimlilik. Rutin veri aktarımı ve şablon sorgu analizlerinde token harcamak insan emeğine kıyasla belirgin tasarruf sağlarken, karmaşık veritabanı mimarisi tasarımlarında kontrolsüz tüketim yerine kıdemli mühendis istihdamı sermayeyi koruyor.
 
-Standart model ile rootless yapılandırma arasındaki kritik fark, kaçış anındaki yetki sınırıdır. Klasik kubelet saldırgana doğrudan ana makine kök yetkisi verirken, rootless modda UID 0 dışarıdaki yetkisiz bir kullanıcıya eşlenir. Yalıtılmış tekil iş yüklerinde standart yapı yetebilir; çok kiracılı veritabanı düğümlerinde ise rootless mimariyi seçin.
+Geliştirme ortamında çalışan ajanların günlük token tüketim dökümüne bakın.
 
-Düğümlerde kubelet sürecinin hangi UID ile çalıştığını denetleyin.
+#tokeneconomics #database #devops</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Rapor ve görsel kaynağı: Neon
+https://neon.com/blog/comparing-token-economics-across-42-ai-models</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Personel gideri bir şirketin en büyük maliyetiyse, ajanlar daha fazla iş üstlendikçe token harcamaları çok yakında hemen ikinci sıraya yerleşecek. · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">PostgreSQL&#x27;e hiç dokunmayan rutin bir çekirdek yaması, tüm HA kümesini dakikalar içinde düşürebilir.
 
-#kubernetes #devops #linux</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar:
-- Sürüm destek süreleri: endoflife.date
-- Kubernetes 1.37 Rootless Kubelet duyurusu: https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/
-- Konteyner kaçış izolasyonu analizi: https://medium.com/@pujamaheshvari5/kubernetes-rootless-nodes-reducing-what-a-container-breakout-can-actually-reach-dffe75865164?source=rss------devops-5</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes sürümlerinde aktif destek süreleri hızla daralıyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Olası 3 ağ zaman aşımı senaryosunun 2&#x27;sinde yeniden deneme mantığı veritabanını sessizce bozar.
+Veritabanı ikilileri hiç değişmez. Ancak Patroni düğümleri sırayla güncellenirken peş peşe tetiklenen failover adımları, anlık quorum kaybıyla yazma trafiğini tamamen kilitler. Switchover kesinti üretmez fakat en az 1 replika şarttır. Düğümlerde gözetimsiz paket güncellemeleri ve Patroni bakım modu bayrağı incelenmelidir.
 
-İstemci tarafında idempotens anahtarı bulunmadığında, başarılı yazma sonrasındaki ağ kopmalarında tekrarlanan istekler aynı kaydı veritabanında mükerrer işletir. Oluşan kayıtlar günlerce tamamen geçerli görünerek tablolarda fark edilmeden kalır. Uygulama logları tertemizdir. Arka planda ise bakiye ve durum sapmaları sessizce birikir.
+Otomatik failover kurgusu bulunmayan bağımsız sunucularda bu risk oluşmaz.
 
-Elbette salt okunur sorgularda veya veritabanı seviyesinde tekillik kısıtlarıyla korunan tablolarda bu risk geçerli değildir.
-
-#postgresql #database #backend</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynak ve detaylı inceleme:
-Medium: https://medium.com/@davuttam/the-bug-that-doesnt-show-up-in-your-logs-until-a-user-finds-it-5f326b60d0c3?source=rss------postgresql-5</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">İdempotens anahtarları bulunmayan yeniden deneme mantığı neden sessiz veri bozulması yaratır ve Python&#x27;da nasıl çözülür · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Ajanlar operasyonu ucuzlatmıyor; token faturası personel giderinin hemen ardından ikinci sıraya yerleşiyor.
-
-Geliştirici maliyetini sıfırlama vaadi yaygın bir kabul görüyor, ancak tüketim verisi bunu yalanlıyor. 50 mühendisin günlük ajan kullanımında model seçimi ayda 18 bin dolarlık fark yaratıyor. 500 mühendiste bu makas 86 kata çıkıyor.
-
-Kota ve döngü denetimi işletilmediğinde sistem tasarruf üretmiyor, bordro harcamasını bulut faturasına devrediyor.
-
-#aiagents #devops #finops</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Analiz kaynağı: Neon (Comparing Token Economics Across 42 AI Models)
-https://neon.com/blog/comparing-token-economics-across-42-ai-models</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Bir şirketin en büyük maliyeti genelde personel gideriyse, ajanlar daha fazla iş üstlendikçe token maliyetleri çok yakında ikinci sıraya yerleşecek. · denetim: OK</p></div></div>
+#postgresql #patroni #highavailability</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynak ve teknik inceleme:
+Planet PostgreSQL: https://postgr.es/p/9tQ</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Rutin bir işletim sistemi yaması, PostgreSQL&#x27;in kendisine hiç dokunulmasa bile veritabanını çevrimdışı bırakabilir. · denetim: OK</p></div></div>
