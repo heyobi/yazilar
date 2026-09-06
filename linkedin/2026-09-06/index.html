@@ -26,41 +26,43 @@ details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
 function cp(id,btn){const t=document.getElementById(id).innerText;
  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
  setTimeout(()=>btn.textContent=o,1500)});}
-</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Qwen 3.8 27B GGUF sürümü, karttaki 10 milyon indirmeyle taban modelini neredeyse ikiye katladı.
+</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Karttaki unsloth/Qwen3.8-27B-GGUF modeli, 10 milyon indirme barajını tek başına aştı.
 
-Veri merkezi GPU&#x27;su kiralamak tek seçenek değil. Mühendisler 4-bit modelleri 16-19GB VRAM&#x27;li yerel donanımlarda çalıştırıyor.
+Tüketici sınıfı tek GPU üzerinde çalışabilen bu ölçek, yerel çıkarımda çoklu kart ve karmaşık küme işletimi zorunluluğunu ortadan kaldırıyor.
 
-Açık model işletimi artık bulut bütçesine değil, masadaki donanıma bakıyor.
+Altyapıda açık model koşturmak artık kurumsal veri merkezi bütçesi gerektirmiyor.
 
-#localllm #opensource #devops</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar:
-- Görsel verileri: Hugging Face Hub API (&#x27;Qwen3.8-27B&#x27; modelleri, 30 günlük indirmeler)
-- [S3] Donanım gereksinimleri: https://unsloth.ai/docs/models/qwen3.8</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">unsloth/Qwen3.8-27B-GGUF: 10,311,462 (Toplam İndirme Sayısı) · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Grafikte psycopg2-binary, haftalık 63 milyon indirmeyle asyncpg ve psycopg paketlerinin toplamını geride bırakıyor.
+#localai #devops #opensource</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Grafik ve veri kaynağı: Hugging Face Hub API (&#x27;Qwen3.8-27B&#x27; araması, son 30 günlük indirmelere göre sıralı).</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Qwen3.8-27B aramalarında en çok indirilen model unsloth varyantı · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Grafikteki aylık 34 CVE seviyesi, orkestrasyon katmanındaki yalıtım açığını açıkça özetliyor.
 
-Asenkron sürücüler teoride yüksek eşzamanlılık vadetse de modern üretim ortamlarındaki altyapı gerçekleri farklı çalışıyor. Konteyner tabanlı onlarca mikroservis pod&#x27;unun doğrudan PostgreSQL&#x27;e bağlanması bağlantı sınırlarını hızla tüketir. Bu nedenle mimarinin önüne mutlaka PgBouncer konumlandırılır ve çoğunlukla transaction pooling modunda çalıştırılır.
+Bu tablonun arkasında yapısal bir mekanizma var. Konteynerler bağımsız birer sanal makine değildir; ana makinenin Linux çekirdeğini cgroups ve ad alanlarıyla paylaşır. Ağın sınırında duran ingress-nginx gibi denetleyiciler ise dış dünyadan gelen istekleri işlerken zorunlu olarak küme genelinde geniş yetkilerle ve Secret nesneleriyle çalışır.
 
-İşte kırılma noktası burada başlıyor. Transaction pooling altında bir bağlantı istemciye yalnızca tek bir SQL işlemi süresince tahsis edilir ve oturum durumu korunmaz. Asenkron sürücülerin varsayılan prepared statement mekanizmaları ve durum bilgisi tutan oturum yapıları bu havuzlama modelinde sıkça çakışır. Senkron sürücü ise bağlantıyı milisaniyeler içinde alıp işi biter bitmez havuza iade eden yalın bir döngü sunar. Python ekosisteminde fiili standart konumunu koruyan Psycopg kütüphanesi, bu sade mimariyle kurumsal altyapılarda vazgeçilmezliğini koruyor.
+Giriş trafiğini ayrıştıran katmanda oluşacak bir girdi denetimi hatası, saldırganın doğrudan denetleyici sürecinde kod çalıştırmasına izin veriyor. 9.8 taban puanıyla kritik seviyede duyurulan CVE-2025-1974 açığı, bu yetki zincirinin nasıl kırıldığını gösteriyor. Denetleyici bağlamına sızan bir saldırgan, bileşenin erişebildiği tüm küme sırlarını zahmetsizce dışarı sızdırabiliyor.
 
-Mikroservis ölçeğinde veritabanı verimliliğini asenkron soketler değil, havuz yöneticisiyle uyumlu çalışan kısa ömürlü senkron bağlantılar belirler.
+Kabul denetleyicisini devre dışı bırakmak geçici bir hafifletme sağlasa da risk ancak v1.11.5 veya v1.12.1 sürümüne geçilerek kapatılabiliyor.
 
-#postgresql #pgbouncer #devops</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Veri kaynakları ve referanslar:
+Host ve çekirdek sınırlarını sıkılaştırmadan yalnızca orkestrasyon soyutlamasına güvenen altyapılar doğrudan ele geçirilme riski taşır.
 
-- İndirme verileri: PyPI Stats (pypistats.org), downloads without mirrors, weekly sums
-- [S1] Psycopg 3.2 Sürüm Notları: https://www.psycopg.org/articles/2024/06/30/psycopg-32-released/</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">psycopg haftalık indirme sayısında asyncpg&#x27;yi geride bıraktı. · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Grafikte uv&#x27;nin haftalık indirmesi 49 milyona ulaşırken Poetry 17 milyon bandında seyrediyor.
+#kubernetes #devsecops #cloudsecurity</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve teknik detaylar:
+- Görsel verisi: NVD (National Vulnerability Database), yayım tarihine göre
+- CVE-2025-1974 ve ingress-nginx güvenlik duyurusu: https://groups.google.com/g/kubernetes-security-announce/c/2qa9DFtN0cQ</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes güvenlik açıkları son iki yılda süreklilik gösteriyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Karttaki verilere göre PostgreSQL 14 için resmi desteğin tükenmesine sadece 67 gün kaldı.
 
-Aralarındaki temel ayrım, CI boru hatlarındaki kurulum hızında ortaya çıkıyor. Mevcut paketleme ve yayınlama süreçlerinde Poetry yeterli kalabilir. Fakat konteyner hazırlığı ve runner süreleri baskı yaratıyorsa, uv belirgin hız avantajı sağlıyor. uv ile sabitlenmiş bağımlılıklar üzerinden tekrarlanabilir ortamlar kurmak imaj derleme süresini ciddi biçimde düşürüyor. Paket yöneticisi seçimi artık doğrudan altyapı maliyetidir.
+Destek bittiğinde topluluk güvenlik yamaları tamamen kesilecek. Yükseltmeyi son haftalara sıkıştırmak ise ciddi bir işletim riski barındırıyor. Büyük veri kümelerinde pg_upgrade süreçleri; bozuk indeksler, replikasyon yuvası uyumsuzlukları veya test edilmemiş eklentiler yüzünden saatlerce süren üretim kesintilerine dönüşebilir.
 
-CI hattınızdaki runner harcamalarına ve bağımlılık kurulumunun faturadaki payına bakın.
+Şimdiden üretim filonuzdaki sürüm envanterini çıkarın, replikasyon topolojinizi gözden geçirin ve yükseltme provasını yedekleme ortamında başlatın.
 
-#devops #cicd #python</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve referanslar:
-- Grafik verisi: PyPI Stats (pypistats.org)
-- [S1], [S2] Pyrig: https://github.com/Winipedia/pyrig
-- [S3], [S4] Xorq: https://github.com/xorq-labs/xorq</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">uv paketinin haftalık indirme hacmi poetry seviyesine yaklaşıyor · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Veri merkezleri şebekeyi çökertiyor sanılıyor; oysa grafikte Almanya&#x27;da temiz pay %59&#x27;u aştı.
+Elbette dış dünyaya tamamen kapalı izole ağlarda çalışan ya da kurumsal uzatılmış destek anlaşması bulunan altyapılar için bu risk geçerli değildir.
 
-Yapay zekânın şebekeyi kirlettiği inanışı yaygın. Evet, tek bir hesaplama kümesi genişlemesi bile 83 megavat güç çekebiliyor. Fakat bu yargı kritik bir piyasa mekanizmasını ıskalıyor: Büyük operatörlerin uzun vadeli enerji sözleşmeleri (PPA), yeni rüzgâr ve güneş yatırımlarının ana finansörü oldu. Tüketim artışı yeşil dönüşümü engellemiyor; aksine yeni santral inşasını doğrudan fonluyor.
+#postgresql #devops #database</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Görseldeki verilerin kaynağı: endoflife.date (resmi PostgreSQL destek bitiş tarihleri) — https://endoflife.date/postgresql</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL 14 en az kalan destek gününe sahip sürüm · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Nükleer enerjinin devri kapandı sanılıyordu; oysa grafikteki gibi ABD 2025&#x27;te 784,8 TWh üretim yaptı.
 
-Kendi küme ve sunucu altyapınızı seçerken veri merkezinin PPA taahhütlerini teknik metrikler kadar önceliklendiriyor musunuz?
+Yaygın inanış, yenilenebilir kaynakların veri merkezlerini tek başına besleyebileceği yönündeydi. Oysa kesintisiz çalışan veritabanı ve yapay zekâ kümeleri dalgalanma kabul etmez; sürekli baz yük ister.
 
-#verimerkezi #yenilenebilirenerji #bulutaltyapi</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Yazıda ve görselde geçen verilerin kaynakları:
+Bu yüzden Microsoft ve Meta, kapalı reaktörleri canlandırmak için anlaşmalar yaptı. Hatta Last Energy&#x27;nin 80&#x27;den fazla mikroreaktör içeren Avrupa portföyünün yarısı veri merkezlerine ayrıldı.
 
-• Görsel verisi: Our World in Data, &#x27;share-electricity-renewables&#x27;
-• Teksas veri merkezi ve kapasite verileri [S1-S4]: The Texas Tribune (2025) https://www.texastribune.org/2025/10/21/south-texas-data-center-renewable-energy/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Seçili ülkelerde elektriğin yenilenebilir payı son yıllarda sürekli yükseliyor · denetim: OK</p></div></div>
+Kendi altyapınızın kapasite ve kesinti planlarında şebekenin baz yük sınırlarını hesaba katıyor musunuz?
+
+#verimerkezi #nukleerenerji #bazyuk</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Veri ve kaynaklar:
+
+• Nükleer üretim verileri: Our World in Data, &#x27;nuclear-energy-generation&#x27;
+• Westinghouse anlaşması ve reaktör planı: https://www.cnbc.com/2025/11/10/nuclear-power-energy-department-chris-wright-loan-westinghouse-ai-data-center.html
+• Eski reaktörlerin yeniden canlandırılması: https://www.theverge.com/ai-artificial-intelligence/719409/nuclear-energy-uranium-enrichment-ai-data-center-electricity
+• Veri merkezleri ve mikroreaktör anlaşmaları: https://www.fastcompany.com/91287149/nuclear-startup-last-energy-microreactors-texas-data-centers</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">ABD, 2025 yılında 784.8 Terawatt-saat ile Fransa ve İngiltere&#x27;nin önünde yer aldı. · denetim: OK</p></div></div>
