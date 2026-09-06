@@ -26,44 +26,37 @@ details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
 function cp(id,btn){const t=document.getElementById(id).innerText;
  navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
  setTimeout(()=>btn.textContent=o,1500)});}
-</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Sunucusuz GPU&#x27;da Ollama&#x27;nın soğuk başlama süresi 50 saniyeden 4.4 saniyeye düşürüldü.
+</script><h1>2026-09-06 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Dokuz tabloluk bir sorguya beş satırlık arama tablosu eklemek, süreyi 0.3ms&#x27;den 467ms&#x27;ye fırlatabiliyor.
 
-Kritik hamle, ağırlıkları yerel NVMe önbelleğinde tutmak.
+Nedeni tablonun büyüklüğü değil; PostgreSQL&#x27;in 2005&#x27;ten beri varsayılan join_collapse_limit değerinin 8 olması. Planlayıcı sekiz tabloya kadar tüm birleştirme sıralarını eksiksiz tarayarak en uygun planı bulabiliyor. Arama sınırı aşıldığında ise planlayıcı arama maliyetini kısmak için iç içe döngüleri terk edip karma birleştirmeye geçiyor.
 
-Böylece açık ağırlıklı modelleri sunucusuz altyapıda çalıştırmak, boşta bekleyen pahalı GPU rezervasyonlarına katlanma zorunluluğunu fiilen ortadan kaldırıyor.
+Böyle bir durumda refleks olarak indeks eklemek sorgu planını düzeltmez. Oturum bazında join_collapse_limit değerini 12 seviyesine çekmek, iç içe döngü planını ve milisaniye altı süreyi doğrudan geri kazandırıyor.
 
-#ollama #serverlessgpu #runpod</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Detaylar ve optimizasyon adımları:
-https://medium.com/@gsuryakumar2to2.5/from-50-seconds-to-4-4-fixing-ollama-cold-starts-on-runpod-serverless-49c7071a2cb5?source=rss------large_language_models-5</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Sunucusuz GPU üzerinde Ollama modelinin saniye cinsinden soğuk başlama süresi · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Dokuz tabloluk bir sorguya beş satırlık tek bir tablo eklemek, süreyi 0.3 ms&#x27;den 467 ms&#x27;ye fırlattı.
+Sorgu süresini verinin hacmi değil, planlayıcının arama uzayı sınırı belirler.
 
-Sorunun kaynağı, PostgreSQL&#x27;in 2005 yılından bu yana varsayılan olarak 8 tuttuğu join_collapse_limit parametresi. Tablo sayısı sekizi aşınca birleştirmeler düzleştirilmez. Planlayıcı, arama uzayını sınırlamak ve planlama maliyetini kısmak adına yürütmeyi hafif nested loop yerine maliyetli hash join adımlarına kilitler.
+#postgresql #database #queryoptimization</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynak ve teknik inceleme:
+- Görsel ve test verileri: ExoBench (https://postgr.es/p/9tP)
+- Alexander Ioffe, PostgreSQL join_collapse_limit analizi: https://postgr.es/p/9tP</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL sorgu planlayıcı birleştirme sınırı · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Kubernetes 1.37 ile rootless kubelet betaya geçti.
 
-join_collapse_limit değerini 12 seviyesine çekmek, planlayıcıya optimizasyon esnekliği kazandırarak sorguyu yeniden milisaniye altına indirir. Küçük arama tablolarının getirdiği bu ani plan regresyonları veri hacminden değil, doğrudan planlayıcının birleştirme sınırından kaynaklanır.
+Standart model ile rootless yapılandırma arasındaki kritik fark, kaçış anındaki yetki sınırıdır. Klasik kubelet saldırgana doğrudan ana makine kök yetkisi verirken, rootless modda UID 0 dışarıdaki yetkisiz bir kullanıcıya eşlenir. Yalıtılmış tekil iş yüklerinde standart yapı yetebilir; çok kiracılı veritabanı düğümlerinde ise rootless mimariyi seçin.
 
-#postgresql #databaseperformance #queryoptimization</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Analiz ve test detayları:
-ExoBench: https://postgr.es/p/9tP</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL join_collapse_limit optimizasyonu · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Kubernetes v1.37 ile rootless Kubelet modu nihayet betaya geçti.
+Düğümlerde kubelet sürecinin hangi UID ile çalıştığını denetleyin.
 
-Düğüm üzerinde root çalışan bileşenler, konteyner kaçış açıklarında tüm ana makineyi savunmasız bırakıyor. Bu ciddi bir risk. Bir saldırgan yalıtımı aştığı anda işletim sisteminde tam yetki kazanıyor. Düğümlerde Kubelet servisinin kullanıcı ad alanı desteğine ve çalıştığı yetki kimliğine bakmak gerekiyor.
+#kubernetes #devops #linux</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar:
+- Sürüm destek süreleri: endoflife.date
+- Kubernetes 1.37 Rootless Kubelet duyurusu: https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/
+- Konteyner kaçış izolasyonu analizi: https://medium.com/@pujamaheshvari5/kubernetes-rootless-nodes-reducing-what-a-container-breakout-can-actually-reach-dffe75865164?source=rss------devops-5</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes sürümlerinde aktif destek süreleri hızla daralıyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Olası 3 ağ zaman aşımı senaryosunun 2&#x27;sinde yeniden deneme mantığı veritabanını sessizce bozar.
 
-Ancak doğrudan donanım erişimi veya özel çekirdek modülü isteyen düğümlerde bu model henüz geçerli değil.
+İstemci tarafında idempotens anahtarı bulunmadığında, başarılı yazma sonrasındaki ağ kopmalarında tekrarlanan istekler aynı kaydı veritabanında mükerrer işletir. Oluşan kayıtlar günlerce tamamen geçerli görünerek tablolarda fark edilmeden kalır. Uygulama logları tertemizdir. Arka planda ise bakiye ve durum sapmaları sessizce birikir.
 
-#kubernetes #devops #linux</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar:
-• Görsel kaynağı: Kubernetes
-• [S1] https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/
-• [S2] https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/
-• [S3] https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/
-• [S4] https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/
-• [S5] https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes Rootless Düğüm Mimarisi Takvimi · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Küresel elektrik talebindeki artışın %83&#x27;ünü tek başına güneş karşıladı.
+Elbette salt okunur sorgularda veya veritabanı seviyesinde tekillik kısıtlarıyla korunan tablolarda bu risk geçerli değildir.
 
-&quot;Yenilenebilir kaynaklar baz yük sağlayamaz ve marjinal kalır&quot; inanışı üretim verisiyle uyuşmuyor. Almanya ve İspanya&#x27;da rüzgar ile güneşin payı toplam elektrik üretiminin yarısını aştı.
+#postgresql #database #backend</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynak ve detaylı inceleme:
+Medium: https://medium.com/@davuttam/the-bug-that-doesnt-show-up-in-your-logs-until-a-user-finds-it-5f326b60d0c3?source=rss------postgresql-5</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">İdempotens anahtarları bulunmayan yeniden deneme mantığı neden sessiz veri bozulması yaratır ve Python&#x27;da nasıl çözülür · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Ajanlar operasyonu ucuzlatmıyor; token faturası personel giderinin hemen ardından ikinci sıraya yerleşiyor.
 
-İddia üretim hacminde yanılıyor; ancak şebeke ölçeğinde depolama yatırımı yapılmadıkça esnek termik yedek ihtiyacı ortadan kalkmıyor.
+Geliştirici maliyetini sıfırlama vaadi yaygın bir kabul görüyor, ancak tüketim verisi bunu yalanlıyor. 50 mühendisin günlük ajan kullanımında model seçimi ayda 18 bin dolarlık fark yaratıyor. 500 mühendiste bu makas 86 kata çıkıyor.
 
-Altyapıda sistem kararlılığını belirleyen artık üretim kaynağı değil, tamponlama kapasitesi.
+Kota ve döngü denetimi işletilmediğinde sistem tasarruf üretmiyor, bordro harcamasını bulut faturasına devrediyor.
 
-#yenilenebilirenerji #enerjialtyapisi #sebekeyonetimi</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Veri kaynakları ve detaylar:
-
-• Ülke bazlı yenilenebilir elektrik payları: Our World in Data (share-electricity-renewables)
-https://ourworldindata.org/grapher/share-electricity-renewables
-
-• Küresel elektrik talebi ve üretim verileri (Ember, 2025): [S1], [S2]
-https://ember-energy.org/latest-insights/global-electricity-mid-year-insights-2025/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Seçili ekonomilerde elektriğin yenilenebilir kaynaklardan sağlanan payı · denetim: OK</p></div></div>
+#aiagents #devops #finops</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Analiz kaynağı: Neon (Comparing Token Economics Across 42 AI Models)
+https://neon.com/blog/comparing-token-economics-across-42-ai-models</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Bir şirketin en büyük maliyeti genelde personel gideriyse, ajanlar daha fazla iş üstlendikçe token maliyetleri çok yakında ikinci sıraya yerleşecek. · denetim: OK</p></div></div>
