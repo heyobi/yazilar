@@ -1,0 +1,73 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-09-08</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-09-08 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Eğitim ve çıkarımı tek Kubernetes kümesinde birleştirmek, GPU kullanımını %35&#x27;ten %60&#x27;ın üzerine çıkardı.
+
+Ayrı silolarda donanım atıl kalıyordu.
+
+China Merchants Bank, yaklaşık 10.000 hızlandırıcı kartı dinamik öncelikle paylaştırarak token maliyetini de %60 düşürdü.
+
+Kapasite darboğazını yeni donanım değil, paylaşımlı küme mimarisi çözüyor.
+
+#kubernetes #gpu #cloudnative</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar:
+CNCF vaka analizi: https://www.cncf.io/announcements/2026/09/07/china-merchants-bank-wins-cncf-end-user-case-study-contest-for-unifying-ai-training-and-inference-on-kubernetes/</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes üzerinde birleşik GPU kullanım oranı · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">PostgreSQL 18 dahil kilit beklemelerini yakalayan mekanizma varsayılan olarak kapalı geliyor.
+
+Bir satır kilidi yüzünden bağlantı havuzu dolup sorgu gecikmeleri tavan yaptığında sistem arkada hiçbir iz bırakmıyor. Günlükler tamamen sessiz kalıyor. PostgreSQL 19 bu ayarı açık getirecek, ancak mevcut kümelerde log_lock_waits değerini superuser yetkisiyle elle açmak gerekiyor. Yine de kilit beklemesi 1 saniyenin altında kalan mikro çekişmelerde bu parametre hiçbir uyarı üretmez.
+
+#postgresql #database #dba</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve detaylı inceleme:
+- Görsel kaynağı: Planet PostgreSQL; The Build
+- Christophe Pettus, All Your GUCs in a Row: log_lock_waits and log_lock_failures: https://postgr.es/p/9tT</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL Kilit Beklemelerini Günlüğe Kaydetme · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Ajanların kendi yazdığı testlerle hatalarını yakalayabildiği inancı testlerde çöktü.
+
+Karmaşık doğrulama istemleri belirgin bir üstünlük sağlamadı. Dan Luu&#x27;nun Rust tabanlı kıyaslamasında ek talimat almayan varsayılan kurulum ortalamanın üzerinde kalırken, ajanların sınır senaryoları denetlemek yerine kendi hatalı mantıklarını onaylayan döngüsel testler ürettiği görüldü.
+
+Sistem seviyesinde bağımsız deterministik denetimler kurulmadıkça, otonom kod teslimatında güvenilirlik sağlanamıyor.
+
+#softwaretesting #aiagents #softwareengineering</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve inceleme:
+- Dan Luu, &#x27;How well do agents use test/verification techniques?&#x27;: https://danluu.com/agentic-testing/
+- Görsel kaynağı: Farley E. Peebles, Wikimedia Commons, Public domain</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Yapay zekâ ajanları test yazarken sadece kendi varsayımlarını onaylıyor · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">Astra&#x27;nın akıl yürütme başarısı parametre sayısından değil, yinelenen katman derinliğinden geliyor.
+
+Standart transformer mimarisinde her katman girdiyi tek forward pass ile işleyip devrederken, recurrent depth aynı ağırlık matrislerini dinamik bir döngüde art arda çalıştırıyor. Model, mantıksal problemin zorluğuna göre hesaplama bütçesini aynı katmanlar üzerinde yineleyerek artırıyor.
+
+Bellek ayak izi değişmiyor.
+
+Toplam parametre hacmini ve VRAM ihtiyacını şişirmeden hesaplama derinliğini artırmak, yerel donanımda açık ağırlıklı model çalıştıranlar için en verimli işletim zeminini sunuyor.
+
+Büyük GPU kümelerine bağımlı kalmadan akıl yürütme ölçeklemenin yolu, model boyutunu değil katman döngüsünü büyütmekten geçiyor.
+
+#recurrentdepth #localllm #aiinfrastructure</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Görsel kaynağı: BalticServers.com, Wikimedia Commons, CC BY-SA 3.0
+
+Kaynak:
+- [S1] Recurrent Depth analizi: https://xhinker.medium.com/recurrent-depth-openai-used-it-in-astra-and-doesnt-want-you-to-know-but-open-models-will-pick-c7d2251a57f8?source=rss------large_language_models-5</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Astra&#x27;nın gizli gücü: Katmanları döngüye sokan recurrent depth mimarisi · denetim: OK</p></div></div><div class="card"><img src="05-kart.jpg" alt=""><div class="pad"><pre id="p4">Çinli endüstriyel IoT ekiplerinin %48&#x27;i bulut yerel mimariye geçti.
+
+Küresel ortalama %42&#x27;de kalıyor. Uç noktalarda geleneksel yalın donanım ile konteyner orkestrasyonu arasındaki tek belirleyici ölçüt model dağıtım hızı. Sık yapay zekâ modeli güncelleyen sahalarda konteyner mimarisini, katı gecikme kısıtı olan izole istasyonlarda ise doğrudan donanım üzerinde yalın işletimi seçin.
+
+Kendi saha düğümlerinizdeki model güncelleme döngüsüne bakın.
+
+#cloudnative #iiot #edgecomputing</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Rapor ve verilerin kaynağı:
+CNCF &amp; SlashData - China&#x27;s Cloud Native Momentum as AI Moves to Inference:
+https://www.cncf.io/announcements/2026/09/07/cncf-and-slashdata-report-highlights-chinas-cloud-native-momentum-as-ai-moves-to-inference/</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Çin IIoT geliştiricilerinde bulut yerel oranı · denetim: OK</p></div></div>
