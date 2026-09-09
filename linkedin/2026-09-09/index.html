@@ -1,0 +1,71 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-09-09</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-09-09 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">AWS kataloğundaki 200 servisten yalnızca 8 tanesi altyapı sorunlarının yüzde 90&#x27;ını çözmeye yetiyor.
+
+Gereksiz çeşitlilik mimari yüktür. Çekirdek bileşenlerde uzmanlaşmak, dağıtım karmaşıklığını ve işletim maliyetini doğrudan düşürür. Sağlam bir sistem, servis yığınından değil sade bir mimariden doğar.
+
+#aws #devops #cloudinfrastructure</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynak ve detaylı okuma:
+Görsel ve analiz kaynağı: DevopsLesson (Medium)
+[S1]-[S5] https://medium.com/@devopslesson/aws-for-devops-engineers-the-only-services-you-actually-need-to-know-first-e188aeacd8fe?source=rss------devops-5</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Yetkin bir altyapı için gereken AWS servisi · denetim: OK</p></div></div><div class="card"><img src="02-kart.jpg" alt=""><div class="pad"><pre id="p1">Tüm DDL şemasını modele yüklemek doğruluğu artırmıyor; canlı testlerde 10 kontrolün 7&#x27;si başarısız oldu.
+
+Gereksiz tablolar bağlamı kirletiyor.
+
+Büyük şemalarda yüzlerce tabloyu isteme yığmak halüsinatif JOIN sorgularına yol açarken, schemagate modeli sadece yetkili ve ilgili tablolarla sınırlıyor.
+
+SQLite üzerinde 445 testi geçen yapılar, canlı ortamdaki lehçe farklarında ve katalog filtrelerinde kolayca dağılıyor.
+
+Doğru SQL geniş bağlamdan değil, sıkı filtrelenmiş katalogdan çıkıyor.
+
+#postgresql #database #texttosql</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve test detayları:
+
+• Görsel kaynağı: Jason Wei et al, Wikimedia Commons, CC BY 4.0
+• Ashish Sinha, &#x27;What running my text-to-SQL library against a real Oracle database found&#x27;: https://medium.com/@sinha.ashish.4.u/what-running-my-text-to-sql-library-against-a-real-oracle-database-found-0c7dd8b08b3d?source=rss------database-5</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Kurumsal veritabanında tüm şemayı LLM&#x27;e vermek sorgu doğruluğunu düşürüyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.jpg" alt=""><div class="pad"><pre id="p2">Kopuk bir abone, 16 MB boyutundaki segmentlerle pg_wal dizinini disk dolana dek büyütebilir.
+
+Sebep çoğaltma yuvasının çalışma mekanizması.
+
+PostgreSQL, kesinti sonrasında güvenli biçimde yeniden başlamayı garanti etmek amacıyla tüketilmemiş log dosyalarını silmeyi durdurur. Abone çevrimdışı kaldığında yuvanın restart_lsn konumu ilerlemez; sunucu üretilen tüm değişiklik kayıtlarını yerel diskte saklamaya devam eder. Bu aşamada max_wal_size parametresi için tanımlanan sınırlar yuvanın ihtiyaç duyduğu WAL segmentlerinin silinmesini sağlamaz. Segmentlerin uzak arşive başarıyla kopyalanmış olması da pg_wal dizinindeki yerel disk alanını temizlemez. Boyut sınırı konulmayan her çoğaltma yuvası, birincil veritabanını disk tükenmesi nedeniyle doğrudan durma noktasına getirir.
+
+#postgresql #dba #replication</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar:
+- [S1, S2, S3, S4, S5] https://medium.com/@mydbopsdatabasemanagement/why-postgresql-wal-files-keep-growing-during-logical-replication-56b16e44ccb3?source=rss------postgresql-5
+- [S6] https://www.morling.dev/blog/postgres-replication-slots-confirmed-flush-lsn-vs-restart-lsn/
+- Görsel kaynağı: Ser Amantio di Nicolao, Wikimedia Commons, CC BY-SA 4.0</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Mantıksal çoğaltma yuvası kopuk abonede WAL dosyalarını silmeyi tamamen durdurur · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">Tarayıcı tabanlı SQL editörleri ile masaüstü istemciler arasındaki asıl fark konfor değil, kimlik güvenliğidir.
+
+Masaüstü araçlar bağlantı bilgilerini yerel disklere dağıtırken, self-hosted LibreDB Studio yetkilendirmeyi merkezi sunucuda izole eder. Yerel şifreler denetimden kaçar. İzole derin analizde masaüstü araçlar, paylaşımlı kümelere güvenli erişimde ise merkezi tarayıcı seçilmeli. İstemci makinelerindeki pgpass dosyalarında unutulan veritabanı şifrelerine bakın.
+
+#postgresql #database #infosec</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar:
+- Görsel: Hugovanmeijeren, Wikimedia Commons, CC BY-SA 3.0
+- LibreDB Studio: https://www.reddit.com/r/PostgreSQL/comments/1wa568c/libredb_studio_an_open_source_selfhosted_sql_ide/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Veritabanı erişimini tarayıcıda merkezileştirmek yerel şifre sızıntılarını önler · denetim: OK</p></div></div><div class="card"><img src="05-kart.jpg" alt=""><div class="pad"><pre id="p4">git.kernel.org altyapısında 14 CPU çekirdeği yalnızca kazıma botlarına HTML commit derliyor.
+
+Sistem, günlük 6 milyon bot isteğine meşru erişimden çok işlemci harcıyor. Konut ve mobil proxy havuzlarını kullanan tarayıcılar IP başına yalnızca 4 ya da 5 istek gönderip hızla yeni adrese geçiyor. Klasik IP engeli çalışmıyor. Loglarda render maliyetini ve IP rotasyonunu denetlemek şart. Bu risk, dışa kapalı depolarda ve kimlik doğrulamalı servislerde geçerli değil.
+
+#linux #sysadmin #infrastructure</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Kaynaklar ve detaylı okumalar:
+• Görsel: Hugovanmeijeren, Wikimedia Commons, CC BY-SA 3.0
+• Konstantin Ryabitsev (git.kernel.org): https://people.kernel.org/monsieuricon/creepy-crawlies
+• Simon Willison: https://simonwillison.net/2026/Sep/7/creepy-crawlies/
+• Kernel altyapı duyurusu: https://social.kernel.org/notice/AsgziNL6zgmdbta3lY</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">İstilacı bot trafiği açık kaynak altyapılarında bant genişliğini tüketiyor · denetim: OK</p></div></div>
