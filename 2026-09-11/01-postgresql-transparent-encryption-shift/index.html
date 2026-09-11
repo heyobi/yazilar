@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Compliance Patch: PostgreSQL Fleets and Transparent Data Encryption</title>
+<style>
+:root { color-scheme: light dark; }
+body { max-width: 42rem; margin: 0 auto; padding: 2rem 1.2rem 4rem;
+       font: 19px/1.65 Georgia, 'Liberation Serif', serif; color: #16181d; background: #fff; }
+h1 { font: 700 2.1rem/1.2 Ubuntu, system-ui, sans-serif; margin: 0 0 .4rem; letter-spacing: -.02em; }
+h2 { font: 700 1.35rem/1.3 Ubuntu, system-ui, sans-serif; margin: 2.2rem 0 .6rem; }
+.alt { font: 400 1.15rem/1.45 Ubuntu, system-ui, sans-serif; color: #5b6067; margin: 0 0 2rem; }
+img { width: 100%; height: auto; display: block; margin: 1.8rem 0 .4rem; border-radius: 3px; }
+figcaption, .cap { font: 400 .85rem/1.4 Ubuntu, system-ui, sans-serif; color: #6b7079;
+       text-align: center; margin: 0 0 1.8rem; }
+blockquote { border-left: 3px solid #d8dade; margin: 1.4rem 0; padding: .2rem 0 .2rem 1.1rem; color: #4a4f57; }
+code { font: .88em ui-monospace, 'Ubuntu Mono', monospace; background: #f3f4f6; padding: .12em .35em; border-radius: 3px; }
+pre { background: #f3f4f6; padding: 1rem; overflow-x: auto; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+ul, ol { padding-left: 1.3rem; }
+li { margin: .4rem 0; }
+a { color: #1a5fb4; }
+hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
+.kaynak { font: .8rem/1.5 Ubuntu, system-ui, sans-serif; color: #6b7079; }
+@media (prefers-color-scheme: dark) {
+  body { background: #16181d; color: #e7e9ec; }
+  .alt { color: #a4a9b3; } figcaption, .cap, .kaynak { color: #9aa0aa; }
+  code, pre { background: #22252c; } blockquote { border-color: #3a3e46; color: #b8bdc6; }
+  a { color: #7cb0f5; }
+}
+</style></head>
+<body>
+<article>
+<h1>The Compliance Patch: PostgreSQL Fleets and Transparent Data Encryption</h1>
+<p class="alt">Without native in-core encryption, database teams use custom table access methods and Kubernetes operators to satisfy auditors.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-09-11/01-postgresql-transparent-encryption-shift/kapak.jpg" alt="The Compliance Patch: PostgreSQL Fleets and Transparent Data Encryption"><figcaption>Photo: Mike Beltzner, Wikimedia Commons, CC BY-SA 2.0</figcaption></figure>
+<h2>The Audit Standoff</h2>
+<p>A storage volume encrypted with cloud provider keys fails enterprise security audits the moment an operator clones a volume, captures a snapshot, or writes a write-ahead log to cold storage. Storage-level encryption from cloud providers covers the underlying disk, but it does not protect copied volumes, leaked backups, or stray write-ahead log segments. Auditors increasingly reject infrastructure-only protection and demand encryption that the database engine itself controls. For engineering organizations operating in regulated sectors, encryption at rest is frequently the critical requirement preventing database adoption.</p>
+<p>When compliance officers demand database-level transparent data encryption, PostgreSQL infrastructure teams confront a long-standing architectural gap. Upstream PostgreSQL has never included native, in-core transparent data encryption. For years, engineering groups attempted to satisfy compliance by encrypting fields inside their applications. That approach created heavy operational burdens, as every microservice required custom cryptographic routines, local key caching, and intrusive schema modifications. Application-level encryption also broke SQL operations, preventing index scans, range queries, and sorting on encrypted columns.</p>
+<h2>The Table Access Method Alternative</h2>
+<p>Modern PostgreSQL architectures avoid application rewrites by moving encryption to the storage boundary. The pg_vault_tde 1.7.1 release provides transparent data encryption for PostgreSQL 17 and PostgreSQL 18 through the encrypted_heap table access method. The extension encrypts every tuple with AES-256-GCM before it reaches the storage manager and decrypts it after it leaves storage. Because this cryptographic boundary operates within the table access method, client applications execute queries without any code modifications.</p>
+<p>Enterprise security policies also demand strict separation of duties between database administrators and cryptographic keys. In pg_vault_tde, data encryption keys reside outside the database instance. The extension connects to external secret stores including HashiCorp Vault or OpenBao through the Transit engine, PKCS#11 tokens or hardware security modules, and local PKCS#12 wallets. This external key architecture prevents database superusers from extracting encryption keys directly from disk blocks or database memory dumps.</p>
+<p>Another community solution approaches storage-level encryption by modifying database internals. The open_pg_tde extension provides the tde_heap access method to encrypt tables, indexes, TOAST data, and write-ahead log records on disk while remaining transparent to queries. However, compiling open_pg_tde requires patching the core PostgreSQL source tree rather than compiling against a standard upstream installation. For platform engineering teams running extensive database fleets, maintaining patched source builds introduces operational friction and complicates routine minor version updates.</p>
+<h2>Disclosures and Developer Inquiries</h2>
+<p>Platform engineers must justify why custom table access methods are replacing ad-hoc developer encryption libraries across enterprise fleets. The historical record across vulnerability registries and developer forums explains this transition.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-09-11/01-postgresql-transparent-encryption-shift/ic-01.png" alt="NVD Vulnerability Trajectory: PostgreSQL Monthly Disclosed CVEs"><figcaption>NVD Vulnerability Trajectory: PostgreSQL Monthly Disclosed CVEs</figcaption></figure>
+<p>Over the past 24 months, public security auditing of PostgreSQL infrastructure intensified (Figure 1). The National Vulnerability Database recorded a trajectory starting at 0 disclosed CVEs in September 2024 and climbing to a peak of 24 disclosures in June 2026 across 15 recorded sampling periods (Figure 1). This rising audit scrutiny forced enterprise security teams to eliminate unverified assumptions regarding database storage protection.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-09-11/01-postgresql-transparent-encryption-shift/ic-02.png" alt="Stack Overflow Developer Inquiries: PostgreSQL Encryption Friction"><figcaption>Stack Overflow Developer Inquiries: PostgreSQL Encryption Friction</figcaption></figure>
+<p>At the same time, individual developer engagement with cryptographic configuration collapsed on public developer forums (Figure 2). Stack Overflow inquiries tagged with postgresql fell from 356 questions in September 2024 to 22 questions in August 2026, reaching a low of 14 questions in July 2026 across 24 monthly intervals (Figure 2). Specific questions tagged with encryption dropped from 25 monthly questions in September 2024 to 0 questions in August 2026, touching a low of 0 in April 2026 across the same 24 monthly periods (Figure 2).</p>
+<p>Plotting these two trends together exposes an operational shift that the raw metrics do not explicitly state (Figure 1, Figure 2). When application developers were responsible for protecting sensitive records, they flooded forums with questions about manual pgcrypto functions, client-side salting, and column-level key rotation. As monthly CVE disclosures rose from 0 to 24 (Figure 1), public developer troubleshooting questions dropped down to 0 (Figure 2). This divergence indicates that organizations did not solve encryption by turning software engineers into amateur cryptographers. Instead, enterprise platform teams took ownership away from application engineers. Engineering leaders standardized on database-level access methods and infrastructure operators, eliminating the need for individual developers to post ad-hoc questions on public boards (Figure 1, Figure 2).</p>
+<h2>Kubernetes Operators and Fleet Standardization</h2>
+<p>Deploying custom table access methods across hundreds of independent database clusters requires declarative automation. The release of Percona Operator 3.1.0 operationalizes transparent data encryption across containerized topologies,. Compatible with PostgreSQL 17 and PostgreSQL 18, the operator integrates pg_tde directly into cluster provisioning manifests.</p>
+<p>The operator wires pg_tde directly to HashiCorp Vault as the key management provider. When a cluster boots, the operator handles token authentication, key leasing, and initialization without manual intervention. Database administrators do not need to write custom bootstrap scripts or store plain-text secrets inside container environment variables. The operator handles replica provisioning and logical replication while maintaining uniform cryptographic boundaries across cluster nodes.</p>
+<h2>The Version Support Horizon</h2>
+<p>Adopting modern transparent data encryption tooling requires immediate planning for major database upgrades. Teams running legacy releases face strict lifecycle deadlines.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-09-11/01-postgresql-transparent-encryption-shift/ic-03.png" alt="PostgreSQL Release Lifecycles: Active Support Horizons Across Major Branches"><figcaption>PostgreSQL Release Lifecycles: Active Support Horizons Across Major Branches</figcaption></figure>
+<p>Official lifecycle data from endoflife.date highlights the narrow operational runway for older branches (Figure 3). PostgreSQL 14 has only 62 days of remaining active support before deprecation (Figure 3). PostgreSQL 15 maintains 426 days of support, while PostgreSQL 16 has 790 days remaining (Figure 3). In contrast, PostgreSQL 17 offers 1,154 days of support, and PostgreSQL 18 provides 1,525 days of supported runway (Figure 3).</p>
+<p>Because pg_vault_tde 1.7.1 and Percona Operator 3.1.0 support only PostgreSQL 17 and PostgreSQL 18, engineering teams cannot implement these access methods on older versions,. Organizations running PostgreSQL 14 face a compound challenge: they must upgrade before their 62 days of remaining support expire (Figure 3), and they must transition their storage layer to access methods like encrypted_heap to satisfy auditors,. Upgrading across major versions becomes the prerequisite for passing compliance audits.</p>
+<h2>Performance and Operational Tradeoffs</h2>
+<p>Adopting transparent table access methods introduces measurable engineering penalties. Encrypting every storage tuple with AES-256-GCM introduces CPU cycles and memory overhead during high-write workloads. Ingestion pipelines that process bulk inserts can experience reduced throughput compared to unencrypted tables. Additionally, routing key management to external systems like HashiCorp Vault introduces hard network dependencies,. If the external secret store experiences a network partition or elevated latency, database processes stall during cold starts and buffer cache misses. Teams must maintain high-availability configurations for their key management clusters to prevent database downtime.</p>
+<h2>Fleet Implementation Steps</h2>
+<p>Platform teams preparing for upcoming compliance reviews can execute a concrete sequence to evaluate these controls across their infrastructure.</p>
+<ul>
+<li>Review existing database clusters against remaining lifecycle horizons to identify branches nearing deprecation (Figure 3).</li>
+<li>Deploy a staging cluster running PostgreSQL 17 or PostgreSQL 18 managed by Percona Operator 3.1.0.</li>
+<li>Configure HashiCorp Vault as the external transit key provider using Kubernetes secrets or operator manifests,.</li>
+<li>Create test tables using the encrypted_heap table access method and run standard application query suites without modifying application SQL.</li>
+<li>Inspect the underlying physical data files on disk with storage utilities to confirm that plain-text strings are unreadable.</li>
+<li>Test failure modes by revoking database transit keys in HashiCorp Vault to verify that unauthorized storage copies cannot be decrypted,.</li>
+</ul>
+<p>Verify the implementation on a test cluster by booting a PostgreSQL 17 node with encrypted_heap, revoking the external Vault token, and checking that the storage engine refuses to read or leak plain-text tuples,.</p>
+</article>
+</body></html>
