@@ -1,0 +1,61 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-09-11</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-09-11 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Çin, PostgreSQL&#x27;in 10&#x27;dan 20&#x27;ye kadar 11 ana sürümünün tüm teknik külliyatını yerelleştirdi.
+
+Bugün yayına giren pgsql.cc portalı, kapalı kaynaklı ticari lisanslardan yerel açık kaynak kümelerine kitlesel göçün sahada tamamlandığını somut olarak belgeliyor. Bu artık ulusal standart.
+
+#postgresql #opensource #database</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar ve resmi duyuru bağlantıları:
+- Görsel ve veri kaynağı: Planet PostgreSQL (https://postgr.es/p/9uf)
+- pgsql.cc resmi sürüm dokümantasyonu: https://postgr.es/p/9uf</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Yerelleştirilen PostgreSQL ana sürüm sayısı · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">ClickHouse analitik sorgularda PostgreSQL&#x27;den 40 kat daha hızlı.
+
+100 milyon satırlık analitik sorguyu 9,7 saniyeden 0,24 saniyeye çekebiliyor. Ama Postgres&#x27;i terk etmiyoruz. Sık güncellemeler, foreign key kısıtları ve katı transaction yönetimi için PostgreSQL yerinde kalmalı. Canlı OLTP yükü için PostgreSQL, devasa log taramaları için ikincil ClickHouse kümesi seçilmeli. Sisteminizdeki pg_stat_statements tablosunda en yüksek I/O tüketen sequential scan sürelerine bakın.
+
+#postgresql #clickhouse #olap</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Yazıda geçen kıyaslama ve başarım verilerinin kaynağı:
+
+Kart kaynağı: Medium; Medium postgresql
+Benchmark ve analiz raporu [S1-S5]: https://medium.com/@loengnavy/postgresql-vs-clickhouse-vs-duckdb-why-columnar-databases-can-be-40-faster-c59f3338b5b8?source=rss------postgresql-5</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">OLAP Analitik Sorgu Süresi · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Kubernetes v1.37, yerinde pod büyütürken aynı düğümdeki alt öncelikli podları aniden tahliye edebiliyor.
+
+Kritik yan konteynerler durur. Düğümde kaynak tükendiğinde planlayıcı, büyüyen poda yer açmak için alt öncelikli servisleri uyarısız sonlandırıyor; kümedeki PriorityClass ve QoS tanımlarına hemen bakmak gerekiyor. Pod öncelikleri eşit tutulan ya da kaynak payı ayrılmış düğümlerde bu durum geçerli değildir.
+
+#kubernetes #devops #platformengineering</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve görsel referansı:
+
+- Kubernetes v1.37 Scheduler Preemption for In-Place Pod Resize: https://kubernetes.io/blog/2026/09/10/kubernetes-v1-37-scheduler-preemption-for-in-place-pod-resize-alpha/
+- Görsel kaynağı: CMyrick-WMF and HGhani-WMF, Wikimedia Commons, CC BY-SA 4.0</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes v1.37 yerinde pod büyütürken düşük öncelikli podları tahliye edebilir. · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">Tarayıcıda son 13 yıla ait herhangi bir Linux paketini çalıştırmak artık mümkün.
+
+Arka planda hiçbir sunucu çalışmıyor. Tüm mekanizma, Nix&#x27;in kriptografik içerik adresleme modeline dayanıyor. Her kütüphane izole bir hash dizinine derlendiğinden paylaşılan bağımlılık ve glibc sürüm çakışmaları tamamen ortadan kalkıyor. Bağımlılık karmaşası yaşanmıyor.
+
+trynix.dev, WebAssembly üzerindeki QEMU emülatörüyle x86_64 bir Linux çekirdeğini doğrudan tarayıcı belleğinde çalıştırıyor. Paket blokları, salt-okunur statik önbelleklerden ihtiyaç duyuldukça çekiliyor. Sanal makine saniyeler içinde açılıyor.
+
+İstemci tarafındaki bu determinizm, yalıtılmış testler için harici altyapı ihtiyacını ortadan kaldırıyor.
+
+#nix #webassembly #linux</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar ve teknik detaylar:
+
+• trynix.dev duyurusu ve incelemesi: https://simonwillison.net/2026/Sep/10/trynix/
+• Mimari analiz (Farid Zakaria): https://fzakaria.com/2026/09/04/any-nix-package-live-in-your-browser
+• Görsel kaynağı: Tomi Mäkitalo, Wikimedia Commons, CC BY-SA 3.0</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Nix ve WebAssembly, tarayıcıda sıfır sunucu maliyetiyle yalıtılmış Linux ortamı çalıştırıyor. · denetim: OK</p></div></div>
