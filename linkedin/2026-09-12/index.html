@@ -1,0 +1,58 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-09-12</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-09-12 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.jpg" alt=""><div class="pad"><pre id="p0">OpenAI, 1 milyar ChatGPT kullanıcısının depolama katmanında saniyede 22 milyon tepe istek yönetiyor.
+
+Altyapı tek veritabanıyla başlamıştı. 500 petabaytı aşan bu trafik, sistemi 40 bölgeye yayılan dağıtık bir mimariye zorladı. Bu ölçekte geleneksel veritabanları yerini küresel sistemlere bırakıyor.
+
+#datainfrastructure #distributedsystems #database</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar:
+
+Kart ve mimari detayları: OpenAI — Rapidly scaling online storage to serve over 1 billion ChatGPT users
+https://openai.com/index/scaling-storage-one-billion-users-part-one</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Saniyede işlenen tepe istek hacmi · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">SQLite 3.53&#x27;ün kendi kendini onaran indeksi, 1.000 satırlık testte sadece yazma gören 21 kaydı düzeltti.
+
+Okuma sorguları onarımı tetiklemiyor. Yazma almayan diğer 979 satır, sessizce bozuk kalarak sorgularda yanlış sonuç üretmeye devam ediyor. Sorgu sapmalarını önlemek için sistemdeki bayat ifade indekslerinin durumuna bakmak şart. Bu sav, ifade indeksi barındırmayan veya REINDEX EXPRESSIONS çalıştırılan tablolarda geçerli değil.
+
+#sqlite #database #indexing</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Teknik analiz ve test kaynağı:
+
+dev.to veritabanı (Alex Georgiev) - https://dev.to/alexgeorgiev17/sqlite-353s-self-healing-index-only-repairs-the-rows-you-write-to-ni</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">SQLite&#x27;ın otomatik onardığı satır sayısı · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">PostgreSQL&#x27;de 20.000 satırlık vektör tablosunu güncellemek, TOAST alanında diski sessizce şişiriyor.
+
+Gömme vektörleri sayfa sınırını aştığı için satır içi tutulmaz, harici TOAST tablosuna yazılır. Model sürümü yenilenip tüm satırlar güncellendiğinde MVCC eski parçaları silmez. TOAST boyutu anında katlanır. Asıl işletim sorunu autovacuum mantığında ortaya çıkar. Temizleme süreci TOAST alanındaki şişmeye değil, yalnızca ana tablodaki ölü satır oranına bakar. Ana tablodaki satır sayısı değişmediği için belirlenen eşik asla aşılmaz ve autovacuum TOAST bloklarını temizlemeye hiçbir zaman başlamaz. Tablo boyutu sabit görünürken küme sessizce disk krizine sürüklenir.
+
+#postgresql #pgvector #database</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve detaylı inceleme:
+Görsel: daamien @ GitHub, Wikimedia Commons, CC BY-SA 3.0 de
+Analiz yazısı: https://medium.com/google-cloud/embedding-versions-management-toast-and-bloating-in-postgresql-ba6edb33e280?source=rss------postgresql-5</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Vektör güncellemeleri PostgreSQL TOAST tablosunda sessizce aşırı şişme yaratır · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">Kubernetes&#x27;te disk şifreleme, pod içine sızan saldırgana karşı veritabanını korumaz.
+
+Depolama düzeyindeki disk şifrelemesi diski korur; kopyalanmış birimi veya sızan WAL segmentini korumaz. Fiziksel hırsızlığa karşı bu yeterlidir. Fakat pod sızıntılarını ve yetkisiz yöneticileri engellemek için anahtarları harici Vault üzerinde tutulan veritabanı şifrelemesi gerekir. Percona Operator 3.1.0 bu ayrımı Kubernetes üzerinde yerel hale getirdi.
+
+Kendi kümenizde şifreleme sınırına bakın: koruma blok aygıtında bitiyorsa pod içindeki veri açıktadır.
+
+#postgresql #kubernetes #database</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar ve detaylar:
+
+• Percona Operator 3.1.0 ve TDE mimarisi: https://www.percona.com/blog/percona-operator-for-postgresql-3-1-0-transparent-data-encryption-logical-replicas-persistent-logging/
+• pg_vault_tde PostgreSQL duyurusu: https://www.postgresql.org/about/news/pg_vault_tde-v171-transparent-data-encryption-for-postgresql-17-and-18-3376/
+• Görsel kaynağı: Jacek Halicki, Wikimedia Commons, CC BY-SA 4.0</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Percona Operator 3.1.0 Kubernetes üzerinde PostgreSQL için şeffaf şifreleme getirdi · denetim: OK</p></div></div>
