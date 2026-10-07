@@ -1,0 +1,80 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-07</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-07 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Milyar satırlık PostgreSQL tablolarında UUIDv7, insert hızını 23 kata kadar artırıyor.
+
+Sebep B-tree yaprak bölünmeleri. Rastgele UUIDv4 anahtarları diske dağınık I/O yükü bindirirken, zaman sıralı yapı yeni kayıtları ardışık sayfalara yazıyor. Daha küçük indexler ve korunan önbellek, yazma darboğazını ortadan kaldırıyor.
+
+#postgresql #uuidv7 #dba</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar ve test detayları:
+
+Görsel ve benchmark kaynağı:
+https://medium.com/@maahisoft20/stop-using-uuidv4-primary-keys-uuidv7-made-billion-row-postgresql-inserts-up-to-23-faster-baf485c5f6aa?source=rss------postgresql-5
+
+Andrew Atkinson — PostgreSQL 18 uuidv7() mimarisi ve analizleri [S2-S6]:
+https://andyatkinson.com/postgresql-18-uuidv7</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Bilyon satırlık PostgreSQL eklemelerinde UUIDv7 hızlanması · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Bulut yerel standartlarını sadece üç hiper ölçekleyicinin yönettiği inancı 46 veri merkeziyle kırıldı.
+
+Tescilli mimari zorunluluk değil. OVHcloud, 20 bölgede Cilium üzerinde binlerce üretim Kubernetes kümesi koşturup Platinum üye olarak açık taşınabilirliği doğrudan CNCF yönetimine taşıdı.
+
+Avrupa&#x27;da egemen bulut harcamaları 12,6 milyar dolara koşarken, veri bağımsızlığı ve taşınabilirlik artık tescilli platformların lütfuna bağlı değil.
+
+#cncf #kubernetes #cloudnative</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve görsel bilgisi:
+
+- Görsel: Fraguando, Wikimedia Commons, CC BY-SA 4.0
+- CNCF duyurusu ve veriler [S2, S3, S6, S7]: https://www.cncf.io/announcements/2026/10/07/cncf-welcomes-ovhcloud-a-leading-european-cloud-provider-and-global-cloud-and-ai-player-as-a-platinum-member/</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">OVHcloud açık bulut taşınabilirliğini desteklemek için CNCF Platinum üyesi oldu · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Kubernetes kaynak yönetiminde cgroup v1 devri kapandı; cgroup v2 tek hiyerarşiye geçti.
+
+Eski yapıda bellek ve blok giriş-çıkış denetleyicileri bağımsız çalıştığından, yoğun yazma baskısındaki bir veritabanı sayfa önbelleğini temizleyemeden aniden OOM katili tarafından öldürülüyordu.
+
+Birleşik süreç ağacı bu işletimsel kör noktayı kapatıyor.
+
+Sistemdeki her süreç tek bir cgroup yapısına bağlanır. Üst gruba 128Mi bellek ayrıldığında, alt süreçlerin toplam kullanımı bu 128Mi tavanını aşamaz. Pod manifestindeki kaynak sınırları doğrudan bu uç dosyalara yansıtılır.
+
+Disk yazımı ile sayfa önbelleği temizliği aynı hiyerarşide eşitlendiğinden, ağır yük altındaki veritabanı düğümleri artık kör OOM kesintilerine uğramaz.
+
+#kubernetes #cgroupv2 #linux</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve detaylı okuma listesi:
+
+- Kubernetes cgroup v2 duyurusu: https://kubernetes.io/blog/2026/10/06/kubernetes-cgroups-v2-shift/
+- Linux Kernel cgroup v2 dokümantasyonu: https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html
+- Martin Heinz cgroups rehberi: https://martinheinz.dev/blog/91
+- Görsel: CMyrick-WMF and HGhani-WMF, Wikimedia Commons, CC BY-SA 4.0</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes kaynak yönetiminde cgroup v2 birleşik hiyerarşi mimarisine geçti · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Aurora PostgreSQL failover kesintisini düşürmek için uygulama koduna dokunmak gerekmiyor.
+
+Fark topoloji farkındalığında. Standart pg sürücüsü failover anında TCP zaman aşımına takılırken, AWS Advanced Ruby Driver küme durumunu doğrudan izleyip yeni yazıcıya bağlanıyor. ActiveRecord adaptörü bu geçişi kod değiştirmeden sağlıyor.
+
+Bağımsız sunucularda standart sürücü yeterli; Aurora kümelerinde ise topoloji farkındalıklı sürücü seçilmeli.
+
+Ruby servislerinde failover anındaki bağlantı zaman aşımı sürelerine bakın.
+
+#postgresql #aurora #ruby</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar ve detaylar:
+- AWS Advanced Ruby Driver Wrapper GA duyurusu: https://aws.amazon.com/about-aws/whats-new/2026/10/aws-ruby-driver-wrapper-available/
+- Görsel kaynağı: Delince, Wikimedia Commons, CC BY-SA 3.0</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">AWS Ruby Driver Aurora failover süresini uygulama kodu değiştirmeden düşürüyor · denetim: OK</p></div></div><div class="card"><img src="05-kart.png" alt=""><div class="pad"><pre id="p4">pgvector 0.8.7 öncesi IVFFlat indeksi kurabilen bir kullanıcı sunucuda rastgele kod çalıştırabiliyor.
+
+0.8.6 dahil önceki tüm sürümler bu sınır dışı bellek yazımından etkileniyor. Paket güncellemesi tek başına yetersiz. Düzeltme paylaşımlı kütüphanede yer aldığından, eski kodu yüklemiş arka plan süreçleri kapatılana kadar oturumlar savunmasız kalıyor. Bu nedenle ikili dosyaları güncelledikten sonra aktif bağlantıları da sonlandırmak gerekiyor. Kullanıcılara indeks yetkisi verilmeyen veya yalnızca HNSW kullanılan kümelerde bu açık işlemiyor.
+
+#postgresql #pgvector #databasesecurity</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Kaynaklar ve detaylar:
+- Görsel kaynağı: daamien @ GitHub, Wikimedia Commons (CC BY-SA 3.0 de)
+- PostgreSQL duyurusu (0.8.7 sürümü ve CVE-2026-103484): https://www.postgresql.org/about/news/pgvector-087-released-3392/
+- Christophe Pettus / The Build analizi: https://postgr.es/p/9x0</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">pgvector 0.8.7 IVFFlat indeks oluşturmadaki kritik bellek taşması açığını kapattı · denetim: OK</p></div></div>
