@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The PostgreSQL Connection Pool Bottleneck: Moving Fleets Beyond PgBouncer</title>
+<style>
+:root { color-scheme: light dark; }
+body { max-width: 42rem; margin: 0 auto; padding: 2rem 1.2rem 4rem;
+       font: 19px/1.65 Georgia, 'Liberation Serif', serif; color: #16181d; background: #fff; }
+h1 { font: 700 2.1rem/1.2 Ubuntu, system-ui, sans-serif; margin: 0 0 .4rem; letter-spacing: -.02em; }
+h2 { font: 700 1.35rem/1.3 Ubuntu, system-ui, sans-serif; margin: 2.2rem 0 .6rem; }
+.alt { font: 400 1.15rem/1.45 Ubuntu, system-ui, sans-serif; color: #5b6067; margin: 0 0 2rem; }
+img { width: 100%; height: auto; display: block; margin: 1.8rem 0 .4rem; border-radius: 3px; }
+figcaption, .cap { font: 400 .85rem/1.4 Ubuntu, system-ui, sans-serif; color: #6b7079;
+       text-align: center; margin: 0 0 1.8rem; }
+blockquote { border-left: 3px solid #d8dade; margin: 1.4rem 0; padding: .2rem 0 .2rem 1.1rem; color: #4a4f57; }
+code { font: .88em ui-monospace, 'Ubuntu Mono', monospace; background: #f3f4f6; padding: .12em .35em; border-radius: 3px; }
+pre { background: #f3f4f6; padding: 1rem; overflow-x: auto; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+ul, ol { padding-left: 1.3rem; }
+li { margin: .4rem 0; }
+a { color: #1a5fb4; }
+hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
+.kaynak { font: .8rem/1.5 Ubuntu, system-ui, sans-serif; color: #6b7079; }
+@media (prefers-color-scheme: dark) {
+  body { background: #16181d; color: #e7e9ec; }
+  .alt { color: #a4a9b3; } figcaption, .cap, .kaynak { color: #9aa0aa; }
+  code, pre { background: #22252c; } blockquote { border-color: #3a3e46; color: #b8bdc6; }
+  a { color: #7cb0f5; }
+}
+</style></head>
+<body>
+<article>
+<h1>The PostgreSQL Connection Pool Bottleneck: Moving Fleets Beyond PgBouncer</h1>
+<p class="alt">How process-per-connection limits pushed engineering teams from single-core proxies to multi-threaded and distributed poolers.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-08/01-connection-pool-bottleneck/kapak.jpg" alt="The PostgreSQL Connection Pool Bottleneck: Moving Fleets Beyond PgBouncer"><figcaption>Photo: unknown, Wikimedia Commons, Public domain</figcaption></figure>
+<h2>The Process-per-Connection Reality</h2>
+<p>PostgreSQL allocates an independent operating system process to every client connection that attaches to the server. This design dates back to early Unix architectures, prioritizing process isolation over shared memory concurrency. When an individual connection crashes or encounters an unrecoverable fault, the operating system cleans up its isolated address space without compromising neighboring worker processes. For decades, this separation gave PostgreSQL dependable stability across enterprise deployments.</p>
+<p>However, microservice architectures dismantle the assumptions that made process-per-connection viable. In a modern cloud deployment, dozens of distinct microservices communicate with the same primary database cluster. Each microservice scales its own application instances horizontally across container clusters. When microservices scale out multiple replicas, and every replica opens a default local connection pool, unmanaged client connections flood the database before application traffic even starts. Because each client connection maps directly to a distinct operating system process, the database host spends substantial operating system resources merely maintaining process tables and scheduling CPU time.</p>
+<h2>Memory Overhead and Backend Saturation</h2>
+<p>The primary cost of process proliferation is physical memory consumption. In PostgreSQL, every connection incurs a measurable memory cost on the database server whether that connection is actively running a query or sitting completely idle. Each backend process allocates private memory for execution buffers, connection state, and tracking structures. When microservice fleets scale out during traffic spikes, idle connections consume gigabytes of RAM that could otherwise serve the shared buffer cache or operating system page cache.</p>
+<p>When memory pressure builds, the database faces severe performance degradation. Operating system context switches multiply as the kernel juggles numerous active processes across available processor cores. Latency percentiles deteriorate because CPU caches constantly flush and reload process memory structures. Eventually, the operating system reaches its physical limits and invokes the Out-Of-Memory killer, abruptly terminating backend database processes and forcing PostgreSQL into crash recovery. This failure mode demonstrated that unconstrained microservice connections can bring down database infrastructure without running heavy analytical queries.</p>
+<h2>The Single-Core Ceiling in Legacy Pooling</h2>
+<p>To mitigate process exhaustion, engineering teams historically placed PgBouncer in front of PostgreSQL. PgBouncer acts as a lightweight proxy, accepting inbound client connections while keeping backend connections to PostgreSQL tightly controlled. For years, this architecture represented the default approach for production deployments.</p>
+<p>Yet microservice fleets uncover architectural limitations inside PgBouncer itself. PgBouncer is constrained by an architecture that runs on a single CPU core. While a single core was once sufficient for basic proxying of plain text traffic, modern cloud environments require security protocols that change the compute profile. TLS encryption and SCRAM authentication processing demand significant CPU time during connection establishment. Because PgBouncer processes both TLS handshakes and SCRAM authentication on that single CPU core, rapid connection churn from autoscaling microservices saturates the processor completely. While the database server sits with idle capacity, the pooler becomes an operational bottleneck that stalls inbound traffic.</p>
+<h2>Pool Arithmetic and Session State Complexities</h2>
+<p>Teams attempting to scale PgBouncer across multiple CPU cores encounter severe operational complexity. Because PgBouncer cannot distribute its workload across cores within a single process, operators must run multiple independent PgBouncer processes. However, scaling across cores in this manner complicates configuration because each process maintains its own independent connection pool. Operators must perform manual arithmetic, dividing the target database connection limit across all running pooler processes. If the cluster resizes or auto-scales additional pooler instances, operators risk either underutilizing database capacity or overwhelming the database backend with multiplied pools.</p>
+<p>Furthermore, transaction pooling mode introduces behavioral challenges with session state. In transaction pooling, a client releases its backend server connection as soon as a transaction finishes, allowing another client to reuse that connection. However, when a client modifies a session parameter, that modification alters the session state on the underlying server connection. Subsequent clients that borrow the connection may inherit unintended configuration values, causing unpredictable query execution and subtle application bugs.</p>
+<h2>Community Traction and Fleet Migration</h2>
+<p>The friction caused by single-core scaling and session state handling has driven developers to seek alternative architectures (Figure 1). Public repository metrics show clear community momentum toward modern alternatives designed for high-concurrency environments (Figure 1).</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-08/01-connection-pool-bottleneck/ic-01.png" alt="GitHub Stars: Modern Rust and Go Poolers Challenge PgBouncer&#x27;s Fleet Dominance"><figcaption>GitHub Stars: Modern Rust and Go Poolers Challenge PgBouncer&#x27;s Fleet Dominance</figcaption></figure>
+<p>Repository tracking illustrates the changing preference among backend engineers (Figure 1). Currently, PgBouncer records 4,398 stars on GitHub (Figure 1). Meanwhile, Odyssey has accumulated 3,629 stars, Supavisor has reached 2,268 stars, and pgagroal holds 776 stars (Figure 1).</p>
+<p>While PgBouncer maintains 4,398 stars through its long tenure as the default proxy, the star metrics reveal an unmistakable structural migration (Figure 1). Odyssey at 3,629 stars and Supavisor at 2,268 stars reflect substantial community investment in modern connection management (Figure 1). Rather than accepting the single-core constraint of legacy tooling, infrastructure teams are adopting architectures that treat concurrency as a core design priority (Figure 1). The steady adoption of alternatives like pgagroal with 776 stars reinforces this trend, showing that teams actively seek alternatives to bypass multi-process configuration overhead (Figure 1).</p>
+<h2>Multi-Threaded Scalability with Odyssey</h2>
+<p>To solve the single-core bottleneck without fragmenting connection pools, Yandex developed Odyssey as a multi-threaded pooler. In Odyssey, worker threads handle authentication and proxying while sharing the same backend server connection pools. This design eliminates the operational headache of manual pool arithmetic, leaving operators with a single pool to size rather than separate pools per process. Odyssey distributes encryption handshakes and query forwarding across multiple processor cores, preventing authentication spikes from overwhelming the proxy.</p>
+<p>Odyssey also addresses the session state vulnerabilities that plague transaction pooling. In transaction mode, Odyssey preserves client session parameters and automatically reapplies them when assigning a client to a different server connection. This behavior, controlled by the maintain_params setting, is enabled by default to protect application consistency. Microservices can adjust session variables without contaminating subsequent transactions executed across the shared backend pool.</p>
+<h2>Distributed Multi-Tenant Pooling with Supavisor</h2>
+<p>While Odyssey solves multi-core scaling on a single node, cloud platforms and distributed fleets face additional demands from serverless workloads. Supavisor was created to address PgBouncer resource overhead on database hosts and handle massive volumes of incoming serverless connections. When serverless functions spin up across distributed regions, they produce sudden connection bursts that overwhelm traditional pooling layers. Furthermore, cloud providers require the ability to resize databases without downtime, necessitating an external pooling layer that holds client connections stable while backend instances restart.</p>
+<p>Supavisor implements a distributed clustering model to manage connections across fleets. Across its entire cluster, Supavisor maintains a single pool per tenant, ensuring that total backend connections remain bounded without requiring cross-node calculations. The architecture allows operators to scale proxy nodes horizontally while keeping backend database connections predictable. In terms of capacity, Supavisor claims scalability to 1,000,000 connections across an entire cluster and 250,000 idle connections on a single 16-core node. This throughput enables fleets to absorb massive client surges without consuming database memory.</p>
+<h2>Where PgBouncer Still Fits</h2>
+<p>Despite the advantages of newer poolers, PgBouncer remains an effective choice for specific deployment patterns. Monolithic applications that maintain steady, long-lived connection counts do not trigger the connection churn that saturates a single CPU core. In environments where services run within predictable capacity bounds and do not require session variable tracking or multi-tenant isolation, PgBouncer offers high operational simplicity. Its compact codebase and minimal resource footprint make it straightforward to deploy as a local sidecar when advanced multi-threaded routing is unnecessary.</p>
+<h2>Evaluating Fleet Pooling Strategy</h2>
+<p>Choosing between connection poolers requires evaluating traffic characteristics, security requirements, and architectural scale. Engineering teams facing connection saturation should measure their existing proxy overhead and session parameter usage before rearchitecting infrastructure.</p>
+<ul>
+<li>Review database host memory allocation to quantify how much RAM idle backend processes consume.</li>
+<li>Monitor pooler CPU core utilization during traffic spikes to determine whether encryption and authentication saturate available compute.</li>
+<li>Verify whether application services alter session variables that could lead to state pollution in transaction pooling.</li>
+<li>Evaluate multi-threaded architectures like Odyssey if your workload requires shared connection pools across multiple CPU cores.</li>
+<li>Consider distributed poolers like Supavisor when supporting serverless endpoints or managing multi-tenant clusters that require strict backend limits.</li>
+</ul>
+<p>Audit connection behavior across your microservice fleet during autoscaling events to pinpoint whether connection exhaustion stems from database memory or proxy core limitations. Testing query latency under simulated connection surges will clarify whether adopting a multi-threaded or distributed pooler delivers immediate stability gains.</p>
+</article>
+</body></html>
