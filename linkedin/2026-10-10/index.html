@@ -1,0 +1,70 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-10</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-10 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.jpg" alt=""><div class="pad"><pre id="p0">Sunucusuz veritabanında açık unutulan bağlantılar, 100 hesaplama saatini 17 günde tüketti.
+
+Yönetim arayüzünün her 15 saniyede bir arka uca gönderdiği yoklama çağrıları, sunucusuz mimarinin sıfıra ölçeklenmesini tamamen engelledi. Veritabanı hiç uykuya geçmedi. Kullanım 100,46 saate ulaştığında veritabanına bağlı servisler yanıt vermeyi kesti.
+
+#postgresql #serverless #database</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynak ve detaylar:
+
+Kart kaynağı ve referanslar [S1]-[S6]:
+https://medium.com/@itsrohit904/how-my-neon-database-used-100-compute-hours-in-just-17-days-1d9a2a29087a?source=rss------database-5</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">17 günde tükenen sunucusuz hesaplama saati · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">PostgreSQL 20&#x27;de silinen array_nulls, eski dökümlerde sessiz veri bozulmasına yol açıyor.
+
+pg_dump dosya başında array_nulls ayarını sabitlemediğinden, parametrenin kapalı olduğu hedef veritabanında tırnaksız NULL elemanları doğrudan metin olarak okunur. Geri yükleme 0 hatayla tamamlanıyor. Fakat text[] sütunlarındaki her boş eleman artık 4 karakterlik bir metne dönüşüyor. Ayarın varsayılan açık değerini değiştirmemiş kümeler bu durumdan etkilenmez.
+
+#postgresql #pgdump #dba</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar:
+• Planet PostgreSQL &amp; The Build: https://postgr.es/p/9xm</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">array_nulls Parametresi ve Döküm Davranışı · denetim: OK</p></div></div><div class="card"><img src="03-kart.jpg" alt=""><div class="pad"><pre id="p2">Yavaşlığın suçlusu veritabanı sanılıyor; oysa sorgu milisaniyede biterken Python kodu dakikalar harcıyor.
+
+Sorun veritabanı motorunda değil.
+
+Veritabanında doğrudan çalıştırılan sorgu milisaniyeler içinde tamamlanıyor. Buna karşın aynı işlem Python uygulamasından çağrıldığında toplam süre dakikalara uzuyor. Birçok performans krizinde motor yavaş kalmıyor; tam tersine veritabanı uygulamanın satır bazlı serileştirme döngüsünü bekliyor.
+
+Gecikme faturası sorgu planlayıcısına değil, istemci tarafındaki veri aktarım ve nesne dönüştürme maliyetine ait.
+
+#postgresql #database #python</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar:
+• [S1-S5] https://medium.com/@techybob/postgresql-python-your-database-isnt-slow-your-python-code-is-8d7422c8770a?source=rss------postgresql-5
+• Görsel kaynağı: Mounir Neddi, Wikimedia Commons, CC0</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Veritabanı milisaniyede bitiriyor; dakikalar harcayan uygulama katmanı. · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">Farklı sunuculardaki bir ajanı durdurmak 11,3 saniye sürüyordu; gecikme 1 ms seviyesine indi.
+
+İstek görevi yürüten makineye değil başka bir düğüme ulaştığında, üretici bayrağı yalnızca her 16 olayda bir kontrol ediyordu. Ajan durmadı. Kod yazmayı ve korumalı alanda çalıştırmayı 11,3 saniye boyunca sürdürdü.
+
+Yeni mimaride eşlikçi bir izleme görevi devreye alındı. Bu görev, her oturum için Redis üzerinde çalışma adına açılan özel kanala abone oluyor. Yayınlanan sinyalle yoklama beklemeden araya giriliyor; oturum yaklaşık 1 milisaniyede kesiliyor.
+
+Bayrak yoklamak yerine doğrudan sinyal dinlemek, I/O yükü üretmeden süreci anında kesiyor.
+
+#redis #distributedsystems #infrastructure</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Yazıda bahsedilen mimari detaylar ve test sonuçları:
+Kaushic Aravind, Cancel a Running AI Agent Across Servers with Redis Pub/Sub: https://medium.com/@kaushicbaravind/cancel-a-running-ai-agent-across-servers-with-redis-pub-sub-842ae235e07a?source=rss------postgresql-5</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Redis pub/sub ile ajan iptal gecikmesi · denetim: OK</p></div></div><div class="card"><img src="05-kart.jpg" alt=""><div class="pad"><pre id="p4">Ajan sayısını artırmak zekâyı büyütmüyor; oturum başına 200 mesajlık koordinasyon yükü getiriyor.
+
+Yönetici modellerde 30 dakikalık sessiz kilitlenmeler oluşuyor. Hata yayılımı çıktıyı boğuyor. Geniş ve asenkron denetim gerektiren mimarilerde çoklu ajan, dar kapsamlı yerel işletim görevlerinde ise tek ve odaklanmış bir model seçilmeli.
+
+Kendi yerel iş akışınızda modeller arasındaki koordinasyon kuyruğuna bakın.
+
+#yapayzeka #multiagent #localllm</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Görsel kaynağı: Hugovanmeijeren, Wikimedia Commons, CC BY-SA 3.0
+
+Kaynaklar:
+[S1] https://medium.com/@afrafalakh16/i-built-a-multi-agent-system-then-i-realized-more-agents-dont-always-mean-more-intelligence-cc59f436968a?source=rss------large_language_models-5
+[S2], [S3], [S4], [S5] https://github.com/battysh/batty</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Çoklu ajan karmaşası yerine tek modelde odaklanmış bağlam mimarisi. · denetim: OK</p></div></div>
