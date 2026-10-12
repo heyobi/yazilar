@@ -1,0 +1,68 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-12</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-12 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.jpg" alt=""><div class="pad"><pre id="p0">MongoDB 8.3 ile gelen arrayIndexAs, $map ek yükünü %31 azaltıyor.
+
+320 bin elemanlı dizide range ve arrayElemAt hilesini kaldırmak, sunucu gecikmesini 134 milisaniyeden 102 milisaniyeye çekiyor. Ek aşama yok. Ancak eşzamanlı 10 istemcide bu fark %5 seviyesine geriliyor.
+
+#mongodb #database #performance</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynak ve benchmark verileri:
+Kart ve ölçüm detayları (dev.to veritabanı): https://dev.to/alexgeorgiev17/mongodb-83s-arrayindexas-cuts-a-map-with-index-workarounds-overhead-by-up-to-31-409p</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">arrayIndexAs ile sunucu gecikmesi düşüşü · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">PostgreSQL loglarında görülen Signal 1, bazen bir reload değil tüm bağlantıların kopmasıdır.
+
+Sinyal tüm süreç grubuna dağılır. Normalde ana süreç yapılandırmayı yeniler; fakat sinyali yakalamayan alt süreç Signal 1 ile anında sonlanır. Postmaster, alt sürecin sinyalle kapandığını gördüğü anda paylaşılan belleğin bozulmasından şüphelenir. Bellek bütünlüğünü korumak için tüm bağlantıları keser, belleği sıfırlar ve WAL kayıtlarını baştan oynatır. Postmaster kendi PID değerini koruduğu için sunucu dışarıdan hiç yeniden başlamamış gibi görünür. Terminalden sızan kontrolsüz sinyal, tüm veritabanını kurtarma moduna sokmaya yeter.
+
+#postgresql #linux #dba</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">İnceleme ve kaynaklar:
+- Shridhar Khanal, The Database Restarted Without Restarting: The Basics of PostgreSQL Signals: https://postgr.es/p/9xr
+- Görsel kaynağı: daamien @ GitHub, Wikimedia Commons (CC BY-SA 3.0 de)</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL&#x27;de Signal 1 SIGHUP Neden Süreci Çökertip Kümeyi Yeniden Başlatır? · denetim: OK</p></div></div><div class="card"><img src="03-kart.jpg" alt=""><div class="pad"><pre id="p2">Canlı veri hattında çıkarımı 2,5 kat hızlandırmak için amiral gemisi model gerekmiyor.
+
+Ölçü net: gecikme.
+
+Telemetri akışı, log ayrıştırma ve hızlı yönlendirmede Claude Haiku 5.5 token maliyetini tabana çekerken gecikmeyi yaklaşık yarıya indiriyor. Buna karşılık, çok adımlı şema tasarımı ve karmaşık SQL optimizasyonu gerektiren kritik işlerde amiral gemisi modellerin derin muhakeme yeteneği vazgeçilmez kalıyor.
+
+Kuyruk gecikme sürelerine ve servis bazlı token tüketim dökümüne bakın.
+
+#dataengineering #llmops #veritabanı</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve görsel bilgisi:
+- Görsel: Victuallers, Wikimedia Commons, CC BY-SA 4.0
+- Asana ve Box test verileri: https://www.anthropic.com/claude-haiku-5-5
+- Model mimarisi ve tokenizer detayları: https://platform.claude.com/docs/en/models/haiku-5-5/overview
+- Sürüm analizi: https://simonwillison.net/2026/Oct/7/claude-haiku-5-5/</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Claude Haiku 5.5 ile Yüksek Hacimli Veri Hatlarında Token Maliyetini Düşürmek · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">actions/python-versions deposuna gelen Python 3.15.0, sabitlenmemiş CI hatlarını kilitleyebilir.
+
+Açık uçlu sürüm kuralları yeni çalışma zamanını doğrudan çekerken, psycopg gibi C uzantılı veritabanı sürücülerinde hazır wheel bulunmuyor. Derleme kaynak koda düşüyor. Eksik derleyici paketleri yüzünden boru hatları peş peşe kırılıyor. Yalnızca saf Python kütüphaneleri çalıştıran ya da imaj seviyesinde sürüm sabitleyen boru hatları bu derleme darboğazından etkilenmez.
+
+#githubactions #python #devops</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar ve referanslar:
+
+- Python 3.15.0 GitHub Actions güncellemesi: https://simonwillison.net/2026/Oct/10/python-actions/ [S1]
+- Görsel kaynağı: Trougnouf (Benoit Brummer), Wikimedia Commons, CC BY 4.0</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">actions/python-versions Güncellemesi Sabitlenmemiş CI Boru Hatlarını Nasıl Bozar? · denetim: OK</p></div></div><div class="card"><img src="05-kart.jpg" alt=""><div class="pad"><pre id="p4">Yerel donanımla bulut faturasını sıfırlama hesabı, 614 GB/s bellek bant genişliği sınırına çarpıyor.
+
+M5 Max üzerinde 65 GB boyutundaki GPT-OSS 120B modelini ek bulut maliyeti olmadan çalıştırmak kâğıt üzerinde mümkün. Darboğaz hesaplama değil, bellek. Nitekim RTX 5090, daha yüksek bellek bant genişliği sayesinde M5 Ultra karşısındaki avantajını koruyor. Bu donanım yalnızca verinin dışarı çıkamadığı katı regülasyonlarda doğru. Dalgalı iş yüklerinde donanım amortismanı, bulut faturasını fazlasıyla aşıyor.
+
+#localllm #yapayzeka #donanim</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Yazıda geçen kaynaklar ve inceleme bağlantıları:
+
+- Görsel kaynağı: Richard Smith, Wikimedia Commons, CC BY 2.0
+- MacStories (M5 Ultra ve RTX 5090 karşılaştırması): https://www.macstories.net/stories/m5-ultra-mac-studio-review-the-dream-mac-for-local-ai-agents/
+- tbreak (M5 Max bellek bant genişliği ve yerel LLM performansı): https://tbreak.com/mac-studio-m5-max-review-local-ai/
+- The Verge (Yerel yapay zekâ deneyimi): https://www.theverge.com/ai-artificial-intelligence/1008484/learning-local-ai-hermes-qwen-model-mac-studio-testing-diary-progress</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Yerel Donanımda Açık Ağırlıklı Model Çalıştırmanın Görünmeyen Bellek ve Bakım Maliyeti · denetim: OK</p></div></div>
