@@ -1,0 +1,63 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-14</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-14 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Singapur&#x27;da özel sohbetleri denetleyen sistemin sunucuya aktardığı veri: 0 bayt.
+
+DeepMind ve GovTech, hafif Gemma modelini doğrudan cihaz üzerinde çalıştırarak dolandırıcılık girişimlerini anında engelliyor. Ağ gecikmesi yok.
+
+Merkezi sunuculara kullanıcı verisi taşımadan uç noktada güvenlik sağlamak mümkün.
+
+#ondeviceai #dataprivacy #gemma</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynak ve detaylar:
+Google DeepMind &amp; GovTech Singapur duyurusu: https://deepmind.google/blog/on-device-ai-scam-detection-mddi/</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Cihaz dışına çıkan özel sohbet verisi · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Diskte %100 doluluk varken du hiçbir büyük dosya bulamıyorsa sunucu kilitlenmek üzeredir.
+
+Log dosyasını silmek alanı boşaltmaz. PostgreSQL süreci tanıtıcıyı açık tuttukça işletim sistemi disk bloklarını serbest bırakmaz.
+
+df diski dolu gösterirken du dizinde dosya bulamaz. Sunucuyu yeniden başlatmak sorunu sadece erteler.
+
+Çözüm, servisleri körlemesine öldürmeden lsof ile silinmiş açık tanıtıcıları yakalamaktır.
+
+Dolu bir dizin üzerine başka dosya sistemi bağlandığında bu tespit geçerli değildir.
+
+#postgresql #linux #sysadmin</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve görsel referansı:
+
+Görsel: daamien @ GitHub, Wikimedia Commons, CC BY-SA 3.0 de
+Vaka analizi: https://medium.com/@solvytech/linux-system-administration-5-ghost-production-problems-and-how-to-solve-them-23d89f28f9a4?source=rss------devops-5</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Diskte yer kalmadı hatasında açık kalan dosya tanıtıcıları kontrol edilmelidir · denetim: OK</p></div></div><div class="card"><img src="03-kart.jpg" alt=""><div class="pad"><pre id="p2">Liderlik tablosundaki birincilik, modelin üretim veritabanında çalışacağını garanti etmez.
+
+Yaygın inanış, genel kıyaslama testlerini zirvede bitiren modellerin karmaşık SQL şemalarında da en doğru sonucu vereceğini varsayar. Oysa Goodhart kanunu ve veri sızıntısı genel kıyaslama skorlarını şişiriyor. Tablodaki puan, modelin maliyetine değip değmeyeceğini tek başına kanıtlamaz. Kilitlenme anında model çuvallıyor. Veritabanında model başarımını genel listeler değil, yerel iş yükü kayıtları belirler.
+
+#postgresql #database #localllm</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Görsel ve kaynaklar:
+- Görsel: Elekes Andor, Wikimedia Commons, CC BY 4.0
+- [S1] Graham Waters, Medium: https://grahamwaters.medium.com/your-favorite-ai-model-is-acing-tests-that-doesnt-mean-it-can-do-your-job-49bb914908e0?source=rss------large_language_models-5
+- [S2] LiveBench: https://livebench.ai/</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Sentetik testleri geçen modeller üretim ortamındaki işlerde çuvallayabilir · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">RDS Proxy, DNS yayılımını atlayarak yük devretme süresini %66&#x27;ya kadar düşürüyor.
+
+Fark sadece hız değil. İki havuzlayıcı da işlem düzeyinde çoğullama sunsa da kimlik doğrulama ve oturum durumu yönetiminde ayrışıyor. RDS Proxy, oturum durumunu koruyamadığında bağlantıyı oturum bitene kadar veritabanına sabitliyor. Sunucusuz mimarilerde RDS Proxy şart. Kararlı bağlantılı yüksek işlem hacminde ise PgBouncer bellek verimliliğiyle öne çıkıyor.
+
+Karar vermeden önce istemcilerinizin oturum sabitleme metriklerine bakın.
+
+#postgresql #pgbouncer #rdsproxy</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Görsel ve mimari karşılaştırma kaynağı: AWS Database Blog
+https://aws.amazon.com/blogs/database/understanding-the-differences-between-pgbouncer-and-amazon-rds-proxy-for-postgresql-connection-pooling/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL Bağlantı Havuzlayıcıları · denetim: OK</p></div></div>
