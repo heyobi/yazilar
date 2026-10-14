@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The BM25 Consolidation: Collapsing Dedicated Search Clusters Into PostgreSQL</title>
+<style>
+:root { color-scheme: light dark; }
+body { max-width: 42rem; margin: 0 auto; padding: 2rem 1.2rem 4rem;
+       font: 19px/1.65 Georgia, 'Liberation Serif', serif; color: #16181d; background: #fff; }
+h1 { font: 700 2.1rem/1.2 Ubuntu, system-ui, sans-serif; margin: 0 0 .4rem; letter-spacing: -.02em; }
+h2 { font: 700 1.35rem/1.3 Ubuntu, system-ui, sans-serif; margin: 2.2rem 0 .6rem; }
+.alt { font: 400 1.15rem/1.45 Ubuntu, system-ui, sans-serif; color: #5b6067; margin: 0 0 2rem; }
+img { width: 100%; height: auto; display: block; margin: 1.8rem 0 .4rem; border-radius: 3px; }
+figcaption, .cap { font: 400 .85rem/1.4 Ubuntu, system-ui, sans-serif; color: #6b7079;
+       text-align: center; margin: 0 0 1.8rem; }
+blockquote { border-left: 3px solid #d8dade; margin: 1.4rem 0; padding: .2rem 0 .2rem 1.1rem; color: #4a4f57; }
+code { font: .88em ui-monospace, 'Ubuntu Mono', monospace; background: #f3f4f6; padding: .12em .35em; border-radius: 3px; }
+pre { background: #f3f4f6; padding: 1rem; overflow-x: auto; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+ul, ol { padding-left: 1.3rem; }
+li { margin: .4rem 0; }
+a { color: #1a5fb4; }
+hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
+.kaynak { font: .8rem/1.5 Ubuntu, system-ui, sans-serif; color: #6b7079; }
+@media (prefers-color-scheme: dark) {
+  body { background: #16181d; color: #e7e9ec; }
+  .alt { color: #a4a9b3; } figcaption, .cap, .kaynak { color: #9aa0aa; }
+  code, pre { background: #22252c; } blockquote { border-color: #3a3e46; color: #b8bdc6; }
+  a { color: #7cb0f5; }
+}
+</style></head>
+<body>
+<article>
+<h1>The BM25 Consolidation: Collapsing Dedicated Search Clusters Into PostgreSQL</h1>
+<p class="alt">Engineering teams are replacing external Elasticsearch clusters with native BM25 indexing in PostgreSQL to eliminate synchronization lag and reduce operational complexity.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-14/01-bm25-postgresql-native-search/kapak.jpg" alt="The BM25 Consolidation: Collapsing Dedicated Search Clusters Into PostgreSQL"><figcaption>Photo: Alicia Fagerving, Wikimedia Commons, CC BY-SA 3.0</figcaption></figure>
+<h2>The Cost of the Split-Cluster Architecture</h2>
+<p>A synchronization failure between a primary relational database and an external search cluster creates an immediate consistency split. For decades, application architecture treated this separation as an unavoidable requirement. PostgreSQL handled transactional mutations, while external search engines like Elasticsearch indexed a separate copy of application data for retrieval. This design forced engineering teams to maintain separate infrastructure runtimes and orchestrate complex synchronization pipelines. Change data capture connectors, message brokers, and background workers were required merely to keep records aligned across network boundaries. When background jobs lagged, user searches surfaced stale records while primary tables held fresh updates.</p>
+<p>Engineering teams tolerated this operational burden because relational databases lacked native relevance ranking. PostgreSQL provided basic text matching through tsvector and GIN indexes, but it could not deliver the Okapi BM25 scoring algorithm used by dedicated search engines. Teams accepted the overhead of provisioning dedicated search instances, managing JVM garbage collection, tuning heap sizes, and debugging network partitions between disparate datastores.</p>
+<h2>Bringing Native Ranked Scoring Directly Into PostgreSQL Pages</h2>
+<p>That architectural compromise is no longer necessary. On October 7, 2026, the PostgreSQL Global Development Group announced the general availability release of pgx-bm25 1.0, delivering production-grade Okapi BM25 ranked search directly into PostgreSQL as a native index access method. Rather than treating search as an external service connected through network calls, the index access method operates within the core database storage architecture.</p>
+<p>There is no external search engine and no separate runtime to operate. The entire index lives in the index relation&rsquo;s own pages, which ensures that it inherits WAL logging, crash recovery, and physical replication directly from PostgreSQL core. By storing index structures inside relation pages, the database guarantees transactional consistency without custom synchronization pipelines. Write operations update table rows and BM25 index structures within the same transaction boundary. Physical replication streams index pages across read replicas alongside relational data, eliminating custom cluster synchronization topologies. Integrated database search solutions run directly as native table indexes without requiring sidecar processes or external clusters.</p>
+<h2>The Decline of Dedicated Search Troubleshooting</h2>
+<p>Developer behavior mirrors this architectural migration away from separate search clusters (Figure 1). For years, developers turned to community forums to resolve cluster networking issues, shard rebalancing failures, and indexing bottlenecks in standalone search engines (Figure 1). An analysis of developer questions on Stack Overflow over 24 consecutive months highlights a pronounced shift in technical focus (Figure 1).</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-14/01-bm25-postgresql-native-search/ic-01.png" alt="Stack Overflow question volume comparing Elasticsearch and PostgreSQL search"><figcaption>Stack Overflow question volume comparing Elasticsearch and PostgreSQL search</figcaption></figure>
+<p>Between October 2024 and September 2026, developer inquiry regarding Elasticsearch experienced a steady contraction across 24 monthly periods (Figure 1). In October 2024, the platform logged 47 monthly developer questions tagged for Elasticsearch (Figure 1). By March 2026, that volume dropped to a minimum of 0 questions, and finished at 0 questions in September 2026 (Figure 1). Across the identical 24-month span, PostgreSQL maintained continuous technical engagement (Figure 1). PostgreSQL recorded 342 monthly questions in October 2024, hit a minimum of 14 questions in July 2026, and closed with 14 questions in September 2026 across 24 recorded intervals (Figure 1).</p>
+<p>This statistical divergence reveals an important shift in software development patterns (Figure 1). The collapse of standalone Elasticsearch inquiries down to 0 questions does not mean developers stopped implementing search (Figure 1). Instead, it demonstrates that teams have ceased building bespoke search cluster operations for standard applications (Figure 1). When engineering groups encounter search challenges, they are no longer debugging JVM memory allocation, split-brain cluster states, or out-of-sync Elasticsearch replicas. They are resolving query semantics directly inside PostgreSQL (Figure 1). The developer community is shifting its troubleshooting focus from managing distributed search coordination to optimizing relational schemas and in-database queries (Figure 1).</p>
+<h2>Traction for In-Database Search Engines</h2>
+<p>The movement to consolidate search workloads inside PostgreSQL is accompanied by rapid open-source development (Figure 2). Rather than writing custom Lucene wrappers or hosting Elasticsearch nodes, engineering fleets are standardizing on embedded search libraries and relational access methods (Figure 2).</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-14/01-bm25-postgresql-native-search/ic-02.png" alt="GitHub stars for database search extensions and vector engines"><figcaption>GitHub stars for database search extensions and vector engines</figcaption></figure>
+<p>Open-source adoption metrics demonstrate substantial momentum behind embedded search and relational indexing (Figure 2). Tantivy, an open-source Rust search engine library that powers modern embedded search implementations, has amassed 16,213 GitHub stars (Figure 2). ParadeDB has collected 9,400 GitHub stars by bringing BM25 indexing directly to PostgreSQL tables (Figure 2). Concurrently, pgvector has surged to 23,354 GitHub stars by providing vector similarity search as a native database extension (Figure 2).</p>
+<p>These star counts reflect an overarching architectural preference across modern engineering teams (Figure 2). When pgvector proved that vector search could run effectively alongside relational data, it dismantled the assumption that specialized data types require dedicated database daemons (Figure 2). External search engines index an unnecessary secondary copy of application data. By pairing BM25 text indexes with relational attributes, teams query unstructured text and structured metadata in a single SQL statement without synchronizing independent clusters.</p>
+<h2>The Maintenance Burden of Fragmented Clusters</h2>
+<p>Consolidating search into PostgreSQL addresses security maintenance and vulnerability management (Figure 3). Operating distinct infrastructure clusters doubles the attack surface and patching obligations for platform teams (Figure 3).</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-14/01-bm25-postgresql-native-search/ic-03.png" alt="Monthly published Common Vulnerabilities and Exposures from the National Vulnerability Database"><figcaption>Monthly published Common Vulnerabilities and Exposures from the National Vulnerability Database</figcaption></figure>
+<p>Data from the National Vulnerability Database underscores the continuous patching demands associated with multi-cluster topologies (Figure 3). Over 24 recorded monthly periods from October 2024 to September 2026, Elasticsearch accumulated published Common Vulnerabilities and Exposures across its runtime ecosystem (Figure 3). In October 2024, Elasticsearch recorded 1 published CVE (Figure 3). Its CVE publications reached a minimum of 0 in March 2025, before rising to a peak of 30 published CVEs in September 2026 (Figure 3). Over 23 recorded monthly intervals in the same window, PostgreSQL recorded 2 published CVEs in October 2024, recorded 0 CVEs in January 2025, peaked at 49 published CVEs in August 2026, and logged 42 published CVEs in September 2026 (Figure 3).</p>
+<p>Operating both Elasticsearch and PostgreSQL concurrently forces engineering organizations to manage two separate patching lifecycles simultaneously (Figure 3). An operations team must monitor CVE disclosures across two completely distinct software foundations: the C-based PostgreSQL server and the Java-based Elasticsearch runtime (Figure 3). Collapsing search into PostgreSQL as a native table index eliminates an entire runtime environment, halving the independent daemon surface that platform teams must defend.</p>
+<h2>Engineering Tradeoffs and In-Database Search Limitations</h2>
+<p>Consolidating search into PostgreSQL offers compelling benefits, but engineering teams must evaluate current technical limitations before migrating. Database-native search is not an immediate drop-in replacement for every large-scale search deployment.</p>
+<p>Query planning for mixed filters remains an active engineering challenge in extensions. PostgreSQL extensions support combining Boolean filtering with BM25 ranking, but they have not yet optimized the operation into a single index scan. When a query combines a structured metadata filter with a BM25 text ranking clause, the database engine may perform multiple index traversals and merge intermediate bitmap structures, incurring noticeable latency on complex queries.</p>
+<p>Additionally, PostgreSQL multi-version concurrency control introduces query overhead during text search operations. Profiling demonstrates that visibility checking can account for over 80% of page accesses during count queries. Because PostgreSQL must verify whether each matching tuple is visible to the active transaction snapshot, high-volume search queries frequently touch table heap pages rather than relying solely on index scans. Furthermore, database-native search engines incur overhead from converting internal document identifiers into PostgreSQL ctid values. When an organization processes high volumes of search queries per day or ingests massive streams of log telemetry, dedicated search clusters with decoupled analytical compute continue to serve a distinct purpose.</p>
+<h2>A Pragmatic Migration Checklist</h2>
+<p>For standard application workloads, customer-facing document search, and catalog browsing, the operational benefits of in-database search outweigh these edge-case limitations. Eliminating synchronization lag between datastores removes a persistent source of production data corruption.</p>
+<p>Engineering fleets considering this consolidation should execute a measured evaluation:</p>
+<ul>
+<li>Audit existing search query patterns to identify whether your application relies on pure BM25 ranking or combines heavy Boolean filtering that may require unoptimized multi-scan plans.</li>
+<li>Profile visibility checking costs on staging datasets by testing count queries against tables with active write traffic to verify that heap access remains acceptable.</li>
+<li>Measure the latency impact of internal document identifier translation to PostgreSQL ctid pointers under peak production concurrency.</li>
+<li>Deploy pgx-bm25 1.0 or ParadeDB on a single read replica to benchmark relevance scoring against your existing Elasticsearch cluster before decommissioning external infrastructure.</li>
+</ul>
+<p>Inspect your primary search query latency under production write traffic today. If your synchronization pipeline creates operational toil while your search needs center on ranked full-text queries, migrating BM25 indexes directly into PostgreSQL delivers immediate infrastructure simplification.</p>
+</article>
+</body></html>
