@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Carbon Telemetry Pivot: Bringing Grid Emissions Into OpenTelemetry Traces</title>
+<style>
+:root { color-scheme: light dark; }
+body { max-width: 42rem; margin: 0 auto; padding: 2rem 1.2rem 4rem;
+       font: 19px/1.65 Georgia, 'Liberation Serif', serif; color: #16181d; background: #fff; }
+h1 { font: 700 2.1rem/1.2 Ubuntu, system-ui, sans-serif; margin: 0 0 .4rem; letter-spacing: -.02em; }
+h2 { font: 700 1.35rem/1.3 Ubuntu, system-ui, sans-serif; margin: 2.2rem 0 .6rem; }
+.alt { font: 400 1.15rem/1.45 Ubuntu, system-ui, sans-serif; color: #5b6067; margin: 0 0 2rem; }
+img { width: 100%; height: auto; display: block; margin: 1.8rem 0 .4rem; border-radius: 3px; }
+figcaption, .cap { font: 400 .85rem/1.4 Ubuntu, system-ui, sans-serif; color: #6b7079;
+       text-align: center; margin: 0 0 1.8rem; }
+blockquote { border-left: 3px solid #d8dade; margin: 1.4rem 0; padding: .2rem 0 .2rem 1.1rem; color: #4a4f57; }
+code { font: .88em ui-monospace, 'Ubuntu Mono', monospace; background: #f3f4f6; padding: .12em .35em; border-radius: 3px; }
+pre { background: #f3f4f6; padding: 1rem; overflow-x: auto; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+ul, ol { padding-left: 1.3rem; }
+li { margin: .4rem 0; }
+a { color: #1a5fb4; }
+hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
+.kaynak { font: .8rem/1.5 Ubuntu, system-ui, sans-serif; color: #6b7079; }
+@media (prefers-color-scheme: dark) {
+  body { background: #16181d; color: #e7e9ec; }
+  .alt { color: #a4a9b3; } figcaption, .cap, .kaynak { color: #9aa0aa; }
+  code, pre { background: #22252c; } blockquote { border-color: #3a3e46; color: #b8bdc6; }
+  a { color: #7cb0f5; }
+}
+</style></head>
+<body>
+<article>
+<h1>The Carbon Telemetry Pivot: Bringing Grid Emissions Into OpenTelemetry Traces</h1>
+<p class="alt">As power grids experience wider carbon swings, standardizing carbon telemetry shifts emissions reduction from annual audits to runtime execution.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-16/02-opentelemetry-carbon-intensity-standard/kapak.jpg" alt="The Carbon Telemetry Pivot: Bringing Grid Emissions Into OpenTelemetry Traces"><figcaption>Photo: Geographer, Wikimedia Commons, CC BY-SA 2.0</figcaption></figure>
+<p>At Observability Summit Europe in October 2026, engineers gathered to confront an enduring blind spot in modern infrastructure. Today, distributed systems track latency, memory utilization, and network throughput down to microsecond intervals, yet operational carbon emissions remain absent from production dashboards. The information and communications technology sector accounts for an estimated 2 to 4 percent of worldwide greenhouse gas emissions. Most of those emissions escape the view of the engineers writing and deploying code.</p>
+<h2>The Regional Reality of Grid Emissions</h2>
+<p>Modern cloud deployments often treat computing resources as interchangeable abstractions. A virtual machine in northern Europe executes the same binary as an instance in North America. However, the physical electricity networks powering those servers differ across geographies (Figure 1).</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-16/02-opentelemetry-carbon-intensity-standard/ic-01.png" alt="Renewable electricity generation shares reveal deep regional disparities across major cloud zones."><figcaption>Renewable electricity generation shares reveal deep regional disparities across major cloud zones.</figcaption></figure>
+<p>Data from Our World in Data demonstrates how national energy supplies diverge (Figure 1). In Sweden, renewable sources accounted for 51.00 percent of electricity generation in 1990 and expanded to 71.19 percent by 2025 (Figure 1). Germany moved from 3.52 percent renewable generation in 1990 to 59.09 percent in 2025 (Figure 1). The United Kingdom experienced a similar shift, climbing from 1.79 percent in 1990 to 51.97 percent in 2025 (Figure 1). Across the Atlantic, the United States sourced 10.92 percent of its electricity from renewables in 1990 and reached 25.64 percent in 2025 (Figure 1). Meanwhile, France generated 26.06 percent of its electricity from renewables in 2025, rising from 13.13 percent in 1990 (Figure 1). These measurements prove that identical servers operating at equal utilization produce different carbon outputs depending solely on their physical location (Figure 1).</p>
+<h2>The Atmospheric Signal and the Limits of Annual Averages</h2>
+<p>While regional electricity mixes fluctuate, the planetary baseline continues to worsen (Figure 2).</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-16/02-opentelemetry-carbon-intensity-standard/ic-02.png" alt="Mauna Loa atmospheric carbon dioxide concentrations continue their unbroken upward march."><figcaption>Mauna Loa atmospheric carbon dioxide concentrations continue their unbroken upward march.</figcaption></figure>
+<p>Measurements from the NOAA Global Monitoring Laboratory at Mauna Loa show that atmospheric carbon dioxide concentrations rose from 315.7 parts per million in March 1958 to 426.1 parts per million in September 2026 (Figure 2). The monthly average peaked at 432.3 parts per million in May 2026 (Figure 2).</p>
+<p>Corporate sustainability programs have historically responded to this climb by compiling annual carbon reports. Under frameworks like the European Union Corporate Sustainability Reporting Directive, enterprises face legal mandates to document energy consumption and greenhouse gas emissions, including emissions resulting from product usage. Yet annual carbon accounting relies on static regional emission factors applied retroactively. An accounting team calculates total energy consumed over an annual cycle and multiplies that sum by an annual grid average.</p>
+<p>This retrospective method conceals the reality of modern renewable grids. Wind and solar generation fluctuate by the hour. A data center connected to a regional grid with 59.09 percent annual renewable generation might run on fossil fuels during a windless night and on clean power at midday (Figure 1). Averaging those hours into a single corporate coefficient creates an illusion of steady efficiency. It tells engineers nothing about whether a specific batch process or API request ran clean or dirty.</p>
+<p>Comparing national renewable generation against the Mauna Loa baseline highlights a structural disconnection in software operations (Figure 1) (Figure 2). Atmospheric carbon accumulation is continuous, but regional grid intensity is volatile and fragmented (Figure 1) (Figure 2). Sweden&rsquo;s renewable share reached 71.19 percent in 2025, compared to the United States share of 25.64 percent (Figure 1). When distributed applications execute workloads blindly across regions, they average out emissions on paper while emitting actual carbon into an atmosphere that has crossed 426.1 parts per million (Figure 1) (Figure 2). The only way to reconcile volatile local grid supplies with global climate boundaries is to expose local carbon intensity at the moment of code execution.</p>
+<h2>Telemetry Standards: Putting Carbon into OpenTelemetry</h2>
+<p>To close this operational gap, the Cloud Native Computing Foundation has initiated work to standardize carbon telemetry. The initiative integrates the Software Carbon Intensity specification into cloud-native observability through OpenTelemetry semantic conventions.</p>
+<p>The Software Carbon Intensity specification version 1.0 has achieved formal recognition as an ISO standard. Created by the Green Software Foundation, the specification establishes an operational rate metric reflecting carbon emitted per functional unit of software work. Crucially, the standard enforces strict accounting boundaries. Carbon offsets and neutralizations cannot be used to reduce a Software Carbon Intensity score. An organization cannot buy external credits to lower its software metric. The score drops only when software uses less energy, runs on cleaner hardware, or executes during lower-carbon grid hours.</p>
+<p>By introducing dedicated semantic attributes into OpenTelemetry spans, the CNCF specification makes carbon an active operational signal. Distributed traces already pass trace context across microservice boundaries via network headers. Under the proposed semantic conventions, trace spans can carry attributes representing the marginal carbon intensity of the local power grid. When a service handles a request, its telemetry records not only the elapsed duration in milliseconds, but also the carbon intensity of the host region during that execution window.</p>
+<h2>From Passive Logging to Runtime Workload Routing</h2>
+<p>Embedding carbon data into distributed traces transforms decarbonization from an auditing exercise into an active routing problem. The Green Software Foundation defines carbon awareness as actions taken to shift computation across time or geography to take advantage of cleaner electricity. Once telemetry engines collect real-time grid intensity inside OpenTelemetry spans, orchestration systems can act on that data programmatically.</p>
+<p>This capability becomes vital as artificial intelligence workloads consume expanding shares of data center power. Deploying machine learning models requires massive electrical energy. NVIDIA has estimated that model inference constitutes 80 to 90 percent of the total carbon cost of a machine learning model in deployment. While model training receives widespread attention, ongoing inference queries generate the primary operational burden.</p>
+<p>Fortunately, many inference workloads tolerate latency. Asynchronous batch transformations, offline embeddings, and background evaluations do not require immediate responses. When carbon telemetry flows through OpenTelemetry collectors, ingress routers and schedulers can inspect regional grid signals. If an electrical grid experiences a sudden drop in renewable output, an automated controller can route inference requests to data centers in Sweden where renewable output reached 71.19 percent in 2025 (Figure 1). Computation shifts directly to where cleaner electricity is actively available.</p>
+<h2>The Data Deficit in Public Clouds</h2>
+<p>Moving from specification to production faces severe practical friction. Accessing granular, real-world data needed for Software Carbon Intensity calculations remains difficult in public cloud environments. Cloud providers operate multi-tenant hardware behind proprietary virtualization boundaries. Public cloud platforms rarely expose real-time energy consumption at the physical host level. Engineers seeking to populate OpenTelemetry carbon attributes must often rely on modeled estimates rather than direct hardware measurements. If modeled energy figures diverge from physical reality, automated routing systems risk shifting workloads based on inaccurate telemetry. Standardizing semantic conventions in OpenTelemetry is an essential foundation, but its ultimate utility depends on whether cloud providers provide transparent, host-level power telemetry.</p>
+<h2>The Path to Implementation</h2>
+<p>Despite these data constraints, engineering teams can begin evaluating carbon telemetry immediately. The initial step involves auditing existing distributed tracing configurations against the proposed OpenTelemetry semantic conventions. Platform teams do not need to wait for full cloud provider transparency before instrumenting asynchronous background services.</p>
+<p>By injecting external regional grid intensity values into trace spans, teams can quantify the emission variance of their workloads across distinct operating hours. In staging clusters, developers can construct proof-of-concept routing rules that steer non-urgent queue workers toward cleaner cloud zones during renewable peaks. A concrete, testable milestone is straightforward: deploy an OpenTelemetry collector that records grid carbon intensity, execute identical inference batches across multiple regions over a diurnal cycle, and compare the resulting carbon intensity per transaction.</p>
+<p>Modern observability has spent decades refining the measurement of latency, error rates, and infrastructure costs. Bringing grid emissions directly into OpenTelemetry trace spans supplies the missing operational signal needed to optimize software for real-world environmental impact.</p>
+</article>
+</body></html>
