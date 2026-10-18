@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Event-Driven Autoscaling Shift: Kubernetes Fleets Standardizing on KEDA</title>
+<style>
+:root { color-scheme: light dark; }
+body { max-width: 42rem; margin: 0 auto; padding: 2rem 1.2rem 4rem;
+       font: 19px/1.65 Georgia, 'Liberation Serif', serif; color: #16181d; background: #fff; }
+h1 { font: 700 2.1rem/1.2 Ubuntu, system-ui, sans-serif; margin: 0 0 .4rem; letter-spacing: -.02em; }
+h2 { font: 700 1.35rem/1.3 Ubuntu, system-ui, sans-serif; margin: 2.2rem 0 .6rem; }
+.alt { font: 400 1.15rem/1.45 Ubuntu, system-ui, sans-serif; color: #5b6067; margin: 0 0 2rem; }
+img { width: 100%; height: auto; display: block; margin: 1.8rem 0 .4rem; border-radius: 3px; }
+figcaption, .cap { font: 400 .85rem/1.4 Ubuntu, system-ui, sans-serif; color: #6b7079;
+       text-align: center; margin: 0 0 1.8rem; }
+blockquote { border-left: 3px solid #d8dade; margin: 1.4rem 0; padding: .2rem 0 .2rem 1.1rem; color: #4a4f57; }
+code { font: .88em ui-monospace, 'Ubuntu Mono', monospace; background: #f3f4f6; padding: .12em .35em; border-radius: 3px; }
+pre { background: #f3f4f6; padding: 1rem; overflow-x: auto; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+ul, ol { padding-left: 1.3rem; }
+li { margin: .4rem 0; }
+a { color: #1a5fb4; }
+hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
+.kaynak { font: .8rem/1.5 Ubuntu, system-ui, sans-serif; color: #6b7079; }
+@media (prefers-color-scheme: dark) {
+  body { background: #16181d; color: #e7e9ec; }
+  .alt { color: #a4a9b3; } figcaption, .cap, .kaynak { color: #9aa0aa; }
+  code, pre { background: #22252c; } blockquote { border-color: #3a3e46; color: #b8bdc6; }
+  a { color: #7cb0f5; }
+}
+</style></head>
+<body>
+<article>
+<h1>The Event-Driven Autoscaling Shift: Kubernetes Fleets Standardizing on KEDA</h1>
+<p class="alt">Queue-driven pod scaling replaces custom metric adapters and eliminates latency spikes across asynchronous Kubernetes fleets.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-18/02-keda-kubernetes-autoscaling-shift/kapak.jpg" alt="The Event-Driven Autoscaling Shift: Kubernetes Fleets Standardizing on KEDA"><figcaption>Photo: Kim Scarborough from Chicago, IL, Wikimedia Commons, CC BY-SA 2.0</figcaption></figure>
+<p>A message queue accumulates 1000 unhandled jobs while worker pod processor utilization hovers below 15 percent. Consumer lag breaches customer service-level agreements while container memory usage stays flat. The cluster appears healthy to automated monitoring, yet downstream operations freeze. This failure occurs daily across production environments running modern distributed applications. Engineering organizations build asynchronous pipelines to buffer sudden traffic bursts, inserting message brokers like Apache Kafka or Amazon Simple Queue Service between ingest gateways and processing workers. Yet the default scaling mechanism in Kubernetes remains tied to internal container resource utilization.</p>
+<p>The native Horizontal Pod Autoscaler was created for synchronous HTTP services where incoming network requests consume processor cycles immediately. In asynchronous architectures, worker pods pull work batches from an external queue, process each task over several seconds, and wait on network I/O operations. During an acute surge in queue volume, worker threads reach maximum capacity while container CPU registers modest utilization. Under vanilla Kubernetes, the autoscaler inspects pod CPU and memory thresholds, observes no threshold breach, and scales nothing. Queue backlogs grow, processing latency climbs, and dependent downstream services stall while cluster resources appear idle. Scaling strictly on CPU and memory thresholds fails to meet the needs of fluctuating cloud-native workloads. When message queues swell, the cluster needs more worker replicas immediately, even if existing workers consume minimal processing power.</p>
+<h2>The Complexity Barrier of Native Custom Metrics</h2>
+<p>Cluster operators frequently attempt to resolve this visibility gap by configuring custom metrics inside the native Kubernetes autoscaling framework. In theory, the Kubernetes Custom Metrics API permits the native autoscaler to query external telemetry sources. In practice, building this plumbing requires deploying dedicated metric adapters, establishing external authentication bridges, and maintaining specialized Prometheus queries to translate queue length into an autoscaling metric.</p>
+<p>Although functional, the native Kubernetes custom metrics API is complex and lacks user-friendly configuration. Built-in Kubernetes autoscalers are limited because modern workloads often need to react to external metrics that originate outside the application. If an engineering team runs workers consuming from AWS SQS, the pod itself does not generate the queue depth metric; the message broker hosts that state. Forcing the cluster to poll external infrastructure through custom metric adapters introduces fragile dependencies, custom service accounts, and brittle controller configurations that break during cluster maintenance. Default Kubernetes resource metric scaling does not fit event-driven or serverless workloads that must scale rapidly according to incoming queue or stream events.</p>
+<h2>The Architecture of Event-Driven Autoscaling with KEDA</h2>
+<p>To eliminate this structural limitation, production fleets have shifted to Kubernetes Event-driven Autoscaling, known as KEDA. KEDA installs as an operator alongside the native Kubernetes controller manager, extending the cluster through Custom Resource Definitions without replacing upstream primitives. It enables Kubernetes applications to scale based on external metrics and events rather than solely on CPU or memory usage.</p>
+<p>Instead of configuring complicated adapter pipelines, engineers define a ScaledObject custom resource. This resource declares which external trigger to monitor, such as an AWS SQS queue or an Apache Kafka topic, and sets target thresholds directly against queue length. Using queue length metrics such as AWS SQS queue size is a more effective autoscaling trigger than CPU and RAM.</p>
+<p>KEDA introduces two primary architectural capabilities that native controllers lack. First, KEDA can scale queue-driven worker workloads completely down to 0 replicas when there are no pending tasks. Native Horizontal Pod Autoscalers cannot scale deployments down to 0 replicas, forcing clusters to run idle consumer pods continuously. Dropping idle worker deployments to 0 replicas eliminates compute waste across non-production environments and intermittent batch processing queues.</p>
+<p>Second, KEDA acts as an external metrics server that feeds queue telemetry directly into the native autoscaler once replicas scale above 0. KEDA enables Kubernetes containers to scale proactively based directly on the arrival rate of incoming events. When unhandled messages arrive simultaneously, KEDA detects the queue delta immediately and instructs the cluster to provision new pods before message processing even begins.</p>
+<h2>Upstream Cadence and the Modernization Pressure</h2>
+<p>The standardization on KEDA coincides with rapid lifecycle shifts in upstream Kubernetes releases and changing developer troubleshooting patterns across the industry.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-18/02-keda-kubernetes-autoscaling-shift/ic-01.png" alt="Upstream days of support remaining across active Kubernetes versions"><figcaption>Upstream days of support remaining across active Kubernetes versions</figcaption></figure>
+<p>Upstream support timelines show how narrow the maintenance window has become for platform teams running Kubernetes (Figure 1). According to official endoflife.date support records, version 1.34 has only 9 days of remaining support, version 1.35 has 133 days, version 1.36 has 253 days, and version 1.37 has 375 days (Figure 1). This rapid 14-month lifecycle forces continuous cluster modernization across enterprise fleets (Figure 1). Every 14 months, an active version reaches end of life, requiring operators to upgrade control planes and revalidate their cluster add-ons against upstream changes (Figure 1).</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-18/02-keda-kubernetes-autoscaling-shift/ic-02.png" alt="Monthly Stack Overflow question volume for Kubernetes and Docker tags"><figcaption>Monthly Stack Overflow question volume for Kubernetes and Docker tags</figcaption></figure>
+<p>At the same time, public developer inquiry patterns have shifted over the past 24 months (Figure 2). Data from Stack Exchange API 2.3 shows that monthly new questions tagged with Kubernetes fell from a high of 103 questions in November 2024 and 89 questions in October 2024 to a low of 0 questions in August 2026 and only 1 question in September 2026 (Figure 2). A parallel decline occurred in Docker inquiries, which dropped from 360 questions in October 2024 to a low of 4 questions in August 2026 and 5 questions in September 2026 over the same 24-month span (Figure 2).</p>
+<p>Comparing these two datasets reveals a structural reality that standard documentation overlooks (Figure 1) and (Figure 2). The sharp drop in public forum inquiries indicates that basic container orchestration patterns have matured into established conventions (Figure 2). When Kubernetes versions reach end of life on a strict 14-month cadence, platform engineers cannot afford to build, troubleshoot, and rewrite custom metric adapters for each upgrade cycle (Figure 1). Maintaining in-house metrics adapters across 4 active versions—ranging from version 1.34 with 9 days left to version 1.37 with 375 days left—creates an unsustainable maintenance burden (Figure 1). Fleets standardize on established CNCF projects like KEDA, delegating the responsibility of API compatibility and upstream version support to a dedicated open-source community.</p>
+<h2>Counterpoint: Where Native Resource Thresholds Still Excel</h2>
+<p>Despite the clear advantages of event-driven autoscaling for queue workers, KEDA is not required for every container in a cluster. Workloads that handle synchronous, compute-bound traffic without external message buffers remain well-served by native Horizontal Pod Autoscalers. A stateless API gateway running CPU-intensive cryptography, image transcoding, or synchronous JSON serialization generates immediate CPU load proportional to incoming network traffic. For these services, native threshold scaling on CPU utilization provides elastic responsiveness without introducing external controllers or permissions to third-party metric sources. Installing KEDA solely to scale a stateless HTTP proxy on processor usage adds unnecessary operational dependencies to an otherwise simple deployment.</p>
+<h2>Operationalizing Queue Metrics in Production</h2>
+<p>For fleets running asynchronous message consumers, adopting KEDA replaces reactive firefighting with predictable capacity planning. Instead of guessing what CPU percentage corresponds to a safe queue depth, teams configure a target queue length per pod. If a worker can safely handle 20 messages simultaneously, setting a target value of 20 instructs KEDA to maintain 1 pod for every 20 messages waiting in the queue.</p>
+<p>When a sudden batch of 1000 messages lands in AWS SQS, KEDA immediately requests 50 pods. The cluster autoscaler provisions node capacity, worker pods spin up concurrently, and the backlog clears before customer latency degrades. Once the queue empties back to 0 messages, the deployment scales down gracefully, saving compute costs across thousands of core hours.</p>
+<p>To put this architecture into practice, start with a controlled verification:
+- Identify 1 asynchronous worker deployment consuming from a high-throughput queue broker.
+- Deploy KEDA into a staging cluster using its standard Helm chart, avoiding modifications to core cluster settings.
+- Create a test ScaledObject pointing to your queue broker with a conservative message-per-pod target of 20 messages.
+- Simulate a burst of 500 messages while holding worker CPU artificially low to confirm that pod counts scale strictly on queue depth.
+- Verify that your deployment drops back down to 0 replicas once the queue remains empty for your configured cooldown period.</p>
+<p>Inspect your message queue depth alongside pod CPU utilization during your next scheduled batch processing run, deploy 1 test ScaledObject alongside your consumer deployment, and measure whether pod provisioning begins before worker processor metrics cross 50 percent utilization.</p>
+</article>
+</body></html>
