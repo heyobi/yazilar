@@ -1,0 +1,64 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-19</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-19 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Gemini, Kolombiya hukuk sınavındaki çoktan seçmeli soruların %90,5&#x27;ini doğru yanıtladı.
+
+Fakat yanıtlara yazılı gerekçe istendiğinde, en başarılı modelin olgusal doğruluk skoru 1 üzerinden yalnızca 0,451&#x27;de kaldı. Argümantasyon adımı hızla çuvalladı. Çoktan seçmeli test başarısı mantıksal doğrulama güvencesi sunmuyor.
+
+#yapayzeka #llm #benchmark</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">İnceleme ve kart kaynağı:
+
+Görsel kart ve araştırma verileri [S1-S6]:
+https://medium.com/@ikatoch72/gemini-scored-90-5-on-a-law-exam-then-it-had-to-explain-0a7437dd7c5d?source=rss------large_language_models-5</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Gemini&#x27;nin hukuk sınavındaki çoktan seçmeli skoru · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">Mock veritabanı testi boş hesaptan 15 dolar çekilmesini onaylayıp bakiyeyi eksi 500 cent döndürdü.
+
+Aynı işlem gerçek bir PostgreSQL motorunda 23514 check_violation hatasıyla reddedildi. Mock nesnesi kısıtları bilmez. Oysa şeması ve göçleri baştan hazırlanmış tek bir PostgreSQL konteyneriyle tüm test süitini yaklaşık 1 saniyede uçtan uca koşmak mümkün. Testlerde veritabanını taklit etmek hız kazandırmaz; kısıt ve tip hatalarını sadece canlı ortama öteler.
+
+#postgresql #database #devops</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve detaylar:
+- Görsel kaynağı: daamien @ GitHub, Wikimedia Commons, CC BY-SA 3.0 de
+- [S1], [S2], [S3], [S4], [S5]: https://martin128.medium.com/your-mocked-database-tests-are-lying-test-against-real-postgres-326b3a246d8e?source=rss------postgresql-5</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Mock veritabanı testleri yeşil yansa da üretim hatalarını yakalamıyor · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">PostgreSQL, NVMe depolamada bile varsayılan 4.0 random_page_cost çarpanı yüzünden planlayıcıyı yanıltıyor.
+
+Tom Lane, sürüm 7.0 ile bu değeri getirdiğinde dönen disklerde rastgele bir okuma kırk sıralı okumaya bedeldi. Mekanizma alttaki donanımı algılamaz; planlayıcı, index ile heap sırası arasındaki korelasyon koptukça maliyeti doğrudan bu katsayıyla çarpar. Nitekim korelasyonsuz bir taramada 8.118 heap sayfası 4.0 ile çarpılınca 32.709 birimlik toplam maliyetin 32.472&#x27;sini tek başına oluşturuyor. Planlayıcı index&#x27;i terk ediyor. Katsayıyı 1.1 seviyesine indirmek aynı tarama maliyetini 9.112 değerine düşürerek sorguyu doğru yürütme planında tutuyor.
+
+#postgresql #dba #databasetuning</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve detaylı analiz:
+Görsel: Planet PostgreSQL, The Build
+Christophe Pettus, All Your GUCs in a Row: random_page_cost and seq_page_cost: https://postgr.es/p/9yN</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">NVMe diskler için random_page_cost ayarı · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">Bedrock ile JumpStart arasındaki asıl fark API rahatlığı değil, SLA ve altyapı kontrolü.
+
+Bedrock tarafında prompt verisi AWS sınırında kalsa ve IAM ile yönetilse de altyapıya müdahale şansı verilmez. Kontrol ayrılmış düğümde başlar. Özel VPC izolasyonu ve garanti işlem performansı arandığında JumpStart, hızlı dağıtımda sunucusuz uç noktalar seçilmeli. Sistemdeki VPC izolasyon sınırına ve gecikme bütçesine bakın.
+
+#awsbedrock #sagemaker #devops</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar ve referanslar:
+- Görsel kaynağı: DnaX, Wikimedia Commons, CC BY-SA 4.0
+- [S1], [S2], [S3]: https://www.cloudyali.io/blogs/claude-platform-aws-vs-bedrock-finops
+- [S4], [S5]: https://medium.com/@vkelk/configuring-claude-code-extension-with-aws-bedrock-and-how-you-can-avoid-my-mistakes-090dbed5215b</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Serverless konforu mu, VPC içinde tam altyapı kontrolü mü? · denetim: OK</p></div></div><div class="card"><img src="05-kart.jpg" alt=""><div class="pad"><pre id="p4">GitHub, ubuntu-latest etiketini bugün sessizce Ubuntu 26.04 sürümüne geçirmeye başladı.
+
+Derleme ortamı habersizce bölündü. Önümüzdeki bir ay boyunca aynı commit bir çalışmada başarılı olurken bir diğerinde kütüphane uyumsuzluğu yüzünden çökebilir. İş akışlarınızdaki runs-on tanımlarına bakın; kayan etiketler derleme hattında anlık kırılmalara yol açar.
+
+İmaj sürümünü doğrudan kilitleyen veya kendi özel runner kümesini çalıştıran boru hatlarında bu risk oluşmaz.
+
+#githubactions #devops #ubuntu</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Kaynaklar:
+- Görsel ve [S1]: https://aws.plainenglish.io/i-dont-allow-latest-in-my-dockerfiles-my-ci-has-been-using-it-for-years-7f5bae3afe8c?source=rss------devops-5
+- [S2], [S3]: https://ubuntu.com/blog/canonical-releases-ubuntu-26-04-lts-resolute-raccoon
+- [S4], [S5]: https://ubuntu.com/blog/upgrade-your-desktop-ubuntu-26-04-lts</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">ubuntu-latest etiketinin taşınmaya başlandığı yeni Ubuntu sürümü · denetim: OK</p></div></div>
