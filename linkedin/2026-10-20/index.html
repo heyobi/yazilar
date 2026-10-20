@@ -1,0 +1,62 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-20</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-20 — 4 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.jpg" alt=""><div class="pad"><pre id="p0">Cloudflare, kod inceleme modelinin çıkarım faturasını %68 düşürdü.
+
+Donanım büyütmediler, model küçültmediler. Bütün farkı yaratan adım, tekrar eden sistem istemlerini prompt caching ile sabitlemek ve akıllı model yönlendirmesi kurmak oldu.
+
+Maliyeti düşüren şey daha güçlü GPU&#x27;lar değil, girdi şablonlarındaki önbellek disiplini.
+
+#promptcaching #llmops #inference</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">İnceleme ve optimizasyon detayları:
+
+Cloudflare: https://blog.cloudflare.com/obsessive-inference-optimization/</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Çıkarım faturasındaki düşüş oranı · denetim: OK</p></div></div><div class="card"><img src="02-kart.jpg" alt=""><div class="pad"><pre id="p1">Nvidia&#x27;nın 120 milyar parametrelik açık modeli, kurumsal ajanlarda bulut API&#x27;si bağımlılığını kırıyor.
+
+Kapalı bulut servisleri ile yerel modeller arasındaki gerçek işletim ölçüsü veri egemenliğidir. Ayrım çok net. Dokümantasyon özetlemede bulut modellerinin esnekliği avantaj sağlarken; şema, indeks ve müşteri kayıtlarına dokunan otonom ajanlarda dışarıya veri sızdırmayan yerel modeller en güvenli tercih.
+
+Kendi PostgreSQL kümenizde çalışan ajanların dış ağa açtığı soketlere ve sorgu loglarına bakın.
+
+#postgresql #database #aiagents</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar:
+- Görsel: Benmerdmann, Wikimedia Commons, CC BY-SA 3.0
+- [S3] TechCrunch: https://techcrunch.com/2026/10/19/nvidia-launches-new-open-models-to-run-agents-in-the-enterprise-and-on-pcs/</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Nvidia kurumsal ajanlar için açık modellerini duyurdu · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">CVE-2026-2270 zafiyeti, küme denetleyicisini doğrudan API sunucusuna saldıran bir tehdide dönüştürüyor.
+
+Durum eşitlemesi sırasında sonsuz mutasyon döngüsüne giren özel denetleyiciler, kontrol düzlemini tamamen kilitliyor. Pod yönetimi duruyor. Kendi kümenizde reconcile fonksiyonlarındaki üstel geri çekilme mantığını, mutasyon webhook zaman aşımlarını ve servis hesabı limitlerini acilen doğrulayın.
+
+Fakat bu arıza, denetleyici trafiği baştan katı istek kotalarıyla sınırlandırılmış yalın kümelerde geçerli değildir.
+
+#kubernetes #devops #platformengineering</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve detaylar:
+
+• Görsel kaynağı: CMyrick-WMF and HGhani-WMF, Wikimedia Commons, CC BY-SA 4.0
+• [S1] CVE-2026-2270 analizi: https://medium.com/@ascendrixtech/the-kubernetes-bug-where-your-own-controller-became-the-attacker-lessons-from-cve-2026-2270-3244e1d4a9fe?source=rss------devops-5</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Kubernetes CVE-2026-2270 denetleyicileri saldırgana dönüştürüyor · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">CI hattındaki migration denetleyicisinin SAFE raporu vermesi, tablonun kilitlenmeyeceğini garanti etmez.
+
+Yaygın kabul, aracın tüm kontrolleri eksiksiz koştuğu yönündedir. Oysa izin veya ortam kısıtı nedeniyle çalıştırılamayan denetimler SAFE geçildiğinde, üretimde tablo kilitleri kaçınılmaz olur. Koşulamayan kontrol güvenli değildir. Bugün çıkan safe-migrate son sürümünde bu açığı kapattı [H1].
+
+Çalıştırılamayan her kural CI sürecini fail-closed mantığıyla durdurmalıdır.
+
+#postgresql #database #devops</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar:
+- safe-migrate v0.11.0 sürüm duyurusu ve tartışması: https://www.reddit.com/r/PostgreSQL/comments/1xa2i7a/should_a_migration_linter_say_safe_when_it/
+- Görsel kaynağı: Abraham, Wikimedia Commons, CC0</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">safe-migrate v0.11.0 koşulamayan kuralı artık güvenli saymıyor · denetim: REDDEDİLDİ (Number without source marker: &#x27;Bugün çıkan safe-migrate son sürümünde bu açığı kapattı [H1].&#x27;)</p></div></div>
