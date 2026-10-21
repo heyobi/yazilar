@@ -1,0 +1,69 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-21</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-21 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">GhostAction, 30.000&#x27;den fazla depoya sahte iş akışı ekleyerek statik bulut anahtarlarını çaldı.
+
+Kalıcı kimlikler açık hedef. CI ortamında uzun ömürlü servis hesabı anahtarı saklamak yerine kısa ömürlü OIDC belirteçlerine geçmek bu saldırı yüzeyini kapatıyor.
+
+#cicd #devops #cloudsecurity</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynaklar ve detaylar:
+- GhostAction analizi ve CI güvenliği: https://medium.com/google-cloud/your-github-actions-dont-need-a-google-cloud-key-delete-it-in-15-minutes-a9e3f0796922?source=rss------devops-5
+- Workload Identity Federasyonu ve OIDC: https://tailscale.com/blog/workload-identity-beta</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Sahte iş akışı eklenen GitHub deposu · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">1 milyon satırlık CSV aktarımında PostgreSQL yerel COPY protokolü, toplu JDBC yöntemini geride bıraktı.
+
+COPY, ayrıştırma adımını atlar. Scriptella kıyaslamasında elle yazılan toplu JDBC aktarımı csvsql&#x27;i geride bıraksa da PostgreSQL tarafında en kısa süreyi yerel COPY verdi.
+
+Büyük veri yüklemelerinde COPY protokolünü, anlık ve işlem bütünlüğü gerektiren satırlarda ise standart insert&#x27;i seçin. Gecelik aktarımlarda `pg_stat_activity` üzerindeki kilit bekleme olaylarına bakın.
+
+#postgresql #dba #etl</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve test detayları:
+- Scriptella benchmark verileri: https://github.com/scriptella/scriptella-benchmarks
+- r/PostgreSQL tartışması: https://www.reddit.com/r/PostgreSQL/comments/1x9zbt1/postgresql_copy_vs_batched_jdbc_importing_1/
+
+Görsel kaynağı: Scriptella; r/PostgreSQL</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">1 Milyon Satır Aktarım Yöntemleri · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">PostgreSQL terfi ederken recovery_end_command bitene kadar tek bir yazma bile alamaz.
+
+Failover saati ise durmaz. Düğüm timeline 2 üzerinde görünür; pg_is_in_recovery() doğru dönse de sunucu ne kurtarma yapar ne de yazmaya hazırdır. Ağ çağrısı yapan betikler terfi anında düğümü kilitler. postgresql.conf içindeki komutun arka plana devredilmesi şart. Bu risk, harici kanca tanımlamayan mimarilerde geçerli değildir.
+
+#postgresql #databaseadministration #highavailability</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve detaylı okuma:
+- Görsel/Kart kaynağı: Planet PostgreSQL; The Build
+- Christophe Pettus, All Your GUCs in a Row: recovery_end_command: https://postgr.es/p/9z6</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">recovery_end_command Yapılandırması · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">Ajanlara doğrudan SQL çalıştırma yetkisi vermenin analizi hızlandıracağı sanılıyor; üretimde sonuç tam tersi.
+
+Çoğu demoda modele serbest bir sorgu aracı tanımlanıp veritabanına doğrudan erişim veriliyor. Oysa istemci taraflı kısıtlamalar dakikalar içinde aşılabiliyor. Önceden kurulmuş bir inceleme adımı yoksa kontrolsüz bir sorgu canlı tabloda anında yürütülüyor. Bağlantı havuzu tükeniyor. Modeli doğrudan veritabanına bağlamak yerine, her sorguyu çalıştırmadan önce 5 aşamalı bir güvenlik hattından geçirmek şart.
+
+#postgresql #database #aiagents</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Yazıda geçen kaynaklar ve görsel referansı:
+
+Görsel: 小朱, Wikimedia Commons, CC BY-SA 3.0
+[S1] Medium: https://medium.com/@judewakim/my-ai-agent-never-touches-the-database-e8f19c763e95?source=rss------database-5
+[S3], [S4] Tiger Data: https://www.tigerdata.com/blog/ai-agent-production-database-access
+[S5] Faz: https://github.com/fazhq/faz</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Ajanlara doğrudan SQL çalıştırma yetkisi vermek üretim veritabanını felç ediyor. · denetim: OK</p></div></div><div class="card"><img src="05-kart.png" alt=""><div class="pad"><pre id="p4">Meta&#x27;nın yapay zekâ asistanı Muse&#x27;a ait 6.800&#x27;den fazla özel sohbet kaydı arama motorlarında indexlendi.
+
+Claroc araştırmacıları bu bağlantıları genel DNS kayıtları üzerinden tespit etti. Muse paylaşılan sohbet URL&#x27;lerini başlık, açıklama metni ve rastgele kimlikle üretiyor. Uç noktada doğrulama yoktu. Sunucu yanıtında noindex HTTP başlığı bulunmadığı için botlar sayfaları meşru web içeriği sayıp index&#x27;e aldı. Açığa çıkan verilerde şirket gelirleri, çalışma takvimleri ve kredi başvuruları yer alıyor. ChatGPT, Claude ve Grok da aynı hatayı yapmıştı. Erişim denetimi ve noindex başlığı bulunmayan sistemlerde tahmin edilemeyen URL yapısı veriyi korumuyor.
+
+#appsec #sibergüvenlik #verigüvenliği</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Kaynaklar:
+- Görsel kaynağı: Karel Škréta, Wikimedia Commons, CC0
+- [S3] Claroc araştırması ve 6.800+ bağlantı: https://www.theverge.com/tech/1014627/meta-muse-ai-sharing-ai-chats
+- [S4] Hassas veri sızıntısı bulguları: https://www.theverge.com/tech/1014627/meta-muse-ai-sharing-ai-chats
+- [S5] Muse dinamik URL yapısı: https://www.theverge.com/tech/1014627/meta-muse-ai-sharing-ai-chats
+- [S6] ChatGPT, Claude ve Grok emsalleri: https://www.theverge.com/tech/1014627/meta-muse-ai-sharing-ai-chats</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Paylaşılan yapay zekâ sohbetleri noindex başlığı olmadığı için arama motorlarına sızdı. · denetim: OK</p></div></div>
