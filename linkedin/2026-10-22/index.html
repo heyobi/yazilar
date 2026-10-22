@@ -1,0 +1,81 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-22</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-22 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Küçük dil modellerinde sözlük dağarcığını özelleştirmek, çıkarım maliyetini %77 düşürüyor.
+
+Fark LM head matrisinde. Qwen3-4B gibi bir modelde bu matris tek başına parametrelerin neredeyse %10&#x27;unu oluşturuyor.
+
+Genel sözlük yerine yalnızca SQL ve log terimlerini tutmak, yerel GPU yükünü doğrudan hafifletiyor.
+
+#slm #localllm #llmops</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Detaylar ve kaynak çalışma:
+Hugging Face / VocabX: https://huggingface.co/blog/Dharma-AI/vocabx-vocabulary-specialization</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Kelime dağarcığı özelleştirmesiyle düşen çıkarım maliyeti · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">recovery_prefetch, PostgreSQL replikalarında okuma IOPS yükünü 16 kata kadar büyüterek kesintiye yol açabiliyor.
+
+Disk kuyrukları hızla kilitleniyor.
+
+Özellikle ağ depolamasında ana düğümün sıralı I/O yükü replikaya bindiğinde, eşzamanlı replikasyondaki yazmalar 30 dakikadan uzun süre askıda kalabiliyor.
+
+Ancak yerel NVMe diskler üzerinde çalışan ve bant genişliği kısıtı bulunmayan ikincil düğümlerde bu risk geçerli değil.
+
+#postgresql #dba #storage</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Analiz ve vaka detayları:
+
+- Jeremy Schneider (Ardent Performance Computing): https://ardentperf.com/2026/10/20/postgres-recovery_prefetch-considered-harmful-and-causing-outages/
+- Planet PostgreSQL: https://postgr.es/p/9zf
+- Christophe Pettus (The Build): https://postgr.es/p/9zw
+
+Görsel kaynağı: Ardent Performance Computing; Planet PostgreSQL; The Build</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">recovery_prefetch ayarını kapatma · denetim: OK</p></div></div><div class="card"><img src="03-kart.jpg" alt=""><div class="pad"><pre id="p2">PgBouncer arkasında SCRAM varken kullanıcı taklidinin imkansız olduğu varsayımı çöktü.
+
+Normalde bu protokol, tarafların parolayı paylaşmadan birbirini doğrulamasını eksiksiz sağlar. Sorun şifrelemede değil, havuzda. Etkilenen sürümlerde kimlik doğrulama akışına ikinci bir startup paketi ekleyen istemci, tek parolayla başka bir SCRAM kullanıcısının kimliğine bürünebiliyor. PgBouncer ekibi bugün yayımladığı yamayla bu açığı kapattı.
+
+Yamalanmamış havuzlarda kullanıcı bazlı yetki izolasyonu varsayımı geçersizdir.
+
+#pgbouncer #postgresql #databasesecurity</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve detaylar:
+- Görsel: Alan Levine from Strawberry, United States (Wikimedia Commons, CC BY 2.0)
+- [S1] PgBouncer SCRAM zafiyeti: https://medium.com/tech-and-ai-guild/pgbouncer-patched-an-auth-bug-that-could-turn-one-password-into-another-user-344b1dd29a2e?source=rss------postgresql-5
+- [S2] PgBouncer ve SCRAM doğrulaması: https://info.crunchydata.com/blog/pgbouncer-scram-authentication-postgresql</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">PgBouncer SCRAM protokolündeki kullanıcı taklidi açığını kapattı. · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">GitHub, depolarının %99,99999&#x27;unun bir kopyasını Azure nesne depolama katmanına taşıdı.
+
+Yapay zekâ ajanlarının yoğun Git trafiği, yerel disklerde ciddi bir I/O darboğazı yaratıyordu. Çözüm, depolamayı durumdan ayırmaktı.
+
+Dayanıklılık amacıyla beş kopya tutulan mimaride, referans mutabakatı nesne depolamadan bağımsız hale getirildi. Artık depoların iki kopyası Azure üzerinde duruyor ve Git trafiğinin yaklaşık yarısına hizmet veriyor. Bu sayede farklı referanslara yazma işlemlerinde 3–4 kat daha yüksek iş hacmi ve düşük gecikme sağlandı.
+
+Kilit yönetimini yerel diskten kurtarmak, depolama katmanının bağımsız ölçeklenmesini sağlıyor.
+
+#git #infrastructure #storage</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">İncelemek isteyenler için mimari raporun ve kaynakların bağlantısı:
+
+GitHub Engineering: https://github.blog/engineering/architecture-optimization/the-bridge-to-agent-scale-git-infrastructure/</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Azure nesne depolamasına taşınan GitHub depoları · denetim: OK</p></div></div><div class="card"><img src="05-kart.jpg" alt=""><div class="pad"><pre id="p4">Ajanların açık bulma hızı, geleneksel hata bildirimlerinin savunma penceresini fiilen sıfırladı.
+
+Modeller kritik PHP zafiyetlerini saldırganlardan önce yakaladı; yamaları hazırlamak iki aylık koordineli bir çalışma gerektirdi. Zafiyet bulguları hızla artacak.
+
+Burada belirleyici tek ölçüt savunma penceresidir. Rutin kod hatalarında bireysel bildirimler yeterli kalır; ancak yapay zekâ taramalarının hedefindeki kritik altyapı bileşenlerinde tek çözüm küresel koordinasyon hattıdır.
+
+Kümelerinizde çalışan açık kaynak servislerin yama uygulama gecikmesine bakın.
+
+#opensource #infosec #devops</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Kaynaklar ve detaylar:
+
+• Görsel: Hugovanmeijeren, Wikimedia Commons, CC BY-SA 3.0
+• Patch the Planet ve PHP koordinasyon süreci [S1, S2, S4, S5]: https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities
+• Daybreak savunma desteği [S3]: https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Ajanların bulduğu açıklar için küresel yama hattı kuruldu. · denetim: OK</p></div></div>
