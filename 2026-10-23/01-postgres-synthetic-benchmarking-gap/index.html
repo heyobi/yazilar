@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Production PostgreSQL Fleets Are Outgrowing Toy Benchmarks</title>
+<style>
+:root { color-scheme: light dark; }
+body { max-width: 42rem; margin: 0 auto; padding: 2rem 1.2rem 4rem;
+       font: 19px/1.65 Georgia, 'Liberation Serif', serif; color: #16181d; background: #fff; }
+h1 { font: 700 2.1rem/1.2 Ubuntu, system-ui, sans-serif; margin: 0 0 .4rem; letter-spacing: -.02em; }
+h2 { font: 700 1.35rem/1.3 Ubuntu, system-ui, sans-serif; margin: 2.2rem 0 .6rem; }
+.alt { font: 400 1.15rem/1.45 Ubuntu, system-ui, sans-serif; color: #5b6067; margin: 0 0 2rem; }
+img { width: 100%; height: auto; display: block; margin: 1.8rem 0 .4rem; border-radius: 3px; }
+figcaption, .cap { font: 400 .85rem/1.4 Ubuntu, system-ui, sans-serif; color: #6b7079;
+       text-align: center; margin: 0 0 1.8rem; }
+blockquote { border-left: 3px solid #d8dade; margin: 1.4rem 0; padding: .2rem 0 .2rem 1.1rem; color: #4a4f57; }
+code { font: .88em ui-monospace, 'Ubuntu Mono', monospace; background: #f3f4f6; padding: .12em .35em; border-radius: 3px; }
+pre { background: #f3f4f6; padding: 1rem; overflow-x: auto; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+ul, ol { padding-left: 1.3rem; }
+li { margin: .4rem 0; }
+a { color: #1a5fb4; }
+hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
+.kaynak { font: .8rem/1.5 Ubuntu, system-ui, sans-serif; color: #6b7079; }
+@media (prefers-color-scheme: dark) {
+  body { background: #16181d; color: #e7e9ec; }
+  .alt { color: #a4a9b3; } figcaption, .cap, .kaynak { color: #9aa0aa; }
+  code, pre { background: #22252c; } blockquote { border-color: #3a3e46; color: #b8bdc6; }
+  a { color: #7cb0f5; }
+}
+</style></head>
+<body>
+<article>
+<h1>Production PostgreSQL Fleets Are Outgrowing Toy Benchmarks</h1>
+<p class="alt">Multi-gigabyte synthetic workloads and copy-on-write clones expose the query planner regressions that sample fixtures conceal.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-23/01-postgres-synthetic-benchmarking-gap/kapak.jpg" alt="Production PostgreSQL Fleets Are Outgrowing Toy Benchmarks"><figcaption>Photo: Hugovanmeijeren, Wikimedia Commons, CC BY-SA 3.0</figcaption></figure>
+<p>Generating 100,000 synthetic rows using independent uniform random values will almost never produce an accidental collision. Hand-crafted test fixtures embed uniqueness assumptions made by their authors, introducing confirmation bias that prevents tests from uncovering real-world schema failures. In contrast, a population of 100,000 real customers follows heavy-tailed naming distributions with hundreds or thousands of duplicate names alongside single-occurrence names. Generating test data from schema DDL without a source database lacks sampled statistics, causing values to be shaped by naming rules rather than realistic distributions. Detecting these constraint and migration failures requires modeling realistic data derivations rather than merely increasing synthetic data volume.</p>
+<p>Most engineering teams assume staging tests prevent regressions. In practice, clean mock data creates a false sense of security. When queries encounter skewed keys and bloated indexes in production, database optimizers make decisions based on statistics that toy benchmarks distort.</p>
+<h2>Memory Pressure and Cache Degradation in Small Fixtures</h2>
+<p>For years, tutorials and test suites relied on sample databases like Pagila. A 10MB Pagila fixture fits entirely inside shared memory buffers, which masks execution flaws behind author assumptions. With all table pages residing in memory, the PostgreSQL query planner registers complete cache hits. It chooses nested loop joins without reading from disk, completing queries quickly and fostering false confidence.</p>
+<p>Execution paths diverge sharply when workloads encounter production volume. When a relational workload expands to 100 gigabytes across 100,000 customer entities, query planner cache hit rates deteriorate as working memory limits are exceeded. Intermediate hash tables exceed local allocations and spill temporary sort files to disk. Community debates this week regarding a 3TB open-source realistic dataset showed how toy benchmarks fail to surface storage bottlenecks.</p>
+<p>In small fixtures, index scans seem cheap because B-trees remain cached in memory. Across larger tables, index scans force random storage reads. If the planner assumes uniform values, it expects few rows per key. When heavy-tailed distributions return thousands of identical keys, index scans become severe bottlenecks. The engine needs a sequential scan or bitmap scan, but chooses wrongly because test fixtures lacked realistic data skew.</p>
+<h2>Fleet Upgrade Windows and Planner Drift</h2>
+<p>These query planner failures become acute during version upgrades, because official support windows close on a strict schedule.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-23/01-postgres-synthetic-benchmarking-gap/ic-02.png" alt="Remaining support days for active PostgreSQL and related database releases"><figcaption>Remaining support days for active PostgreSQL and related database releases</figcaption></figure>
+<p>PostgreSQL 14 has only 20 days of support remaining, while PostgreSQL 15 has 384 days (Figure 2). PostgreSQL 16 retains 748 days, PostgreSQL 17 has 1,112 days, and PostgreSQL 18 has 1,483 days of remaining maintenance (Figure 2). Meanwhile, MongoDB 7.0 has 312 days remaining, MongoDB 8.0 and MongoDB 8.3 each have 1,104 days, MongoDB 9.0 has 1,834 days, and MySQL 8.4 has 2,016 days (Figure 2).</p>
+<p>These operational windows force engineering teams into recurring fleet upgrade cycles (Figure 2). Major upgrades revise cost constants, statistics targets, and join algorithms. Against small fixtures, query plans appear identical across versions. In production, skewed data causes the updated planner to alter execution paths under memory pressure, triggering unexpected latency spikes.</p>
+<h2>Analytical Engine Adoption as an Indictment of Planner Failures</h2>
+<p>Planner regressions also drive migration toward non-relational engines under the mistaken assumption that PostgreSQL cannot scale.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-23/01-postgres-synthetic-benchmarking-gap/ic-03.png" alt="GitHub star totals for ClickHouse, TimescaleDB, and core PostgreSQL repositories"><figcaption>GitHub star totals for ClickHouse, TimescaleDB, and core PostgreSQL repositories</figcaption></figure>
+<p>Specialized analytical engine ClickHouse commands 50,549 GitHub stars, and TimescaleDB holds 23,740 stars, compared to 22,513 stars for core PostgreSQL (Figure 3).</p>
+<p>When developers observe ClickHouse reaching 50,549 stars and TimescaleDB reaching 23,740 stars while postgres/postgres sits at 22,513 stars, common commentary treats this purely as an appetite for specialized columnar tables (Figure 3). Yet these star counts reflect a different operational reality: engineering teams offload analytical queries because their PostgreSQL instances suffer query planner collapse under memory degradation (Figure 3). Because teams validate queries on small sample fixtures where cache hit rates remain near perfection, they fail to detect that nested loop plans collapse under realistic table sizes. Instead of fixing misestimated selectivity or memory spills, organizations add complex pipelines to move data elsewhere (Figure 3).</p>
+<h2>The Legitimate Utility of Lightweight Fixtures</h2>
+<p>Small fixtures still serve a clear purpose in local development. Unit tests require lightweight tables that start instantly to verify syntax, input validation, and basic foreign keys. Running multi-gigabyte databases inside developer commit hooks creates unacceptable build latency. However, passing a test on a compact fixture offers no guarantee that a query plan will function under production scale and concurrent load. Small fixtures validate application business logic, but they cannot validate database physical execution plans.</p>
+<h2>The Community Shift and the Risk of Sanitized Dumps</h2>
+<p>Synthetic fixtures hide regressions, but public problem-solving trends show teams struggling with larger operational concerns.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-23/01-postgres-synthetic-benchmarking-gap/ic-01.png" alt="Monthly Stack Overflow question volume for PostgreSQL and MySQL over 24 months"><figcaption>Monthly Stack Overflow question volume for PostgreSQL and MySQL over 24 months</figcaption></figure>
+<p>In October 2024, PostgreSQL question volume stood at 342 questions per month, falling to 14 in September 2026 (Figure 1). MySQL monthly questions dropped from 147 in October 2024 to 4 in September 2026 (Figure 1). Over those 24 months, PostgreSQL questions hit a minimum of 14 in July 2026 and a peak of 342 in October 2024 (Figure 1).</p>
+<p>This drop in public questions reflects an evolution in developer needs (Figure 1). Basic syntax problems are solved, while teams now struggle with high-scale planner stability (Figure 1). To reproduce production plans, some teams copy production databases to staging. This practice introduces grave security risks. Production database records routinely leak into less secure staging, development, test, and analytics environments. Furthermore, data scrubbing scripts destroy the exact statistical skew and value distributions that query planners rely on to cost plans accurately.</p>
+<h2>Copy-on-Write Clones and Modern Pre-Deployment Testing</h2>
+<p>Testing against production-scale data requires decoupling database size from storage overhead. Modern database cloning platforms isolate each database copy at both the compute and storage levels to prevent any impact on production. Isolated database clones can load in 6 seconds with autoscaling compute while eliminating storage duplication even at terabyte scale. These isolated testing environments scale to 0 compute when idle to control infrastructure costs.</p>
+<p>Copy-on-write storage and scale-to-zero features allow engineering teams to spin up terabyte-scale copies of Postgres instances in seconds for testing and development. Against a copy-on-write clone, the PostgreSQL query planner evaluates real table statistics, authentic index depths, and actual memory consumption. The planner cannot hide behind artificial cache hit rates. If an index scan fails under memory constraints, the clone reveals the disk spill during integration testing.</p>
+<p>Before deploying your next major schema change, test your queries against an isolated copy-on-write clone populated with production-shaped data distributions. Run EXPLAIN ANALYZE to verify whether your index scans remain in memory or spill into temporary disk storage. If your test suite only passes on uniform rows that fit inside shared buffers, you are not testing your query planner; you are waiting for production to test it for you.</p>
+</article>
+</body></html>
