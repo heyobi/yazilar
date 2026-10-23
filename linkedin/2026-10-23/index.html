@@ -1,0 +1,82 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-23</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-23 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.jpg" alt=""><div class="pad"><pre id="p0">Arkada unutulan tek bir boşta işlem, 152 kB boyutundaki tabloyu 29 MB&#x27;a fırlattı.
+
+Vakum hiçbir şey silemedi. Açık işlem temizlik ufkunu kilitlediği için 200.000 ölü satır tablodan temizlenemedi. Tek satırlık arama bile 3 yerine 203 tampon okudu. Tablo tam 192 kat şişti.
+
+#postgresql #database #dba</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynak ve vaka analizi:
+https://chen0625tung.medium.com/our-152-kb-table-grew-to-29-mb-the-culprit-was-a-session-doing-nothing-c00e62e1a3eb?source=rss------postgresql-5</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Boşta kalan işlem sonrası tablo boyutu · denetim: OK</p></div></div><div class="card"><img src="02-kart.jpg" alt=""><div class="pad"><pre id="p1">Konteyner cgroup sınırlarının tam izolasyon sağladığı inancı, haftada 3 milyon konteyner ölçeğinde çöktü.
+
+Paylaşımlı çekirdek gürültülü komşuları engelleyemiyor.
+
+On binlerce sanal makinede konteyner koşturan Netflix, çok kiracılı Titus platformunda çekirdek paylaşımını terk edip sanal makine düzeyinde izolasyona geçti.
+
+Cgroup tekil düğümlerde kaynak kısıtlamak için yeterli; fakat yüksek erişilebilirlik gerektiren kritik veri altyapılarında güvenli çok kiracılık ancak hipervizör sınırıyla mümkün.
+
+#linux #containers #devops</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve görsel referansı:
+
+Görsel: User:Kowalski7cc, Wikimedia Commons, CC0
+
+[S1] Single-tenant Titus: https://netflixtechblog.com/single-tenant-titus-vm-level-isolation-on-a-multi-tenant-container-platform-6d8b1909d163?source=rss----2615bd06b42e---4
+[S2] &amp; [S3] Titus Architecture &amp; Scale: https://medium.com/netflix-techblog/titus-the-netflix-container-management-platform-is-now-open-source-f868c9fb5436
+[S4] &amp; [S5] Titus Production Learnings: https://medium.com/@NetflixTechBlog/titus-the-netflix-container-management-platform-is-now-open-source-f868c9fb5436</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Konteyner platformlarında tam izolasyon için çekirdek paylaşımı değil VM sınırı gerekiyor. · denetim: OK</p></div></div><div class="card"><img src="03-kart.jpg" alt=""><div class="pad"><pre id="p2">DiffusionGemma 26B, yönlendirme kararlarını tek bir ileri geçişte 150 ms gecikmeyle tamamlıyor.
+
+Sıralı üretim burada bitiyor. Model, 256 belirteçlik blokları paralel işleyerek otoregresif mimarilerin her adımda KV önbelleği yenileyen sıralı kod çözme darboğazını aşıyor. Çift yönlü öz-dikkat katmanları, tüm maskelenmiş pozisyonların logit değerlerini tek seferde hesaplıyor. Bellekte 26B parametre tutulurken hesaplama anında her belirteç yalnızca 4B parametreden geçiyor. NVFP4 kuantizasyonuyla ağırlıklar 15.7 GiB seviyesine iniyor. Karar gecikmesini belirleyen unsur model boyutu değil, çıkarımın tek geçişte bitmesidir.
+
+#diffusionmodels #llmops #localllm</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">İçerikte geçen kaynaklar ve teknik dokümanlar:
+
+Görsel kaynağı: Hugovanmeijeren, Wikimedia Commons, CC BY-SA 3.0
+[S1] https://medium.com/google-cloud/host-your-own-system-1-decision-model-serving-diffusiongemma-26b-on-the-gemini-enterprise-agent-f8bbdaf9ddf8
+[S2] https://medium.com/google-cloud/host-your-own-system-1-decision-model-serving-diffusiongemma-26b-on-the-gemini-enterprise-agent-f8bbdaf9ddf8
+[S3] https://medium.com/google-cloud/host-your-own-system-1-decision-model-serving-diffusiongemma-26b-on-the-gemini-enterprise-agent-f8bbdaf9ddf8
+[S4] https://medium.com/google-cloud/host-your-own-system-1-decision-model-serving-diffusiongemma-26b-on-the-gemini-enterprise-agent-f8bbdaf9ddf8
+[S5] https://medium.com/google-cloud/host-your-own-system-1-decision-model-serving-diffusiongemma-26b-on-the-gemini-enterprise-agent-f8bbdaf9ddf8
+[S6] https://arxiv.org/abs/2608.00146</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Ayrık blok difüzyonu 26B modeli tek bir ileri geçişte yönlendiriciye çeviriyor. · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">OpenAI modellerinin Google Cloud&#x27;a gelişi teknik bir tercihten çok fatura ve yetki ayrımı yarattı.
+
+Doğrudan API bağımsız dağıtım hızı ve yeni sürümleri anında kullanma esnekliği sunarken, Google Cloud Marketplace mevcut harcama taahhütlerini doğrudan mahsuplaşma imkânı veriyor. Prototipte doğrudan API yeterli. Merkezi IAM denetimi ve taahhüt eritme kritikse Model Garden üzerinden pazar yeri seçilmeli.
+
+Kümelerinizdeki servis hesabı rollerine ve kalan GCP harcama taahhüt bakiyesine bakın.
+
+#googlecloud #openai #cloudinfrastructure</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar:
+Görsel: Wikideas1, Wikimedia Commons, CC0
+Haber ve detaylar: OpenAI, &#x27;OpenAI models are coming to Google Cloud&#x27; (2026): https://openai.com/index/openai-models-google-cloud</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">OpenAI modellerinin Google Cloud&#x27;a gelişi doğrudan API ile pazar yerini ayırdı. · denetim: OK</p></div></div><div class="card"><img src="05-kart.png" alt=""><div class="pad"><pre id="p4">Uygulama havuzunda superuser kullanmak, basit bir SQL enjeksiyonunu doğrudan sunucu fethine dönüştürüyor.
+
+Bu yetki, saldırgana sunucudaki dosyaları okuma, yazma ve işletim sisteminde kabuk komutu çalıştırma imkânı tanır.
+
+Hasar veritabanıyla sınırlı kalmaz.
+
+Bakılması gereken yer havuzdaki roller; operasyonel işler için PostgreSQL 15 hazır rol sunuyor.
+
+RDS ve Cloud SQL gibi yönetilen servislerde bu risk oluşmaz; altyapı gerçek superuser yetkisi vermez.
+
+#postgresql #database #infosec</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Kaynaklar ve detaylı okuma:
+
+• Görsel: daamien @ GitHub, Wikimedia Commons (CC BY-SA 3.0 de)
+• Umair Shahid, Your app does not need PostgreSQL superuser: https://postgr.es/p/9zC
+• Boring SQL, PostgreSQL Predefined Roles: https://boringsql.com/posts/postgresql-predefined-roles/</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Uygulamalara PostgreSQL superuser yetkisi vermek işletim sisteminde doğrudan komut açığı yaratır. · denetim: OK</p></div></div>
