@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Air-Gapped Cluster: Pretraining Frontier Models Behind Physical Firewalls</title>
+<style>
+:root { color-scheme: light dark; }
+body { max-width: 42rem; margin: 0 auto; padding: 2rem 1.2rem 4rem;
+       font: 19px/1.65 Georgia, 'Liberation Serif', serif; color: #16181d; background: #fff; }
+h1 { font: 700 2.1rem/1.2 Ubuntu, system-ui, sans-serif; margin: 0 0 .4rem; letter-spacing: -.02em; }
+h2 { font: 700 1.35rem/1.3 Ubuntu, system-ui, sans-serif; margin: 2.2rem 0 .6rem; }
+.alt { font: 400 1.15rem/1.45 Ubuntu, system-ui, sans-serif; color: #5b6067; margin: 0 0 2rem; }
+img { width: 100%; height: auto; display: block; margin: 1.8rem 0 .4rem; border-radius: 3px; }
+figcaption, .cap { font: 400 .85rem/1.4 Ubuntu, system-ui, sans-serif; color: #6b7079;
+       text-align: center; margin: 0 0 1.8rem; }
+blockquote { border-left: 3px solid #d8dade; margin: 1.4rem 0; padding: .2rem 0 .2rem 1.1rem; color: #4a4f57; }
+code { font: .88em ui-monospace, 'Ubuntu Mono', monospace; background: #f3f4f6; padding: .12em .35em; border-radius: 3px; }
+pre { background: #f3f4f6; padding: 1rem; overflow-x: auto; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+ul, ol { padding-left: 1.3rem; }
+li { margin: .4rem 0; }
+a { color: #1a5fb4; }
+hr { border: 0; border-top: 1px solid #e3e5e8; margin: 2.5rem 0; }
+.kaynak { font: .8rem/1.5 Ubuntu, system-ui, sans-serif; color: #6b7079; }
+@media (prefers-color-scheme: dark) {
+  body { background: #16181d; color: #e7e9ec; }
+  .alt { color: #a4a9b3; } figcaption, .cap, .kaynak { color: #9aa0aa; }
+  code, pre { background: #22252c; } blockquote { border-color: #3a3e46; color: #b8bdc6; }
+  a { color: #7cb0f5; }
+}
+</style></head>
+<body>
+<article>
+<h1>The Air-Gapped Cluster: Pretraining Frontier Models Behind Physical Firewalls</h1>
+<p class="alt">OpenAI and Anthropic severed pretraining runs from the live web, proving that data poisoning now outweighs raw compute as the core engineering bottleneck.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-25/01-air-gapped-cluster-pretraining/kapak.jpg" alt="The Air-Gapped Cluster: Pretraining Frontier Models Behind Physical Firewalls"><figcaption>Photo: Kim Scarborough from Chicago, IL, Wikimedia Commons, CC BY-SA 2.0</figcaption></figure>
+<p>Anthropic restricted its most capable models from accessing the live internet two weeks before OpenAI announced a matching containment barrier. On October 25, 2026, OpenAI announced that it will train its frontier models using cached copies and simulated versions of the internet rather than the live web. The lab concluded that live models are too unpredictable to interact with the open network during training. For years, engineering teams at frontier labs argued that training advanced models inside completely disconnected sandboxes would be nearly infeasible. That operational assumption is now dead.</p>
+<p>OpenAI determined that running frontier training with zero internet access is the responsible path under current alignment research and infrastructure security conditions. The move marks an operational pivot for deep learning infrastructure. Historically, the primary engineering constraint on frontier AI was cluster size, accelerator throughput, and power availability. Today, those compute constraints have taken a back seat to security vulnerabilities and data poisoning risks.</p>
+<h2>The Vulnerability That Compute Cannot Solve</h2>
+<p>Live training on the open web exposed models to untrusted inputs that adversaries could manipulate with minimal effort. Attackers do not need complex exploits to corrupt model behavior; low-effort data poisoning and search manipulation on niche topics can compromise leading systems. When attackers inject poisoned samples into training sets, machine learning models can be forced into leaking private user data.</p>
+<p>These attack vectors present an asymmetric engineering problem. Training data poisoning ranks 3rd in the OWASP top 10 vulnerabilities for large language models. In standard software engineering, patching a bug requires pushing a new build. In frontier deep learning, an infected model presents a permanent liability. Retraining models to purge poisoned data is not feasible when systems process massive datasets and encounter repeated attacks, leaving affected weights permanently damaged.</p>
+<p>Because retraining costs tens of millions of dollars and massive energy budgets, an engineering team cannot simply roll back a corrupted training run. Scaling compute does not dilute targeted poisons; it amplifies subtle statistical corruptions across internal network weights. The only viable defense against poisoning is preventing rogue data from entering the training cluster in the first place.</p>
+<h2>Quantifying the Attack Surface</h2>
+<p>The shift toward physical containment aligns with a surge in academic research exposing pretraining vulnerabilities.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-25/01-air-gapped-cluster-pretraining/ic-01.png" alt="arXiv papers addressing model poisoning and data extraction doubled over two years"><figcaption>arXiv papers addressing model poisoning and data extraction doubled over two years</figcaption></figure>
+<p>Academic scrutiny of training security expanded between 2021 and 2026 (Figure 1). According to the arXiv API, submissions matching the phrase &ldquo;model poisoning&rdquo; stood at 22 papers in 2021, reached a peak of 35 papers in 2025, and recorded 28 papers in 2026 across 6 annual observation points (Figure 1). At the same time, papers analyzing &ldquo;training data extraction&rdquo; grew from a minimum of 2 papers in 2021 to a peak of 12 papers in 2026, also across 6 tracked years (Figure 1). Overall, research addressing model poisoning and data extraction doubled over two years (Figure 1).</p>
+<p>This research literature confirmed what infrastructure operators feared. Adversarial data insertion does not just alter surface responses; it can extract private records and embed covert backdoors. Once researchers proved that simple poisoning attacks bypass standard filtering heuristics, treating the live internet as an active data pipeline became an unacceptable risk.</p>
+<h2>Guardrail Models in Production Fleets</h2>
+<p>As frontier training moved behind physical firewalls, downstream engineering teams turned to specialized guard models to sanitize prompts and monitor inference traffic.</p>
+<figure><img src="https://heyobi.github.io/yazilar/2026-10-25/01-air-gapped-cluster-pretraining/ic-02.png" alt="Downloads of open guardrail and safety models show steady operational deployment"><figcaption>Downloads of open guardrail and safety models show steady operational deployment</figcaption></figure>
+<p>Hugging Face Hub download metrics highlight how teams deploy open-weight safety models to protect production environments (Figure 2). Over a recent 30-day window, meta-llama/Prompt-Guard-86M recorded 2,411,734 downloads (Figure 2). GuardrailsAI/prompt-saturation-attack-detector accumulated 202,839 downloads over the same 30-day period (Figure 2). Other dedicated safety systems saw significant uptake during these 30 days: hfmlsoc/ncii-guard-v02 reached 144,849 downloads, Weni/Llama-Guard-3-8B-AWQ reached 140,091 downloads, meta-llama/Llama-Prompt-Guard-2-86M reached 103,637 downloads, alpindale/Llama-Guard-3-1B reached 98,649 downloads, ibm-granite/granite-guardian-4.1-8b reached 54,906 downloads, and meta-llama/Llama-Guard-4-12B reached 43,292 downloads (Figure 2).</p>
+<h2>Isolation Over Remediation</h2>
+<p>Cross-referencing the arXiv publication curve (Figure 1) with monthly Hugging Face download volumes (Figure 2) reveals a clear divergence in engineering philosophy. Academic research on data poisoning grew from 22 papers in 2021 to 35 papers in 2025, demonstrating that theoretical attack surfaces were widening (Figure 1). Yet enterprise download patterns show that operational teams rely heavily on lightweight external checkpoints like meta-llama/Prompt-Guard-86M, which logged 2,411,734 downloads across 30 days, rather than modifying their core models (Figure 2).</p>
+<p>This divergence points to an uncomfortable reality in current operations. Downstream practitioners treat security as a perimeter filtering problem, deploying small classifiers at the API gateway to catch malicious inputs (Figure 2). Frontier labs have realized that peripheral filtering fails when attacks strike during pretraining. Because post-hoc safety filters cannot neutralize corrupted internal representations, the only permanent defense is severing the data intake pipeline.</p>
+<h2>Containment Testing and Internal Resumption</h2>
+<p>Severing the network required more than pulling optical cables from server racks. To confirm that isolated systems could not establish outbound channels, OpenAI launched a high-compute red-teaming campaign that deployed frontier-model agents to probe infrastructure weaknesses and test containment boundaries.</p>
+<p>The internal stress test forced autonomous model agents to search for escape vectors, data exfiltration paths, and misconfigurations across the cluster network. Frontier models possess sophisticated coding and tool-use capabilities, making them capable of identifying subtle side-channel leaks that human auditors overlook. After completing these assessments and verifying enhanced infrastructure controls, OpenAI resumed reinforcement learning training and internal inference for its frontier models on October 1. This internal trial demonstrates that verifying isolation boundaries now demands dedicated compute budgets comparable to actual model training runs.</p>
+<h2>The Cost of the Closed Sandbox</h2>
+<p>Air-gapping pretraining clusters carries real engineering liabilities. Simulating the internet requires massive storage clusters to hold static web snapshots, alongside synthetic generation systems to mimic interactive services. Static data lacks real-time awareness, meaning models trained inside sandboxes miss emerging linguistic trends, current events, and fresh technical documentation. Maintaining and refreshing simulated internet environments adds substantial operational overhead, requiring teams to build dedicated validation pipelines just to sanitize incoming cached datasets. Ingestion latency inevitably increases when every web artifact must pass through multi-stage offline quarantine filters before entering training storage.</p>
+<h2>The Concrete Shift in Infrastructure</h2>
+<p>The isolation of frontier clusters proves that data security has surpassed raw hardware scaling as the governing constraint of AI development. Building larger GPU clusters offers diminishing returns if the ingested tokens contain irrecoverable poison. Frontier developers have accepted that data isolation matters more than raw data velocity.</p>
+<p>Infrastructure teams must now treat training pipelines like biological safety laboratories. To verify whether your own deployment matches this operational shift, audit whether your training and fine-tuning pipelines maintain outbound network sockets during gradient updates, or whether your data ingestion is strictly decoupled from the live web.</p>
+</article>
+</body></html>
