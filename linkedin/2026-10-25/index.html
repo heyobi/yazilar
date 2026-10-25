@@ -1,0 +1,69 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-25</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-25 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.jpg" alt=""><div class="pad"><pre id="p0">Sorgu planlayıcı testlerinde oyuncak veri devri kapandı: yeni örnek PostgreSQL veritabanı ~3TB boyutuna ulaşıyor.
+
+Küçük şablonlar darboğazları gizliyordu.
+
+Pagila üzerinde milisaniyede biten sorgular, soğuk önbellekte hatalı hash join ve index kararlarını hemen açık ediyor.
+
+Maliyetli yürütme planları artık canlı sistem yerine doğrudan testte yakalanıyor.
+
+#postgresql #database #dba</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">Kaynak ve detaylar:
+
+[S1] r/PostgreSQL paylaşımı ve veri seti: https://www.reddit.com/r/PostgreSQL/comments/1xar741/i_built_a_large_realistic_sample_postgresql/</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Planlayıcıyı zorlayan gerçekçi örnek veritabanı boyutu · denetim: OK</p></div></div><div class="card"><img src="02-kart.png" alt=""><div class="pad"><pre id="p1">PostgreSQL&#x27;i Kubernetes dışına almak, yük devretme kesintisini dakikalardan saniyelere indiriyor.
+
+Fark depolama yönetiminde başlıyor. Küme içinde düğüm çöktüğünde diskin ayrılıp yeni pod&#x27;a bağlanması dakikalar sürerken, bağımsız mimaride yük devretme saniyeler içinde tamamlanır. Hızlı dağıtım esnekliği için küme içi operatörler yetebilir; ancak sıfırdan küme kurulumunda verinin korunması ve düşük kesinti süresi için veritabanı dışarıda tutulmalı.
+
+Düğüm arızasında depolama biriminin yeniden bağlanma gecikmesine bakın.
+
+#postgresql #kubernetes #dba</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynak ve mimari detaylar:
+https://medium.com/@kushner.serge/a-database-per-microservice-rds-style-postgresql-outside-kubernetes-keyset-pagination-and-d57479c9291e?source=rss------postgresql-5
+
+Görsel kaynağı: daamien @ GitHub, Wikimedia Commons, CC BY-SA 3.0 de</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Üretim ortamında PostgreSQL için Kubernetes içi ve dışı mimari seçimi · denetim: OK</p></div></div><div class="card"><img src="03-kart.png" alt=""><div class="pad"><pre id="p2">Çöken bir backend&#x27;in bıraktığı 300.000 yetim dosya, bir sonraki arızada diski kilitleyebilir.
+
+Büyük hash join veya sıralama işlemlerinde süreç çöktüğünde temizlenmeyen geçici dosyalar, PostgreSQL 14 öncesinde postmaster yeniden başlayana kadar diskte kalıyordu. Tek çare remove_temp_files_after_crash parametresi. Ayar açıkken postmaster, çökme kurtarması başlamadan önce tüm bu kalıntıları 2,6 saniyede temizler. Fakat disk çöküş olmadan, aktif çalışan tek bir sorguyla doluyorsa bu koruma devreye girmez.
+
+#postgresql #dba #databaseadministration</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">İnceleme ve kaynaklar:
+• Christophe Pettus, &#x27;All Your GUCs in a Row: remove_temp_files_after_crash&#x27; (The Build / Planet PostgreSQL): https://postgr.es/p/9zU
+Görsel: Planet PostgreSQL; The Build (postgresql.conf)</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">postgresql.conf · denetim: OK</p></div></div><div class="card"><img src="04-kart.jpg" alt=""><div class="pad"><pre id="p3">CVE-2026-111497 yalnızca Node.js açığı sanılıyor; oysa 9.2 skorlu zafiyet Python veri hatlarını da vuruyor.
+
+Kusur JavaScript motorunda değil. Google Brotli kod çözücüsündeki sınır dışı yazma zafiyeti, 1.0.3 ile 1.2.0 arasındaki tüm sürümleri doğrudan etkiliyor. requests ve httpx bu kütüphaneyi otomatik yükleyip uzaktan kod çalıştırma riski yaratıyor. Konteyner imajlarında Brotli 1.2.1 sürümüne geçilmediği sürece veri boru hatları savunmasız kalıyor.
+
+#infosec #python #dataengineering</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Kaynaklar ve detaylı analizler:
+
+- Görsel: Holger Krisp, Wikimedia Commons, CC BY 3.0
+- Aikido Security analizi (CVE-2026-111497 &amp; Python): https://www.aikido.dev/blog/python-packages-vulnerable-node2shell-brotli-cve-2026-111497
+- Node.js Güvenlik Bülteni (Ekim 2026): https://nodejs.org/en/blog/vulnerability/october-2026-security-releases</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">Node.js için bildirilen Brotli zafiyeti Python veri araçlarını da vuruyor · denetim: OK</p></div></div><div class="card"><img src="05-kart.png" alt=""><div class="pad"><pre id="p4">Vektör aramasında en kritik onay kuralı sekizinci sıraya kadar gerileyebiliyor.
+
+Biyokodlayıcılar metinleri bağımsız vektörlere indirgediğinde genel çerçeve belgeleri anlamsal uzayda haksız bir üstünlük kazanıyor. Kosinüs benzerliği tek başına yanıltıcıdır. Sorgu ile adayın ayrı gömülmesi, doğrudan sözcüksel şartların ıskalanmasına neden olur. Çapraz kodlayıcılar tam dikkat mekanizmasıyla sorgu ve belgeyi aynı anda işleyerek bu anlamsal kaybı çözer. İlk aşamada çekilen 25 parça, belirleyici detaylara göre yeniden dizilir. Ham sıralamayı doğrudan üretici modele iletmek, asıl kanıtın dikkat penceresinde kaybolmasıyla sonuçlanır.
+
+#rag #reranking #crossencoder</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">İncelenen kaynaklar ve model verileri:
+
+- Hugging Face Hub API (reranker modelleri 30 günlük indirme verileri)
+- Reranking in Production RAG (Part 11): https://medium.com/@er.rajkumaar/reranking-in-production-rag-how-to-get-the-most-relevant-context-to-your-llm-6ea84a9ecbe7</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">BAAI/bge-reranker-v2-m3, 14,727,028 indirme sayısı ile BAAI/bge-reranker-base&#x27;in (2,945,989) önünde yer almaktadır. · denetim: OK</p></div></div>
