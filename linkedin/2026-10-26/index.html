@@ -1,0 +1,63 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>LinkedIn 2026-10-26</title><style>
+:root{color-scheme:light dark}
+body{max-width:44rem;margin:0 auto;padding:1.6rem 1rem 4rem;background:#f4f5f7;color:#16181d;
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0 0 .3rem}
+.sub{color:#5b6067;margin:0 0 1.6rem;font-size:.92rem}
+.card{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:0 0 1.5rem;overflow:hidden}
+.card img{width:100%;display:block;border-bottom:1px solid #e3e5e8}
+.pad{padding:14px 16px 18px}
+pre{white-space:pre-wrap;word-wrap:break-word;font:15px/1.55 inherit;margin:0 0 .8rem}
+.tags{color:#1a5fb4;font-size:.9rem;margin:0 0 .9rem}
+.meta{font-size:.8rem;color:#6b7079;margin:.6rem 0 0}
+button{font:inherit;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+       background:#fff;color:#16181d;cursor:pointer;margin:0 8px 0 0}
+button.main{background:#16181d;color:#fff;border-color:#16181d}
+a.dl{display:inline-block;font-weight:600;padding:9px 14px;border-radius:7px;border:1px solid #c9ccd1;
+     text-decoration:none;color:#16181d}
+details{margin:.8rem 0 0;font-size:.88rem;color:#5b6067}
+@media(prefers-color-scheme:dark){
+ body{background:#101215;color:#e7e9ec}.card{background:#191c21;border-color:#2b2f36}
+ .card img{border-color:#2b2f36}.sub,.meta,details{color:#9aa0aa}
+ button{background:#191c21;color:#e7e9ec;border-color:#3a3e46}
+ button.main{background:#e7e9ec;color:#16181d;border-color:#e7e9ec}
+ a.dl{color:#e7e9ec;border-color:#3a3e46}}
+</style><script>
+function cp(id,btn){const t=document.getElementById(id).innerText;
+ navigator.clipboard.writeText(t).then(()=>{const o=btn.textContent;btn.textContent='Kopyalandı';
+ setTimeout(()=>btn.textContent=o,1500)});}
+</script><h1>2026-10-26 — 5 gönderi</h1><p class=sub>Metni kopyala, kartı indir, LinkedIn'de yapıştır. Bağlantılar gönderiye değil ilk yoruma.</p><div class="card"><img src="01-kart.png" alt=""><div class="pad"><pre id="p0">Valkey 9.2&#x27;deki LZ4 akış sıkıştırması, 1 milyon satırlık RDB yedeğini 178 MB&#x27;tan 35 MB&#x27;a indirdi (%80).
+
+Varsayılan LZF sadece %1,5 kazandırıyordu. Bu küçülme, snapshot sırasındaki disk IOPS darboğazını ve replika aktarım sürelerini doğrudan rahatlatıyor.
+
+#valkey #database #devops</pre><button class="main" onclick="cp('p0',this)">Metni kopyala</button><a class="dl" href="01-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c0">İnceleme ve test verilerinin kaynağı:
+dev.to veritabanı / Alex Georgiev: https://dev.to/alexgeorgiev17/valkey-92s-new-rdbcompression-lz4-setting-cuts-a-1m-row-rdb-from-178mb-to-35mb-1cje</pre><button onclick="cp('c0',this)">Yorumu kopyala</button></details><p class="meta">Valkey LZ4 ile RDB boyutu tasarrufu · denetim: OK</p></div></div><div class="card"><img src="02-kart.jpg" alt=""><div class="pad"><pre id="p1">En kıdemli mühendis saat 17:00&#x27;de çıktığında teslimat aksıyorsa, sorun performans değil kapasite açığıdır.
+
+Hata mühendiste değil, takvimdedir. İş planları sessizce bir kişinin mesai dışı desteğine bağlandığında, o kişi sınır çizdiği an tüm taahhütler çöker. Darboğazı görmek için sprint hızına değil, mesai sonrası atılan acil commit&#x27;lere bakın.
+
+Bu durum, teslimat gecikmesinin doğrudan bireysel yetkinlik eksikliğinden kaynaklandığı senaryolarda geçerli değildir.
+
+#engineeringmanagement #devops #kapasiteplanlama</pre><button class="main" onclick="cp('p1',this)">Metni kopyala</button><a class="dl" href="02-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c1">Kaynaklar ve okuma bağlantıları:
+
+• Görsel kaynağı: Hugovanmeijeren, Wikimedia Commons, CC BY-SA 3.0
+• [S1], [S2] Python in Plain English: https://python.plainenglish.io/our-best-engineer-started-leaving-at-5-we-called-it-a-performance-problem-e8ece7f5099d</pre><button onclick="cp('c1',this)">Yorumu kopyala</button></details><p class="meta">Mühendislik teslimatını gizli fazla mesaiye dayandırmak sistemik kapasite borcu biriktirir. · denetim: OK</p></div></div><div class="card"><img src="03-kart.jpg" alt=""><div class="pad"><pre id="p2">Yapay zekâ ajanlarına veritabanı açmak için yeni bir API katmanı yazmanız gerektiği inanışı bitti.
+
+Supabase&#x27;in sunduğu MCP sunucusuyla her araç çağrısı artık doğrudan oturum açan kullanıcının kimliğiyle çalışıyor. Service role anahtarı gerekmiyor. Ajanın çalıştırdığı her sorgu doğrudan tablodaki mevcut RLS kurallarına takılıyor. Yetki sınırını uygulama kodunda yeniden üretmek yerine veritabanı motoruna bırakmak operasyonel karmaşayı bitiriyor.
+
+#postgresql #supabase #mcp</pre><button class="main" onclick="cp('p2',this)">Metni kopyala</button><a class="dl" href="03-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c2">Kaynaklar ve detaylar:
+• Supabase MCP duyurusu: https://supabase.com/blog/give-your-supabase-app-its-own-mcp-server
+• Görsel: Benmerdmann, Wikimedia Commons, CC BY-SA 3.0</pre><button onclick="cp('c2',this)">Yorumu kopyala</button></details><p class="meta">Ajan yetkilendirmesi için yeni API değil, veritabanındaki mevcut RLS kuralları yeterli. · denetim: OK</p></div></div><div class="card"><img src="04-kart.png" alt=""><div class="pad"><pre id="p3">PostgreSQL&#x27;de yüzlerce eşzamanlı işlem varken anlık görüntü maliyetini O(1) seviyesine çekmek mümkün.
+
+GetSnapshotData() fonksiyonu, aktif süreçleri listelemek için paylaşılan ProcArray dizisini küresel ProcArrayLock altında baştan sona tarar. Kilit tek noktada sıralama dayatır. Eşzamanlı bağlantılar arttıkça kilit çekişmesi ve bekleme süresi katlanarak artar. Maliyet okunan veriden değil, o anki aktif işlem sayısından doğar. Yüksek OLTP yüklerinde bu kilitlenme verim tavanı yaratır. Commit Sequence Number mimarisi, aktif işlem listesini kilit altında kopyalama zorunluluğunu kaldırıyor. Her commit işlemine monoton artan sıra numarası atandığında, görünürlük tespiti dizi taramasından çıkıp atomik bir tamsayı okumasına dönüşüyor.
+
+#postgresql #databaseinternals #mvcc</pre><button class="main" onclick="cp('p3',this)">Metni kopyala</button><a class="dl" href="04-kart.png" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c3">Görsel ve kaynak detayları:
+
+- Görsel kaynağı: daamien @ GitHub, Wikimedia Commons, CC BY-SA 3.0 de
+- Vadim Yatsenko, Commit Sequence Number (CSN) MVCC: Lock-Free Snapshot Acquisition: https://postgr.es/p/9zX</pre><button onclick="cp('c3',this)">Yorumu kopyala</button></details><p class="meta">PostgreSQL&#x27;de anlık görüntü alımı CSN ile kilitlenmeden O(1) maliyete iniyor. · denetim: OK</p></div></div><div class="card"><img src="05-kart.jpg" alt=""><div class="pad"><pre id="p4">16 GB RAM&#x27;li yerel model, belge ayrıştırmada GPT doğruluğunun üçte ikisine ulaştı.
+
+Apple MLX üzerinde 4 bit çalışan Clef-flash kural tabanına 10,1 puan eklerken, GPT 15,3 puan getirdi. Aralarındaki fark 5,2 puan. Veri sızıntısı ve API masrafı istemeyen dahili boru hatlarında yerel modeli, mutlak doğruluk aranan kritik işlerde bulut API&#x27;sini seçin. Boru hattınızdaki ayrıştırma kuyruğunun hata toleransına bakın.
+
+#localllm #dataengineering #opensource</pre><button class="main" onclick="cp('p4',this)">Metni kopyala</button><a class="dl" href="05-kart.jpg" download>Kartı indir</a><details><summary>İlk yorum (bağlantılar)</summary><pre id="c4">Görsel kaynağı: Benmerdmann, Wikimedia Commons, CC BY-SA 3.0
+
+Kaynak ve test detayları:
+[S1]-[S6] https://medium.com/@abhyankarharshal22/a-free-local-ai-got-me-two-thirds-of-the-way-to-gpt-df074847c7f4?source=rss------large_language_models-5</pre><button onclick="cp('c4',this)">Yorumu kopyala</button></details><p class="meta">Yerel 16 GB donanımda açık model belirli görevlerde bulut API&#x27;sine yetişiyor. · denetim: OK</p></div></div>
